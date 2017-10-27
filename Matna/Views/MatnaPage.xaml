@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" BackgroundColor="Black"
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" BackgroundColor="{StaticResource PrimaryInv}"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
     xmlns:ctr="clr-namespace:Matna.Helpers.Controls"
+    xmlns:maps="clr-namespace:Xamarin.Forms.GoogleMaps;assembly=Xamarin.Forms.GoogleMaps"
     xmlns:local="clr-namespace:Matna" x:Class="Matna.MatnaPage">
 
     <ContentPage.Padding>
@@ -9,23 +10,41 @@
                     iOS="0, 20, 0, 0" />
     </ContentPage.Padding>
 
-    <StackLayout>
-        <Label Text="{local:Translate OK}" VerticalOptions="Center" HorizontalOptions="Center" TextColor="White" />
-        <Image Source="{local:ImageResource Matna.Resources.Images.Icons.ic_restaurant_white_48dp_2x.png}" />
-        <ctr:FontAwesomeIcon Text="{x:Static ctr:Icon.Search}" TextColor="White" FontSize="60" HeightRequest="60" />
+    <Grid x:Name="mainGrid" Padding="0" RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="35" />
+            <RowDefinition Height="100" />
+        </Grid.RowDefinitions>
 
-        <!-- BannerHeight50 BannerHeight90 -->
-        <ctr:AdViewControl 
-            BackgroundColor="White"
-            HeightRequest="50"
-            Size="BannerHeight50"
-            VerticalOptions="EndAndExpand" >
-            <ctr:AdViewControl.PlacementId>
-                <OnPlatform x:TypeArguments="x:String" 
-                    iOS="137269806923206_137277860255734"
-                    Android="137269806923206_137277800255740" />
-            </ctr:AdViewControl.PlacementId>
-        </ctr:AdViewControl>
-    </StackLayout>
+        <StackLayout Orientation="Horizontal" Padding="0" Grid.Row="0" BackgroundColor="{StaticResource Primary}">
+            <Label Text="{local:Translate OK}" VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="{StaticResource Primary}" TextColor="{StaticResource PrimaryInv}" />  <!-- TODO style -->
+            <ctr:FontAwesomeIcon Text="{x:Static ctr:Icon.Search}" TextColor="{StaticResource PrimaryInv}" FontSize="30" HeightRequest="35" />  <!-- TODO style -->
+            <Image Source="{local:ImageResource Matna.Resources.Images.Icons.ic_restaurant_white_48dp_2x.png}" />  <!-- TODO style -->
+        </StackLayout>
+
+        <StackLayout Padding="0" Grid.Row="1">
+            <maps:Map x:Name="map" AutomationId="map" WidthRequest="200" HeightRequest="200" />
+        </StackLayout>
+        
+        <StackLayout Orientation="Horizontal" Padding="0" Grid.Row="2" BackgroundColor="{StaticResource Primary}">
+            <ctr:FontAwesomeIcon Text="{x:Static ctr:Icon.Search}" TextColor="{StaticResource PrimaryInv}" FontSize="30" HeightRequest="35" />  <!-- TODO style -->
+        </StackLayout>
+
+        <StackLayout Padding="0" Grid.Row="3" BackgroundColor="{StaticResource PrimaryDark}">
+            <!-- BannerHeight50 BannerHeight90 -->
+            <ctr:AdViewControl 
+                HeightRequest="50"
+                Size="BannerHeight50"
+                VerticalOptions="Center" >
+                <ctr:AdViewControl.PlacementId>
+                    <OnPlatform x:TypeArguments="x:String" 
+                        iOS="137269806923206_137277860255734"
+                        Android="137269806923206_137277800255740" />
+                </ctr:AdViewControl.PlacementId>
+            </ctr:AdViewControl>
+        </StackLayout>
+    </Grid>
 
 </ContentPage>

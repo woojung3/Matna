@@ -29,16 +29,32 @@
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="App.xaml" />
-    <EmbeddedResource Include="MatnaPage.xaml" />
+    <EmbeddedResource Include="Resources\Images\Icons\ic_restaurant_white_48dp_2x.png" />
+    <EmbeddedResource Include="Views\MatnaPage.xaml" />
+    <EmbeddedResource Include="Resources\Localize\AppResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
+      <LogicalName>Matna.AppResources.resources</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Localize\AppResources.ko-KR.resx">
+      <LogicalName>Matna.AppResources.ko-KR.resources</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MatnaPage.xaml.cs">
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Helpers\Extensions\ImageResourceExtension.cs" />
+    <Compile Include="Views\MatnaPage.xaml.cs">
       <DependentUpon>MatnaPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Helpers\Localize\ILocalize.cs" />
+    <Compile Include="Helpers\Localize\PlatformCulture.cs" />
+    <Compile Include="Helpers\Extensions\TranslateExtension.cs" />
+    <Compile Include="Resources\Localize\AppResources.Designer.cs">
+      <DependentUpon>AppResources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">
@@ -53,6 +69,20 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+    <Folder Include="Resources\Images\" />
+    <Folder Include="Resources\Images\Icons\" />
+    <Folder Include="Utils\" />
+    <Folder Include="Utils\Restful\" />
+    <Folder Include="Helpers\" />
+    <Folder Include="Helpers\Extensions\" />
+    <Folder Include="Helpers\Localize\" />
+    <Folder Include="Views\" />
+    <Folder Include="ViewModels\" />
+    <Folder Include="Models\" />
+    <Folder Include="Resources\Localize\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.4.0.18342\build\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.4.0.18342\build\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.targets')" />

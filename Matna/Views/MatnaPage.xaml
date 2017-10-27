@@ -1,11 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" BackgroundColor="Black"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    xmlns:ctr="clr-namespace:Matna.Helpers.Controls"
     xmlns:local="clr-namespace:Matna" x:Class="Matna.MatnaPage">
+
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness"
+                    iOS="0, 20, 0, 0" />
+    </ContentPage.Padding>
 
     <StackLayout>
         <Label Text="{local:Translate OK}" VerticalOptions="Center" HorizontalOptions="Center" TextColor="White" />
         <Image Source="{local:ImageResource Matna.Resources.Images.Icons.ic_restaurant_white_48dp_2x.png}" />
+        <ctr:FontAwesomeIcon Text="{x:Static ctr:Icon.Search}" TextColor="White" FontSize="60" HeightRequest="60" />
+
+        <!-- BannerHeight50 BannerHeight90 -->
+        <ctr:AdViewControl 
+            BackgroundColor="White"
+            HeightRequest="50"
+            Size="BannerHeight50"
+            VerticalOptions="EndAndExpand" >
+            <ctr:AdViewControl.PlacementId>
+                <OnPlatform x:TypeArguments="x:String" 
+                    iOS="137269806923206_137277860255734"
+                    Android="137269806923206_137277800255740" />
+            </ctr:AdViewControl.PlacementId>
+        </ctr:AdViewControl>
     </StackLayout>
 
 </ContentPage>

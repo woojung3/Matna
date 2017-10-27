@@ -13,7 +13,7 @@ Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-		iOS Release|iPhone = iOS Release|iPhone
+		Release|iPhone = Release|iPhone
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{19F93E9F-D8E9-4C78-8CC3-308116CC5464}.Debug|Any CPU.ActiveCfg = Debug|Any CPU

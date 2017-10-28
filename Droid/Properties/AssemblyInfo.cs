@@ -30,3 +30,4 @@ using Android.App;
 //       in your values/ folder (eg: strings.xml file).
 //       It will not allow you to use the app_id value directly here!
 [assembly: MetaData("com.facebook.sdk.ApplicationId", Value = "@string/app_id")]
+[assembly: MetaData("com.google.android.geo.API_KEY", Value = Matna.Helpers.Keys.GoogleMapsApiKeyAndroid)]

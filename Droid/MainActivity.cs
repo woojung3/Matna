@@ -8,6 +8,8 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 
+using Matna.Helpers;
+
 namespace Matna.Droid
 {
     [Activity(Label = "Matna.Droid", Icon = "@drawable/icon", Theme = "@style/MyTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation
@@ -22,6 +24,13 @@ namespace Matna.Droid
             base.OnCreate(savedInstanceState);
 
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+
+            #region CONFIG STARTS
+
+            // Code for GoogleMaps
+            Xamarin.FormsGoogleMaps.Init(this, savedInstanceState);
+
+            #endregion CONFIG ENDS
 
             LoadApplication(new App());
         }

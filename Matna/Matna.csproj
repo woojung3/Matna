@@ -57,6 +57,7 @@
     </Compile>
     <Compile Include="Helpers\Controls\FontAwesomeIcon.cs" />
     <Compile Include="Helpers\Controls\AdViewControl.cs" />
+    <Compile Include="Helpers\Keys.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">

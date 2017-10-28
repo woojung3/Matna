@@ -9,6 +9,9 @@ using Android.Widget;
 using Android.OS;
 
 using Matna.Helpers;
+using HockeyApp.Android;
+using HockeyApp.Android.Utils;
+using HockeyApp.Android.Metrics;
 
 namespace Matna.Droid
 {
@@ -33,6 +36,16 @@ namespace Matna.Droid
             #endregion CONFIG ENDS
 
             LoadApplication(new App());
+        }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+
+            // Code for HockeyApp
+            CrashManager.Register(this);
+            HockeyLog.LogLevel = 3;
+            MetricsManager.Register(Application);
         }
     }
 }

@@ -6,6 +6,7 @@ using Foundation;
 using UIKit;
 
 using Matna.Helpers;
+using HockeyApp.iOS;
 
 namespace Matna.iOS
 {
@@ -17,6 +18,13 @@ namespace Matna.iOS
             global::Xamarin.Forms.Forms.Init();
 
             #region CONFIG STARTS
+
+            // Code for HockeyApp
+            var manager = BITHockeyManager.SharedHockeyManager;
+            manager.LogLevel = BITLogLevel.Debug;
+            manager.Configure("52a8189f5c134916b91946cf517dcb88");
+            manager.StartManager();
+            manager.Authenticator.AuthenticateInstallation(); // This line is obsolete in crash only builds
 
             // Code for starting up the Xamarin Test Cloud Agent
 #if DEBUG

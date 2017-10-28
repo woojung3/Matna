@@ -29,5 +29,16 @@ using Android.App;
 // NOTE: Facebook SDK rquires that the 'Value' point to a string resource
 //       in your values/ folder (eg: strings.xml file).
 //       It will not allow you to use the app_id value directly here!
+
+// Facebook SDK
 [assembly: MetaData("com.facebook.sdk.ApplicationId", Value = "@string/app_id")]
+// GoogleMaps API
 [assembly: MetaData("com.google.android.geo.API_KEY", Value = Matna.Helpers.Keys.GoogleMapsApiKeyAndroid)]
+// HockeyApp
+[assembly: MetaData("net.hockeyapp.android.appIdentifier", Value = "02eaba22011f4839a0e7e34d84db1647")]
+
+#if DEBUG
+[assembly: Application(Debuggable = true)]
+#else
+[assembly: Application(Debuggable = false)]
+#endif

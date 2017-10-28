@@ -31,12 +31,17 @@ namespace Matna.Helpers.Controls
     /// </summary>
     public static class Icon
     {
-        public static readonly string Plus = "\uf067";
-        public static readonly string Glass = "\uf000";
-        public static readonly string Music = "\uf001";
         public static readonly string Search = "\uf002";
-        public static readonly string EnvelopeO = "\uf003";
-        public static readonly string Heart = "\uf004";
-        public static readonly string Star = "\uf005";
+        public static readonly string AngleDoubleUp = "\uf102";
+        public static readonly string AngleDoubleDown = "\uf103";
+        public static readonly string Sliders = "\uf1de";
+        public static readonly string StepBackward = "\uf048";
+        public static readonly string Start = "\uf005";
+        public static readonly string StartHalfO = "\uf123";
+        public static readonly string Dollar = "\uf155";
+        public static readonly string Google = "\uf1a0";
+        public static readonly string MapO = "\uf278";
+        public static readonly string MapMarker = "\uf041";
+        public static readonly string FolderOpenO = "\uf115";
     }
 }

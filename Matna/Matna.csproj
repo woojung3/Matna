@@ -39,6 +39,10 @@
     <EmbeddedResource Include="Resources\Localize\AppResources.ko-KR.resx">
       <LogicalName>Matna.AppResources.ko-KR.resources</LogicalName>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\ListPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Images\ErrorPlaceholder.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -58,6 +62,21 @@
     <Compile Include="Helpers\Controls\FontAwesomeIcon.cs" />
     <Compile Include="Helpers\Controls\AdViewControl.cs" />
     <Compile Include="Helpers\Keys.cs" />
+    <Compile Include="Helpers\Controls\RoundedBox.cs" />
+    <Compile Include="ViewModels\MatnaPageViewModel.cs" />
+    <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="Views\ListPage.xaml.cs">
+      <DependentUpon>ListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ListPageViewModel.cs" />
+    <Compile Include="Helpers\File\IFileHelper.cs" />
+    <Compile Include="Models\PlaceItem.cs" />
+    <Compile Include="Data\PlaceItemDatabase.cs" />
+    <Compile Include="Helpers\Controls\HScrollView.cs" />
+    <Compile Include="Utils\Restful\Restful.cs" />
+    <Compile Include="Models\GooglePlaceNearbyItem.cs" />
+    <Compile Include="Helpers\PropertiesDictionary.cs" />
+    <Compile Include="Models\GooglePlaceDetails.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">
@@ -117,6 +136,8 @@
     <Folder Include="Models\" />
     <Folder Include="Resources\Localize\" />
     <Folder Include="Helpers\Controls\" />
+    <Folder Include="Helpers\File\" />
+    <Folder Include="Data\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.4.0.18342\build\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.4.0.18342\build\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.targets')" />

@@ -12,6 +12,7 @@ using Matna.Helpers;
 using HockeyApp.Android;
 using HockeyApp.Android.Utils;
 using HockeyApp.Android.Metrics;
+using FFImageLoading.Forms.Droid;
 
 namespace Matna.Droid
 {
@@ -29,6 +30,9 @@ namespace Matna.Droid
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 
             #region CONFIG STARTS
+
+            // Code for FFImageLoading
+            CachedImageRenderer.Init();
 
             // Code for GoogleMaps
             Xamarin.FormsGoogleMaps.Init(this, savedInstanceState);

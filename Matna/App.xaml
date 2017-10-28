@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Application xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Matna.App">
+<Application xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    xmlns:ctr="clr-namespace:Matna.Helpers.Controls"
+    x:Class="Matna.App">
+    
 	<Application.Resources>
 		<!-- Application resource dictionary -->
         <ResourceDictionary>
             <Color x:Key="Primary">#CB202D</Color>
             <Color x:Key="PrimaryInv">White</Color>
+            <Color x:Key="PrimaryHolder">Silver</Color>
             <Color x:Key="PrimaryDark">Black</Color>
 
             <Style TargetType="NavigationPage">
@@ -23,6 +28,61 @@
                 <Setter Property="HeightRequest">
                     <OnPlatform x:TypeArguments="x:Double" iOS="30" Android="35" />
                 </Setter>
+            </Style>
+
+            <Style x:Key="PrimaryRoundedBox" TargetType="ctr:RoundedBox">
+                <Setter Property="CornerRadius" Value="5" />
+                <Setter Property="BackgroundColor" Value="White" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="HeightRequest" Value="28" />
+            </Style>
+
+            <Style x:Key="PrimaryFAIcon" TargetType="ctr:FontAwesomeIcon">
+                <Setter Property="TextColor" Value="{StaticResource PrimaryInv}" />
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="VerticalOptions" Value="FillAndExpand" />
+            </Style>
+            
+            <Style x:Key="PrimaryText" TargetType="ctr:FontAwesomeIcon">
+                <Setter Property="TextColor" Value="{StaticResource PrimaryInv}" />
+                <Setter Property="FontSize" Value="15" />
+                <Setter Property="VerticalOptions" Value="FillAndExpand" />
+            </Style>
+
+            <Style x:Key="PrimaryHolderFAIcon" TargetType="ctr:FontAwesomeIcon">
+                <Setter Property="TextColor" Value="{StaticResource PrimaryHolder}" />
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="VerticalOptions" Value="FillAndExpand" />
+            </Style>
+            
+            <Style x:Key="PrimaryHolderText" TargetType="ctr:FontAwesomeIcon">
+                <Setter Property="TextColor" Value="{StaticResource PrimaryHolder}" />
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="VerticalOptions" Value="FillAndExpand" />
+            </Style>
+
+            <!-- HW for Horizontal Wrapper, HL, HC, HR for Left, Center, Right -->
+            <Style x:Key="PrimaryHWStack" TargetType="StackLayout">
+                <Setter Property="Padding" Value="10, 0, 10, 0" />
+                <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                <Setter Property="VerticalOptions" Value="FillAndExpand" />
+            </Style>
+            
+            <Style x:Key="PrimaryHLStack" TargetType="StackLayout">
+                <Setter Property="Orientation" Value="Horizontal" />
+                <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+            </Style>
+            
+            <Style x:Key="PrimaryHCStack" TargetType="StackLayout">
+                <Setter Property="Orientation" Value="Horizontal" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+            </Style>
+            
+            <Style x:Key="PrimaryHRStack" TargetType="StackLayout">
+                <Setter Property="Orientation" Value="Horizontal" />
+                <Setter Property="HorizontalOptions" Value="End" />
+                <Setter Property="VerticalOptions" Value="CenterAndExpand" />
             </Style>
         </ResourceDictionary>
 	</Application.Resources>

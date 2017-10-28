@@ -7,6 +7,7 @@ using UIKit;
 
 using Matna.Helpers;
 using HockeyApp.iOS;
+using FFImageLoading.Forms.Touch;
 
 namespace Matna.iOS
 {
@@ -30,6 +31,10 @@ namespace Matna.iOS
 #if DEBUG
             Xamarin.Calabash.Start();
 #endif
+
+            // Code for FFImageLoading
+            CachedImageRenderer.Init();
+
             // Code for GoogleMaps
             Xamarin.FormsGoogleMaps.Init(Keys.GoogleMapsApiKeyiOS);
 

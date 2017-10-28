@@ -47,9 +47,39 @@ namespace Matna.Resources.Localize {
             }
         }
         
+        public static string Matna {
+            get {
+                return ResourceManager.GetString("Matna", resourceCulture);
+            }
+        }
+        
         public static string OK {
             get {
                 return ResourceManager.GetString("OK", resourceCulture);
+            }
+        }
+        
+        public static string List {
+            get {
+                return ResourceManager.GetString("List", resourceCulture);
+            }
+        }
+        
+        public static string Filter {
+            get {
+                return ResourceManager.GetString("Filter", resourceCulture);
+            }
+        }
+        
+        public static string SearchForPlaces {
+            get {
+                return ResourceManager.GetString("SearchForPlaces", resourceCulture);
+            }
+        }
+        
+        public static string NoName {
+            get {
+                return ResourceManager.GetString("NoName", resourceCulture);
             }
         }
     }

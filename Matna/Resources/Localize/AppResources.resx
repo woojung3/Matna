@@ -12,8 +12,23 @@
 	<resheader name="writer">
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
-	
+
+    <data name="Matna" xml:space="preserve">
+        <value>Matna</value>
+    </data>
     <data name="OK" xml:space="preserve">
         <value>OK</value>
+    </data>
+    <data name="List" xml:space="preserve">
+        <value>List</value>
+    </data>
+    <data name="Filter" xml:space="preserve">
+        <value>Filter</value>
+    </data>
+    <data name="SearchForPlaces" xml:space="preserve">
+        <value>Search for places to eat</value>
+    </data>
+    <data name="NoName" xml:space="preserve">
+        <value>Name Not Found</value>
     </data>
 </root>

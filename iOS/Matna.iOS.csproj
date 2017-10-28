@@ -178,6 +178,9 @@
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Localize.cs" />
     <Compile Include="Renderers\AdViewRenderer.cs" />
+    <Compile Include="Renderers\RoundedBoxRenderer.cs" />
+    <Compile Include="FileHelper.cs" />
+    <Compile Include="Renderers\HScrollViewRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\FontAwesome.ttf">

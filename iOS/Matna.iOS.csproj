@@ -150,6 +150,18 @@
     <Reference Include="Xamarin.Forms.GoogleMaps.iOS">
       <HintPath>..\packages\Xamarin.Forms.GoogleMaps.2.1.1\lib\Xamarin.iOS10\Xamarin.Forms.GoogleMaps.iOS.dll</HintPath>
     </Reference>
+    <Reference Include="Plugin.Connectivity.Abstractions">
+      <HintPath>..\packages\Xam.Plugin.Connectivity.3.0.3\lib\Xamarin.iOS10\Plugin.Connectivity.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.Connectivity">
+      <HintPath>..\packages\Xam.Plugin.Connectivity.3.0.3\lib\Xamarin.iOS10\Plugin.Connectivity.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.Share.Abstractions">
+      <HintPath>..\packages\Plugin.Share.7.0.1\lib\Xamarin.iOS10\Plugin.Share.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.Share">
+      <HintPath>..\packages\Plugin.Share.7.0.1\lib\Xamarin.iOS10\Plugin.Share.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Matna\Matna.csproj">
@@ -160,6 +172,15 @@
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppStore1024.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\iPhoneAppiOS7-11_180.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\iPhoneAppiOS7-11_120.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\iPhoneSpotlightiOS7-11_120.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\iPhoneSpotlightiOS7-11_80.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\iPhoneSpotlightiOS5-6_87.png.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\iPhoneSpotlightiOS5-6_58.png.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\iPhoneNotificationiOS7-11_60.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\iPhoneNotificationiOS7-11_40.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -186,6 +207,8 @@
     <BundleResource Include="Resources\FontAwesome.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </BundleResource>
+    <BundleResource Include="Resources\icon.png" />
+    <BundleResource Include="Resources\iconO.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.4.0.18342\build\netstandard1.0\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.4.0.18342\build\netstandard1.0\Xamarin.Forms.targets')" />

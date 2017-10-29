@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    xmlns:vms="clr-namespace:Matna.ViewModels"
+    xmlns:ctr="clr-namespace:Matna.Helpers.Controls"
+    xmlns:local="clr-namespace:Matna" 
+    x:Class="Matna.Views.FilterPage">
+    <ContentPage.BindingContext>
+        <vms:FilterPageViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness"
+                    iOS="0, 20, 0, 0" />
+    </ContentPage.Padding>
+    
+    <Grid x:Name="mainGrid" Padding="0" RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <StackLayout Style="{StaticResource PrimaryHWStack}" Grid.Row="0" HeightRequest="40">
+            <Grid Padding="0" ColumnSpacing="10" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <StackLayout Style="{StaticResource PrimaryHCStack}" Grid.Column="0" Grid.ColumnSpan="2" Padding="5">
+                    <ctr:FontAwesomeIcon Style="{StaticResource PrimaryFAIcon}" Text="{x:Static ctr:Icon.Sliders}" />
+                    <Label Style="{StaticResource PrimaryText}" Text="{local:Translate Filter}" />
+                </StackLayout>
+                <StackLayout Style="{StaticResource PrimaryHLStack}" Grid.Column="0" Padding="5">
+                    <ctr:FontAwesomeIcon Style="{StaticResource PrimaryFAIcon}" Text="{x:Static ctr:Icon.AngleLeft}">
+                        <ctr:FontAwesomeIcon.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OnCloseClicked}" NumberOfTapsRequired="1" />
+                        </ctr:FontAwesomeIcon.GestureRecognizers>
+                    </ctr:FontAwesomeIcon>
+                    <Label Style="{StaticResource PrimaryText}" Text="{local:Translate Back}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OnCloseClicked}" NumberOfTapsRequired="1" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </StackLayout>
+            </Grid>
+        </StackLayout>
+    </Grid>
+</ContentPage>

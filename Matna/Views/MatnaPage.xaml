@@ -6,6 +6,7 @@
     xmlns:maps="clr-namespace:Xamarin.Forms.GoogleMaps;assembly=Xamarin.Forms.GoogleMaps"
     xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:local="clr-namespace:Matna" 
+    x:Name="MatnaPage" 
     x:Class="Matna.MatnaPage">
 
     <ContentPage.BindingContext>
@@ -18,15 +19,44 @@
 
     <Grid Padding="0" RowSpacing="0">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="40" />
             <RowDefinition Height="*" />
             <RowDefinition Height="32" />
             <RowDefinition Height="100" />
-            <RowDefinition Height="50" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <!-- Navigation Bar -->
-        <StackLayout Style="{StaticResource PrimaryHWStack}" Grid.Row="0">
+        <!-- For save -->
+        <StackLayout Style="{StaticResource PrimaryHWStack}" Grid.Row="0" IsVisible="{Binding IsShowSaved}" HeightRequest="40">
+            <Grid Padding="0" ColumnSpacing="10" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <StackLayout Style="{StaticResource PrimaryHCStack}" Grid.Column="0" Grid.ColumnSpan="2" Padding="5">
+                    <ctr:FontAwesomeIcon Style="{StaticResource PrimaryFAIcon}" Text="{x:Static ctr:Icon.FolderOpenO}" />
+                    <Label Style="{StaticResource PrimaryText}" Text="{local:Translate SavedPlaces}" />
+                </StackLayout>
+                <StackLayout Style="{StaticResource PrimaryHLStack}" Grid.Column="0" Padding="5">
+                    <ctr:FontAwesomeIcon Style="{StaticResource PrimaryFAIcon}" Text="{x:Static ctr:Icon.AngleLeft}">
+                        <ctr:FontAwesomeIcon.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OnBackSavedClicked}" NumberOfTapsRequired="1" />
+                        </ctr:FontAwesomeIcon.GestureRecognizers>
+                    </ctr:FontAwesomeIcon>
+                    <Label Style="{StaticResource PrimaryText}" Text="{local:Translate Back}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OnBackSavedClicked}" NumberOfTapsRequired="1" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </StackLayout>
+            </Grid>
+        </StackLayout>
+
+        <!-- For normal -->
+        <StackLayout Style="{StaticResource PrimaryHWStack}" Grid.Row="1">
             <Grid Padding="0" ColumnSpacing="10" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -34,87 +64,123 @@
                 </Grid.ColumnDefinitions>
 
                 <ctr:RoundedBox Style="{StaticResource PrimaryRoundedBox}" Grid.Column="0">
-                    <StackLayout.GestureRecognizers>
+                    <ctr:RoundedBox.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding OnSearchClicked}" NumberOfTapsRequired="1" />
-                    </StackLayout.GestureRecognizers>
+                    </ctr:RoundedBox.GestureRecognizers>
                 </ctr:RoundedBox>
                 <StackLayout Style="{StaticResource PrimaryHCStack}" Grid.Column="0" Padding="5">
                     <ctr:FontAwesomeIcon Style="{StaticResource PrimaryHolderFAIcon}" Text="{x:Static ctr:Icon.Search}">
-                        <StackLayout.GestureRecognizers>
+                        <ctr:FontAwesomeIcon.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding OnSearchClicked}" NumberOfTapsRequired="1" />
-                        </StackLayout.GestureRecognizers>
+                        </ctr:FontAwesomeIcon.GestureRecognizers>
                     </ctr:FontAwesomeIcon>
                     <Label Style="{StaticResource PrimaryHolderText}" Text="{local:Translate SearchForPlaces}">
-                        <StackLayout.GestureRecognizers>
+                        <Label.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding OnSearchClicked}" NumberOfTapsRequired="1" />
-                        </StackLayout.GestureRecognizers>
+                        </Label.GestureRecognizers>
                     </Label>
                 </StackLayout>
 
                 <ctr:RoundedBox Style="{StaticResource PrimaryRoundedBox}" Grid.Column="1">
-                    <StackLayout.GestureRecognizers>
+                    <ctr:RoundedBox.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding OnFilterClicked}" NumberOfTapsRequired="1" />
-                    </StackLayout.GestureRecognizers>
+                    </ctr:RoundedBox.GestureRecognizers>
                 </ctr:RoundedBox>
                 <StackLayout Style="{StaticResource PrimaryHRStack}" Grid.Column="1" Padding="5">
                     <ctr:FontAwesomeIcon Style="{StaticResource PrimaryHolderFAIcon}" Text="{x:Static ctr:Icon.Sliders}">
-                        <StackLayout.GestureRecognizers>
+                        <ctr:FontAwesomeIcon.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding OnFilterClicked}" NumberOfTapsRequired="1" />
-                        </StackLayout.GestureRecognizers>
+                        </ctr:FontAwesomeIcon.GestureRecognizers>
                     </ctr:FontAwesomeIcon>
                     <Label Style="{StaticResource PrimaryHolderText}" Text="{local:Translate Filter}">
-                        <StackLayout.GestureRecognizers>
+                        <Label.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding OnFilterClicked}" NumberOfTapsRequired="1" />
-                        </StackLayout.GestureRecognizers>
+                        </Label.GestureRecognizers>
                     </Label>
                 </StackLayout>
             </Grid>
         </StackLayout>
 
         <!-- GoogleMap -->
-        <StackLayout Padding="0" Grid.Row="1">
-            <maps:Map x:Name="map" AutomationId="map" WidthRequest="200" HeightRequest="200" />
-        </StackLayout>
+        <Grid Padding="0" Grid.Row="2" RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="32" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <maps:Map x:Name="map" Padding="0" Grid.Row="0" Grid.RowSpan="2" AutomationId="map" WidthRequest="200" HeightRequest="200" />
+            
+            <ctr:RoundedBox x:Name="mapSearchBox" AutomationId="mapSearchBox" Style="{StaticResource PopupRoundedBox}" IsVisible="{Binding IsShowLoadPlacesFromMap}" Grid.Row="0" Margin="50, 0, 50, 0">
+                <ctr:RoundedBox.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding OnLoadPlacesFromMapClicked}" NumberOfTapsRequired="1" />
+                </ctr:RoundedBox.GestureRecognizers>
+            </ctr:RoundedBox>
+            <StackLayout Style="{StaticResource PrimaryHCStack}" Grid.Row="0" Padding="5" Margin="{Binding Margin, Source={x:Reference mapSearchBox}}" IsVisible="{Binding IsVisible, Source={x:Reference mapSearchBox}}">
+                <ctr:FontAwesomeIcon Style="{StaticResource PopupHolderFAIcon}" Text="{x:Static ctr:Icon.MapO}">
+                    <ctr:FontAwesomeIcon.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OnLoadPlacesFromMapClicked}" NumberOfTapsRequired="1" />
+                    </ctr:FontAwesomeIcon.GestureRecognizers>
+                </ctr:FontAwesomeIcon>
+                <Label Style="{StaticResource PopupHolderText}" Text="{local:Translate LoadPlacesFromMap}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OnLoadPlacesFromMapClicked}" NumberOfTapsRequired="1" />
+                    </Label.GestureRecognizers>
+                </Label>
+                <ActivityIndicator x:Name="actIndicator" Color="{StaticResource Primary}" IsVisible="false" IsRunning="true" VerticalOptions="Center" HorizontalOptions="Center" />
+            </StackLayout>
+        </Grid>
 
         <!-- Bottom Panel Header -->
-        <StackLayout Style="{StaticResource PrimaryHWStack}" Grid.Row="2"  >
-            <StackLayout.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding OnListClicked}" NumberOfTapsRequired="1" />
-            </StackLayout.GestureRecognizers>
-            
+        <StackLayout Style="{StaticResource PrimaryHWStack}" Grid.Row="3"  >
             <Grid Padding="0" ColumnSpacing="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
             
-                <StackLayout Style="{StaticResource PrimaryHCStack}" Grid.Column="0">
+                <StackLayout Style="{StaticResource PrimaryHCStack}" Grid.Column="0" Grid.ColumnSpan="3">
                     <StackLayout.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding OnListClicked}" NumberOfTapsRequired="1" />
                     </StackLayout.GestureRecognizers>
                     <ctr:FontAwesomeIcon Style="{StaticResource PrimaryFAIcon}" Text="{x:Static ctr:Icon.AngleDoubleUp}">
-                        <StackLayout.GestureRecognizers>
+                        <ctr:FontAwesomeIcon.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding OnListClicked}" NumberOfTapsRequired="1" />
-                        </StackLayout.GestureRecognizers>
+                        </ctr:FontAwesomeIcon.GestureRecognizers>
                     </ctr:FontAwesomeIcon>
                     <Label Style="{StaticResource PrimaryText}" Text="{local:Translate List}">
-                        <StackLayout.GestureRecognizers>
+                        <Label.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding OnListClicked}" NumberOfTapsRequired="1" />
-                        </StackLayout.GestureRecognizers>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <ActivityIndicator x:Name="actIndicatorList" Color="{StaticResource PrimaryInv}" IsVisible="false" IsRunning="true" VerticalOptions="Center" HorizontalOptions="Center" />
+                </StackLayout>
+                
+                <StackLayout Style="{StaticResource PrimaryHLStack}" Grid.Column="0" Padding="5" IsVisible="{Binding IsSelectedItemExists}">
+                    <ctr:FontAwesomeIcon Style="{StaticResource PrimaryFAIcon}" Text="{x:Static ctr:Icon.AngleLeft}">
+                        <ctr:FontAwesomeIcon.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OnDeselectItemClicked}" NumberOfTapsRequired="1" />
+                        </ctr:FontAwesomeIcon.GestureRecognizers>
+                    </ctr:FontAwesomeIcon>
+                    <Label Style="{StaticResource PrimaryText}" Text="{local:Translate Deselect}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OnDeselectItemClicked}" NumberOfTapsRequired="1" />
+                        </Label.GestureRecognizers>
                     </Label>
                 </StackLayout>
                 
-                <StackLayout Style="{StaticResource PrimaryHRStack}" Grid.Column="1">
-                    <ctr:FontAwesomeIcon Style="{StaticResource PrimaryFAIcon}" Text="{x:Static ctr:Icon.FolderOpenO}">
-                        <StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding OnLoadClicked}" NumberOfTapsRequired="1" />
-                        </StackLayout.GestureRecognizers>
+                <StackLayout Style="{StaticResource PrimaryHRStack}" Grid.Column="2" IsVisible="{Binding IsVisible, Source={x:Reference mapSearchBox}}">
+                    <ctr:FontAwesomeIcon Style="{StaticResource PrimaryFAIcon}" Text="{x:Static ctr:Icon.FolderO}">
+                        <ctr:FontAwesomeIcon.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OnLoadSavedClicked}" NumberOfTapsRequired="1" />
+                        </ctr:FontAwesomeIcon.GestureRecognizers>
                     </ctr:FontAwesomeIcon>
                 </StackLayout>
             </Grid>
         </StackLayout>
 
-        <Grid Padding="0" Grid.Row="3">
+        <!-- Bottom Panel -->
+        <Grid Padding="0" Grid.Row="4">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
@@ -132,6 +198,10 @@
                         <ViewCell>
                             <ViewCell.View>
                                 <Grid AutomationId="scrollViewItem" HeightRequest="80" WidthRequest="80">
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding BindingContext.OnItemClicked, Source={x:Reference MatnaPage}}" CommandParameter="{Binding PlaceId}" NumberOfTapsRequired="1" />
+                                    </Grid.GestureRecognizers>
+                                    
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="*"/>
                                         <RowDefinition Height="Auto"/>
@@ -144,7 +214,8 @@
                                         RetryCount="0" 
                                         ErrorPlaceholder="{local:ImageResource Matna.Resources.Images.ErrorPlaceholder.png}"
                                         BackgroundColor="Teal"
-                                        Source="{Binding ImageUrl}" />
+                                        Source="{Binding ImageUrl}">
+                                    </ffimageloading:CachedImage>
                                     <ContentView Grid.Row="0" Padding="5">
                                         <ffimageloading:CachedImage 
                                             HorizontalOptions="Start"
@@ -159,21 +230,165 @@
                                             ErrorPlaceholder="{local:ImageResource Matna.Resources.Images.ErrorPlaceholder.png}"
                                             Source="{Binding IconUrl}" />
                                     </ContentView>
-                                    <Label Grid.Row="1" 
-                                           FontSize="Small" 
+                                    <Label Grid.Row="1" Style="{StaticResource PrimaryText}"
                                            Text="{Binding Name}" 
-                                           TextColor="White" 
                                            LineBreakMode="TailTruncation" />
                                 </Grid>
-
                             </ViewCell.View>
                         </ViewCell>
                     </DataTemplate>
                 </ctr:HScrollView.ItemTemplate>
             </ctr:HScrollView>
+
+            <!-- Selected Item Card View -->
+            <Grid Grid.Row="0" Padding="0" RowSpacing="5" ColumnSpacing="5" IsVisible="{Binding IsSelectedItemExists}" BackgroundColor="{StaticResource PrimaryInv}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="100" />
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0" Padding="2" RowSpacing="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                
+                    <StackLayout Grid.Row="0" Style="{StaticResource PrimaryHLStack}" Padding="5">
+                        <Label FontSize="20" FontAttributes="Bold" TextColor="Black"
+                               Text="{Binding SelectedItem.Name}" 
+                               LineBreakMode="TailTruncation" />
+                        <ctr:FontAwesomeIcon HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand" FontSize="12" TextColor="{StaticResource Primary}" Text="{x:Static ctr:Icon.Star}" IsVisible="{Binding SelectedItem.IsStar1Visible}" />
+                        <ctr:FontAwesomeIcon HorizontalOptions="End" VerticalOptions="FillAndExpand" FontSize="12" TextColor="{StaticResource Primary}" Text="{x:Static ctr:Icon.Star}" IsVisible="{Binding SelectedItem.IsStar2Visible}" />
+                        <ctr:FontAwesomeIcon HorizontalOptions="End" VerticalOptions="FillAndExpand" FontSize="12" TextColor="{StaticResource Primary}" Text="{x:Static ctr:Icon.Star}" IsVisible="{Binding SelectedItem.IsStar3Visible}" />
+                        <ctr:FontAwesomeIcon HorizontalOptions="End" VerticalOptions="FillAndExpand" FontSize="12" TextColor="{StaticResource Primary}" Text="{x:Static ctr:Icon.Star}" IsVisible="{Binding SelectedItem.IsStar4Visible}" />
+                        <ctr:FontAwesomeIcon HorizontalOptions="End" VerticalOptions="FillAndExpand" FontSize="12" TextColor="{StaticResource Primary}" Text="{x:Static ctr:Icon.Star}" IsVisible="{Binding SelectedItem.IsStar5Visible}" />
+                        <ctr:FontAwesomeIcon HorizontalOptions="End" VerticalOptions="FillAndExpand" FontSize="12" TextColor="{StaticResource Primary}" Text="{x:Static ctr:Icon.StarHalfO}" IsVisible="{Binding SelectedItem.IsHalfStarVisible}" />
+                    </StackLayout>
+                    
+                    <Label Grid.Row="1" FontSize="12" TextColor="Silver" Margin="5"
+                           Text="{Binding SelectedItem.Vicinity}" 
+                           LineBreakMode="TailTruncation" />
+
+                    <Grid Grid.Row="2" Padding="5" RowSpacing="5" ColumnSpacing="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="90" />
+                            <ColumnDefinition Width="90" />
+                            <ColumnDefinition Width="30" />
+                            <ColumnDefinition Width="30" />
+                        </Grid.ColumnDefinitions>
+
+                        <ctr:RoundedBox Grid.Column="0" Style="{StaticResource PrimaryRoundedBox}" BackgroundColor="#4CAF50">
+                            <ctr:RoundedBox.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding OnRouteClicked}" NumberOfTapsRequired="1" />
+                            </ctr:RoundedBox.GestureRecognizers>
+                        </ctr:RoundedBox>
+                        <StackLayout Grid.Column="0" Style="{StaticResource PrimaryHCStack}" Padding="5">
+                            <ctr:FontAwesomeIcon Style="{StaticResource PrimaryFAIcon}" Text="{x:Static ctr:Icon.Bus}">
+                                <ctr:FontAwesomeIcon.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding OnRouteClicked}" NumberOfTapsRequired="1" />
+                                </ctr:FontAwesomeIcon.GestureRecognizers>
+                            </ctr:FontAwesomeIcon>
+                            <Label Style="{StaticResource PrimaryText}" Text="{local:Translate FindRoute}">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding OnRouteClicked}" NumberOfTapsRequired="1" />
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </StackLayout>
+                        
+                        <ctr:RoundedBox Grid.Column="1" Style="{StaticResource PrimaryRoundedBox}" BackgroundColor="#4CAF50">
+                            <ctr:RoundedBox.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding OnDetailClicked}" NumberOfTapsRequired="1" />
+                            </ctr:RoundedBox.GestureRecognizers>
+                        </ctr:RoundedBox>
+                        <StackLayout Grid.Column="1" Style="{StaticResource PrimaryHCStack}" Padding="5">
+                            <ctr:FontAwesomeIcon Style="{StaticResource PrimaryFAIcon}" Text="{x:Static ctr:Icon.Google}">
+                                <ctr:FontAwesomeIcon.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding OnDetailClicked}" NumberOfTapsRequired="1" />
+                                </ctr:FontAwesomeIcon.GestureRecognizers>
+                            </ctr:FontAwesomeIcon>
+                            <Label Style="{StaticResource PrimaryText}" Text="{local:Translate FindDetail}">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding OnDetailClicked}" NumberOfTapsRequired="1" />
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </StackLayout>
+                        
+                        <ctr:RoundedBox Grid.Column="2" Style="{StaticResource PrimaryRoundedBox}" BackgroundColor="#4CAF50">
+                            <ctr:RoundedBox.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding OnShareClicked}" NumberOfTapsRequired="1" />
+                            </ctr:RoundedBox.GestureRecognizers>
+                        </ctr:RoundedBox>
+                        <StackLayout Grid.Column="2" Style="{StaticResource PrimaryHCStack}" Padding="5">
+                            <ctr:FontAwesomeIcon Style="{StaticResource PrimaryFAIcon}" Text="{x:Static ctr:Icon.ShareAltSquare}">
+                                <ctr:FontAwesomeIcon.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding OnShareClicked}" NumberOfTapsRequired="1" />
+                                </ctr:FontAwesomeIcon.GestureRecognizers>
+                            </ctr:FontAwesomeIcon>
+                        </StackLayout>
+                        
+                        <ctr:RoundedBox Grid.Column="3" Style="{StaticResource PrimaryRoundedBox}" BackgroundColor="#4CAF50">
+                            <ctr:RoundedBox.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding OnSaveClicked}" NumberOfTapsRequired="1" />
+                            </ctr:RoundedBox.GestureRecognizers>
+                        </ctr:RoundedBox>
+                        <StackLayout Grid.Column="3" Style="{StaticResource PrimaryHCStack}" Padding="5" IsVisible="{Binding SelectedItem.IsNotSaved}">
+                            <ctr:FontAwesomeIcon Style="{StaticResource PrimaryFAIcon}" Text="{x:Static ctr:Icon.Save}">
+                                <ctr:FontAwesomeIcon.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding OnSaveClicked}" NumberOfTapsRequired="1" />
+                                </ctr:FontAwesomeIcon.GestureRecognizers>
+                            </ctr:FontAwesomeIcon>
+                        </StackLayout>
+                        <StackLayout Grid.Column="3" Style="{StaticResource PrimaryHCStack}" Padding="5" IsVisible="{Binding SelectedItem.IsSaved}">
+                            <ctr:FontAwesomeIcon Style="{StaticResource PrimaryFAIcon}" Text="{x:Static ctr:Icon.Trash}">
+                                <ctr:FontAwesomeIcon.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding OnRemoveClicked}" NumberOfTapsRequired="1" />
+                                </ctr:FontAwesomeIcon.GestureRecognizers>
+                            </ctr:FontAwesomeIcon>
+                        </StackLayout>
+                    </Grid>
+                </Grid>
+                
+                <Grid Grid.Column="1" HeightRequest="100" WidthRequest="80" Padding="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <ffimageloading:CachedImage 
+                        Grid.Row="0" 
+                        Aspect="AspectFill" 
+                        DownsampleToViewSize="True"
+                        DownsampleWidth="100"
+                        RetryCount="0" 
+                        ErrorPlaceholder="{local:ImageResource Matna.Resources.Images.ErrorPlaceholder.png}"
+                        BackgroundColor="Teal"
+                        Source="{Binding SelectedItem.ImageUrl}">
+                    </ffimageloading:CachedImage>
+
+                    <!-- Open status -->
+                    <ctr:RoundedBox Style="{StaticResource PopupRoundedBox}" Grid.Row="1" HeightRequest="14" />
+                    <StackLayout Style="{StaticResource PrimaryHCStack}" Grid.Row="1" Padding="0">
+                        <ctr:FontAwesomeIcon Style="{StaticResource PopupHolderFAIcon}" Text="{x:Static ctr:Icon.QuestionCircleO}" FontSize="8" Margin="3, 0, 0, 0" />
+                        <Label Style="{StaticResource PopupHolderText}" Text="{local:Translate NoInfo}" FontSize="8" Margin="2, 0, 3, 0" />
+                    </StackLayout>
+
+                    <ctr:RoundedBox x:Name="openBox" AutomationId="openBox" BackgroundColor="#079a01" Style="{StaticResource PopupRoundedBox}" Grid.Row="1" HeightRequest="14" IsVisible="{Binding SelectedItem.IsOpen}" />
+                    <StackLayout Style="{StaticResource PrimaryHCStack}" Grid.Row="1" Padding="0" IsVisible="{Binding IsVisible, Source={x:Reference openBox}}">
+                        <ctr:FontAwesomeIcon Style="{StaticResource PrimaryFAIcon}" Text="{x:Static ctr:Icon.Cutlery}" FontSize="8" Margin="3, 0, 0, 0" />
+                        <Label Style="{StaticResource PrimaryText}" Text="{local:Translate Open}" FontSize="8" Margin="2, 0, 3, 0" />
+                    </StackLayout>
+
+                    <ctr:RoundedBox x:Name="closedBox" AutomationId="closedBox" BackgroundColor="#fe0032" Style="{StaticResource PopupRoundedBox}" Grid.Row="1" HeightRequest="14" IsVisible="{Binding SelectedItem.IsClosed}" />
+                    <StackLayout Style="{StaticResource PrimaryHCStack}" Grid.Row="1" Padding="0" IsVisible="{Binding IsVisible, Source={x:Reference closedBox}}">
+                        <ctr:FontAwesomeIcon Style="{StaticResource PrimaryFAIcon}" Text="{x:Static ctr:Icon.WindowCloseO}" FontSize="8" Margin="3, 0, 0, 0" />
+                        <Label Style="{StaticResource PrimaryText}" Text="{local:Translate Closed}" FontSize="8" Margin="2, 0, 3, 0" />
+                    </StackLayout>
+                </Grid>
+            </Grid>
         </Grid>
 
-        <StackLayout Padding="0" Grid.Row="4" BackgroundColor="{StaticResource PrimaryDark}">
+        <StackLayout Padding="0" Grid.Row="5" BackgroundColor="{StaticResource PrimaryDark}" IsVisible="{Binding IsShowAd}">
             <!-- BannerHeight50 BannerHeight90 -->
             <ctr:AdViewControl 
                 HeightRequest="50"

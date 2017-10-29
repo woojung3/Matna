@@ -53,6 +53,12 @@ namespace Matna.Resources.Localize {
             }
         }
         
+        public static string Locale {
+            get {
+                return ResourceManager.GetString("Locale", resourceCulture);
+            }
+        }
+        
         public static string OK {
             get {
                 return ResourceManager.GetString("OK", resourceCulture);
@@ -71,6 +77,30 @@ namespace Matna.Resources.Localize {
             }
         }
         
+        public static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        public static string Share {
+            get {
+                return ResourceManager.GetString("Share", resourceCulture);
+            }
+        }
+        
+        public static string Saved {
+            get {
+                return ResourceManager.GetString("Saved", resourceCulture);
+            }
+        }
+        
+        public static string Removed {
+            get {
+                return ResourceManager.GetString("Removed", resourceCulture);
+            }
+        }
+        
         public static string SearchForPlaces {
             get {
                 return ResourceManager.GetString("SearchForPlaces", resourceCulture);
@@ -80,6 +110,84 @@ namespace Matna.Resources.Localize {
         public static string NoName {
             get {
                 return ResourceManager.GetString("NoName", resourceCulture);
+            }
+        }
+        
+        public static string NetworkUnavailable {
+            get {
+                return ResourceManager.GetString("NetworkUnavailable", resourceCulture);
+            }
+        }
+        
+        public static string LoadPlacesFromMap {
+            get {
+                return ResourceManager.GetString("LoadPlacesFromMap", resourceCulture);
+            }
+        }
+        
+        public static string Back {
+            get {
+                return ResourceManager.GetString("Back", resourceCulture);
+            }
+        }
+        
+        public static string SavedPlaces {
+            get {
+                return ResourceManager.GetString("SavedPlaces", resourceCulture);
+            }
+        }
+        
+        public static string MoveMapPlease {
+            get {
+                return ResourceManager.GetString("MoveMapPlease", resourceCulture);
+            }
+        }
+        
+        public static string MaxRadReached {
+            get {
+                return ResourceManager.GetString("MaxRadReached", resourceCulture);
+            }
+        }
+        
+        public static string Deselect {
+            get {
+                return ResourceManager.GetString("Deselect", resourceCulture);
+            }
+        }
+        
+        public static string Open {
+            get {
+                return ResourceManager.GetString("Open", resourceCulture);
+            }
+        }
+        
+        public static string Closed {
+            get {
+                return ResourceManager.GetString("Closed", resourceCulture);
+            }
+        }
+        
+        public static string NoInfo {
+            get {
+                return ResourceManager.GetString("NoInfo", resourceCulture);
+            }
+        }
+        
+        public static string FindRoute {
+            get {
+                return ResourceManager.GetString("FindRoute", resourceCulture);
+            }
+        }
+        
+        public static string FindDetail {
+            get {
+                return ResourceManager.GetString("FindDetail", resourceCulture);
+            }
+        }
+        
+        public static string ComingSoon {
+            get {
+                return ResourceManager.GetString("ComingSoon", resourceCulture);
             }
         }
     }

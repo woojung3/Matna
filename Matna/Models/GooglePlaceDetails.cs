@@ -10,16 +10,9 @@ namespace Matna.Models
         public string Status { get; set; }
 
         [JsonProperty("result")]
-        public GooglePlaceDetailsResult Result { get; set; }
+        public GooglePlaceNearbyItem Result { get; set; }
     }
-    public class GooglePlaceDetailsResult
-    {
-        [JsonProperty("name")]
-        public string Name { get; set; }
 
-        [JsonProperty("address_components")]
-        public List<AddressComponent> AddressComponents { get; set; }
-    }
     public class AddressComponent
     {
         [JsonProperty("long_name")]

@@ -16,6 +16,9 @@
     <data name="Matna" xml:space="preserve">
         <value>Matna</value>
     </data>
+    <data name="Locale" xml:space="preserve">
+        <value>en</value>
+    </data>
     <data name="OK" xml:space="preserve">
         <value>OK</value>
     </data>
@@ -25,10 +28,61 @@
     <data name="Filter" xml:space="preserve">
         <value>Filter</value>
     </data>
+    <data name="Cancel" xml:space="preserve">
+        <value>Cancel</value>
+    </data>
+    <data name="Share" xml:space="preserve">
+        <value>Share</value>
+    </data>
+    <data name="Saved" xml:space="preserve">
+        <value>Saved</value>
+    </data>
+    <data name="Removed" xml:space="preserve">
+        <value>Removed</value>
+    </data>
     <data name="SearchForPlaces" xml:space="preserve">
         <value>Search for places to eat</value>
     </data>
     <data name="NoName" xml:space="preserve">
         <value>Name Not Found</value>
+    </data>
+    <data name="NetworkUnavailable" xml:space="preserve">
+        <value>Please check your network connectivity</value>
+    </data>
+    <data name="LoadPlacesFromMap" xml:space="preserve">
+        <value>Search places from current map</value>
+    </data>
+    <data name="Back" xml:space="preserve">
+        <value>Back</value>
+    </data>
+    <data name="SavedPlaces" xml:space="preserve">
+        <value>Saved Places</value>
+    </data>
+    <data name="MoveMapPlease" xml:space="preserve">
+        <value>Slightly move map right after app launch. This is to adjust coordinate</value>
+    </data>
+    <data name="MaxRadReached" xml:space="preserve">
+        <value>Maximum search radius is 50 Kilometer</value>
+    </data>
+    <data name="Deselect" xml:space="preserve">
+        <value>Deselect</value>
+    </data>
+    <data name="Open" xml:space="preserve">
+        <value>Open</value>
+    </data>
+    <data name="Closed" xml:space="preserve">
+        <value>Closed</value>
+    </data>
+    <data name="NoInfo" xml:space="preserve">
+        <value>No Info.</value>
+    </data>
+    <data name="FindRoute" xml:space="preserve">
+        <value>Route</value>
+    </data>
+    <data name="FindDetail" xml:space="preserve">
+        <value>Detail</value>
+    </data>
+    <data name="ComingSoon" xml:space="preserve">
+        <value>Coming soon (Probably next version!)</value>
     </data>
 </root>

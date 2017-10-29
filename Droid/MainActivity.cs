@@ -16,7 +16,7 @@ using FFImageLoading.Forms.Droid;
 
 namespace Matna.Droid
 {
-    [Activity(Label = "Matna.Droid", Icon = "@drawable/icon", Theme = "@style/MyTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation
+    [Activity(Label = "@string/app_name", Theme = "@style/MyTheme", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation
               ,ScreenOrientation = ScreenOrientation.Portrait)] //This is what controls orientation
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {

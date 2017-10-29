@@ -21,8 +21,70 @@ namespace Matna.Models
 
     public class GooglePlaceNearbyItem
     {
-        [JsonProperty("geometry")]
+        [PrimaryKey, JsonProperty("place_id")]
+        public string PlaceId { get; set; }
+
+        bool isSaved = false;
+        public bool IsSaved
+        {
+            get
+            {
+                return isSaved;
+            }
+            set
+            {
+                isSaved = value;
+            }
+        }
+        public bool IsNotSaved
+        {
+            get
+            {
+                return !isSaved;
+            }
+        }
+
+        [Ignore, JsonProperty("geometry")]
         public Geometry Geometry { get; set; }
+
+        double lat = 0;
+        public double Lat
+        {
+            get
+            {
+                if (Math.Abs(lat) < 0.0001)
+                {
+                    lat = Geometry.Location.Lat;
+                }
+                return lat;
+            }
+            set
+            {
+                lat = value;
+            }
+        }
+        double lon = 0;
+        public double Lon
+        {
+            get
+            {
+                if (Math.Abs(lon) < 0.0001)
+                {
+                    lon = Geometry.Location.Lon;
+                }
+                return lon;
+            }
+            set
+            {
+                lon = value;
+            }
+        }
+
+        [JsonProperty("vicinity")]
+        public string Vicinity { get; set; }
+
+        [Ignore, JsonProperty("address_components")]
+        public List<AddressComponent> AddressComponents { get; set; }
 
         [JsonProperty("icon")]
         public string Icon { get; set; }
@@ -35,9 +97,6 @@ namespace Matna.Models
                 else return PropertiesDictionary.NotFoundImage;
             }
         }
-
-        [PrimaryKey, AutoIncrement, JsonProperty("place_id")]
-        public string PlaceId { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }
@@ -54,22 +113,113 @@ namespace Matna.Models
                     return 0.0;
             }
         }
+        public bool IsStar1Visible
+        {
+            get
+            {
+                if (RatingD > 0.75)
+                    return true;
+                else return false;
+            }
+        }
+        public bool IsStar2Visible
+        {
+            get
+            {
+                if (RatingD >= 1.75)
+                    return true;
+                else return false;
+            }
+        }
+        public bool IsStar3Visible
+        {
+            get
+            {
+                if (RatingD >= 2.75)
+                    return true;
+                else return false;
+            }
+        }
+        public bool IsStar4Visible
+        {
+            get
+            {
+                if (RatingD >= 3.75)
+                    return true;
+                else return false;
+            }
+        }
+        public bool IsStar5Visible
+        {
+            get
+            {
+                if (RatingD >= 4.75)
+                    return true;
+                else return false;
+            }
+        }
+        public bool IsHalfStarVisible
+        {
+            get
+            {
+                if (RatingD < 0.5)
+                    return false;
+                if (Math.Abs(Math.Round(RatingD) - RatingD) > 0.25 && Math.Abs(Math.Round(RatingD) - RatingD) < 0.75)
+                    return true;
+                else return false;
+            }
+        }
 
-        [JsonProperty("opening_hours")]
+        [Ignore, JsonProperty("opening_hours")]
         public OpeningHours OpeningHours { get; set; }
+        public bool IsOpen
+        {
+            get
+            {
+                if (OpeningHours == null)
+                    return false;
+                if (OpeningHours.OpenNow)
+                    return true;
+                return false;
+            }
+        }
+        public bool IsClosed
+        {
+            get
+            {
+                if (OpeningHours == null)
+                    return false;
+                if (!OpeningHours.OpenNow)
+                    return true;
+                return false;
+            }
+        }
 
-        [JsonProperty("photos")]
+        [Ignore, JsonProperty("photos")]
         public List<Photo> Photos { get; set; }
+
+        string imageUrl = "";
         public string ImageUrl
         {
             get
             {
+                if (imageUrl != "")
+                    return imageUrl;
+                
                 if (Photos != null && Photos.Any())
                 {
                     if (Photos[0].PhotoReference != null)
-                        return $"https://maps.googleapis.com/maps/api/place/photo?maxwidth=80&photoreference={Photos[0].PhotoReference}&key={Keys.GooglePlacesApiKey}";
+                    {
+                        imageUrl = $"https://maps.googleapis.com/maps/api/place/photo?maxwidth=80&photoreference={Photos[0].PhotoReference}&key={Keys.GooglePlacesApiKey}";
+                        return imageUrl;
+                    }
                 }
-                return PropertiesDictionary.NotFoundImage;
+                imageUrl = PropertiesDictionary.NotFoundImage;
+                return imageUrl;
+            }
+            set
+            {
+                imageUrl = value;
             }
         }
     }

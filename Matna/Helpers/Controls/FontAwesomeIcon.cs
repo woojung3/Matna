@@ -35,13 +35,22 @@ namespace Matna.Helpers.Controls
         public static readonly string AngleDoubleUp = "\uf102";
         public static readonly string AngleDoubleDown = "\uf103";
         public static readonly string Sliders = "\uf1de";
+        public static readonly string AngleLeft = "\uf104";
         public static readonly string StepBackward = "\uf048";
-        public static readonly string Start = "\uf005";
-        public static readonly string StartHalfO = "\uf123";
+        public static readonly string Star = "\uf005";
+        public static readonly string StarHalfO = "\uf123";
         public static readonly string Dollar = "\uf155";
-        public static readonly string Google = "\uf1a0";
         public static readonly string MapO = "\uf278";
         public static readonly string MapMarker = "\uf041";
+        public static readonly string FolderO = "\uf114";
         public static readonly string FolderOpenO = "\uf115";
+        public static readonly string ShareAltSquare = "\uf1e1";
+        public static readonly string Save = "\uf0c7";
+        public static readonly string Trash = "\uf1f8";
+        public static readonly string Bus = "\uf207";
+        public static readonly string Google = "\uf1a0";
+        public static readonly string WindowCloseO = "\uf2d4";
+        public static readonly string Cutlery = "\uf0f5";
+        public static readonly string QuestionCircleO = "\uf29c";
     }
 }

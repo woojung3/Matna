@@ -6,27 +6,27 @@ namespace Matna
 {
     public partial class App : Application
     {
-        static PlaceItemDatabase myPlacesDatabase;
-        public static PlaceItemDatabase MyPlacesDatabase
+        static GooglePlaceNearbyItemDatabase myPlacesDatabase;
+        public static GooglePlaceNearbyItemDatabase MyPlacesDatabase
         {
             get
             {
                 if (myPlacesDatabase == null)
                 {
-                    myPlacesDatabase = new PlaceItemDatabase(DependencyService.Get<IFileHelper>().GetLocalFilePath("MyPlace.db3"));
+                    myPlacesDatabase = new GooglePlaceNearbyItemDatabase(DependencyService.Get<IFileHelper>().GetLocalFilePath("MyPlace.db3"));
                 }
                 return myPlacesDatabase;
             }
         }
 
-        static PlaceItemDatabase adPlacesDatabase;
-        public static PlaceItemDatabase AdPlacesDatabase
+        static GooglePlaceNearbyItemDatabase adPlacesDatabase;
+        public static GooglePlaceNearbyItemDatabase AdPlacesDatabase
         {
             get
             {
                 if (adPlacesDatabase == null)
                 {
-                    adPlacesDatabase = new PlaceItemDatabase(DependencyService.Get<IFileHelper>().GetLocalFilePath("AdPlace.db3"));
+                    adPlacesDatabase = new GooglePlaceNearbyItemDatabase(DependencyService.Get<IFileHelper>().GetLocalFilePath("AdPlace.db3"));
                 }
                 return adPlacesDatabase;
             }

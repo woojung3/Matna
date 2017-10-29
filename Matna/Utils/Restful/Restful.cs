@@ -11,6 +11,7 @@ using System.IO;
 using System.Diagnostics;
 using Matna.Helpers;
 using Matna.Models;
+using Plugin.Connectivity;
 
 namespace Matna.Utils.Restful
 {
@@ -19,11 +20,11 @@ namespace Matna.Utils.Restful
         #region Google API
         public async Task<List<GooglePlaceNearbyItem>> GoogleMapsPlaceNearbySearch(double lat, double lon, double radius, List<string> types, List<string> keywords)
         {
-            string urlBase = string.Format(Constants.GoogleMapsPlaceNearbysearch, lat, lon, radius, String.Join(",", types), String.Join(",", keywords));
+            string urlBase = string.Format(Constants.GoogleMapsPlaceNearbySearch, lat, lon, radius, String.Join(",", types), String.Join(",", keywords));
             var uri = new Uri(urlBase);
             var rtn = await GetAsyncWrapper<GooglePlaceNearbys>(uri);
 
-            if (rtn.Status == null)
+            if (rtn == null || rtn.Status == null)
                 return new List<GooglePlaceNearbyItem>();
             if (rtn.Status.Equals("OK", StringComparison.CurrentCultureIgnoreCase))
             {
@@ -33,39 +34,43 @@ namespace Matna.Utils.Restful
             return new List<GooglePlaceNearbyItem>();
         }
 
-        public async Task<string> GoogleMapsPlaceNameFromDetails(string placeId)
+        // TODO location autocomplete search - option
+        public async Task<List<GoogleAutocompletePrediction>> GoogleMapsPlaceAutocomplete(string input)
+        {
+            string urlBase = string.Format(Constants.GoogleMapsPlaceAutocomplete, input);
+            var uri = new Uri(urlBase);
+            var rtn = await GetAsyncWrapper<GoogleMapsPlaceAutocomplete>(uri);
+
+            if (rtn == null || rtn.Status == null)
+                return new List<GoogleAutocompletePrediction>();
+            if (rtn.Status.Equals("OK", StringComparison.CurrentCultureIgnoreCase))
+            {
+                if (rtn.Predictions.Any())
+                    return rtn.Predictions;
+            }
+            return new List<GoogleAutocompletePrediction>();
+        }
+
+        static GooglePlaceNearbyItem NoneItem = new GooglePlaceNearbyItem()
+        {
+            PlaceId = "",
+            Geometry = new Geometry() { Location = new Location() { Lat = 0.0, Lon = 0.0 } },
+        };
+        public async Task<GooglePlaceNearbyItem> GoogleMapsPlaceNameFromDetails(string placeId)
         {
             string urlBase = string.Format(Constants.GoogleMapsPlaceDetails, placeId, Keys.GooglePlacesApiKey);
             var uri = new Uri(urlBase);
             var rtn = await GetAsyncWrapper<GooglePlaceDetails>(uri);
 
-            if (rtn.Status == null || rtn.Result == null)
-                return "";
+            if (rtn == null || rtn.Status == null || rtn.Result == null)
+            {
+                return NoneItem;
+            }
             if (rtn.Status.Equals("OK", StringComparison.CurrentCultureIgnoreCase))
             {
-                if (rtn.Result.Name == null)
-                {
-                    if (rtn.Result.AddressComponents.Any() && rtn.Result.AddressComponents.First().LongName != null)
-                        return rtn.Result.AddressComponents.First().LongName;
-                    else return "";
-                }
-
-                if (rtn.Result.AddressComponents != null && rtn.Result.AddressComponents.Any())
-                {
-                    try
-                    {
-                        return $"{rtn.Result.Name} {rtn.Result.AddressComponents.Find(x => x.Types.Contains("country")).ShortName}";
-                    }
-#pragma warning disable CS0168 // Variable is declared but never used
-                    catch (Exception ex)
-#pragma warning restore CS0168 // Variable is declared but never used
-                    {
-                        return rtn.Result.Name;
-                    }
-                }
-                return rtn.Result.Name;
+                return rtn.Result;
             }
-            return "";
+            return NoneItem;
         }
         #endregion Google API
 
@@ -96,8 +101,9 @@ namespace Matna.Utils.Restful
         public static class Constants
         {
             public static string MainAddr = "https://maps.googleapis.com/maps/api/";
-            public static string GoogleMapsPlaceNearbysearch = MainAddr + "place/nearbysearch/json?location={0},{1}&radius={2}&type={3}&keyword={4}&key=" + Keys.GooglePlacesApiKey;
-            public static string GoogleMapsPlaceDetails = MainAddr + "place/details/json?language=en&placeid={0}&key=" + Keys.GooglePlacesApiKey;
+            public static string GoogleMapsPlaceNearbySearch = MainAddr + "place/nearbysearch/json?location={0},{1}&radius={2}&type={3}&keyword={4}&key=" + Keys.GooglePlacesApiKey;
+            public static string GoogleMapsPlaceAutocomplete = MainAddr + "place/autocomplete/json?input={0}&types=establishment&key=" + Keys.GooglePlacesApiKey;
+            public static string GoogleMapsPlaceDetails = MainAddr + "place/details/json?placeid={0}&key=" + Keys.GooglePlacesApiKey;
         }
 
         private Restful()
@@ -138,6 +144,11 @@ namespace Matna.Utils.Restful
         {
             try
             {
+                if (!CrossConnectivity.Current.IsConnected)
+                {
+                    MessagingCenter.Send(this, "NetworkUnavailable");
+                    return default(T);
+                }
 #if DEBUG
                 Stopwatch stopWatch = new Stopwatch();
                 stopWatch.Start();
@@ -165,6 +176,11 @@ namespace Matna.Utils.Restful
         {
             try
             {
+                if (!CrossConnectivity.Current.IsConnected)
+                {
+                    MessagingCenter.Send(this, "NetworkUnavailable");
+                    return default(T);
+                }
 #if DEBUG
                 Stopwatch stopWatch = new Stopwatch();
                 stopWatch.Start();

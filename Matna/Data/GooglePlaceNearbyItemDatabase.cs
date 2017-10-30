@@ -38,9 +38,14 @@ namespace Matna.Data
             }
         }
 
-        public Task<int> DeleteItemAsync(GooglePlaceNearbyItem item)
+        public async Task<int> DeleteItemAsync(GooglePlaceNearbyItem item)
         {
-            return database.DeleteAsync(item);
+            var rtn = await GetItemAsync(item.PlaceId);
+            if (rtn != null)
+            {
+                return await database.DeleteAsync(item);
+            }
+            else return 0;
         }
     }
 }

@@ -113,6 +113,12 @@ namespace Matna.Resources.Localize {
             }
         }
         
+        public static string Loading {
+            get {
+                return ResourceManager.GetString("Loading", resourceCulture);
+            }
+        }
+        
         public static string NetworkUnavailable {
             get {
                 return ResourceManager.GetString("NetworkUnavailable", resourceCulture);
@@ -188,6 +194,18 @@ namespace Matna.Resources.Localize {
         public static string ComingSoon {
             get {
                 return ResourceManager.GetString("ComingSoon", resourceCulture);
+            }
+        }
+        
+        public static string SearchRadiusExplanation {
+            get {
+                return ResourceManager.GetString("SearchRadiusExplanation", resourceCulture);
+            }
+        }
+        
+        public static string SearchRadiusAdjust {
+            get {
+                return ResourceManager.GetString("SearchRadiusAdjust", resourceCulture);
             }
         }
     }

@@ -36,3 +36,7 @@ using Android.App;
 [assembly: MetaData("com.google.android.geo.API_KEY", Value = Matna.Helpers.Keys.GoogleMapsApiKeyAndroid)]
 // HockeyApp
 [assembly: MetaData("net.hockeyapp.android.appIdentifier", Value = "02eaba22011f4839a0e7e34d84db1647")]
+
+[assembly: UsesFeature("android.hardware.location", Required = false)]
+[assembly: UsesFeature("android.hardware.location.gps", Required = false)]
+[assembly: UsesFeature("android.hardware.location.network", Required = false)]

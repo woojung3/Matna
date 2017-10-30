@@ -15,13 +15,143 @@ namespace Matna
 {
     public partial class MatnaPage : ContentPage
     {
-        public MatnaPage()
+        protected override void OnAppearing()
         {
-            InitializeComponent();
+            base.OnAppearing();
+
+            #region Codes for MessageCenter 
+            MessagingCenter.Unsubscribe<MatnaPageViewModel, string>(this, "DisplayAlert");
+            MessagingCenter.Subscribe<MatnaPageViewModel, string>(this, "DisplayAlert", (sender, str) =>
+            {
+                DisplayAlert(AppResources.Matna, str, AppResources.OK);
+            });
+
+            MessagingCenter.Unsubscribe<MatnaPageViewModel, Uri>(this, "OpenUri");
+            MessagingCenter.Subscribe<MatnaPageViewModel, Uri>(this, "OpenUri", (sender, uri) =>
+            {
+                Device.OpenUri(uri);
+            });
+
+            MessagingCenter.Unsubscribe<MatnaPageViewModel, List<double>>(this, "MoveToLocation");
+            MessagingCenter.Subscribe<MatnaPageViewModel, List<double>>(this, "MoveToLocation", (sender, locRad) =>
+            {
+                double EPSILON = 0.0001;
+                if (Math.Abs(locRad[0]) < EPSILON && Math.Abs(locRad[1]) < EPSILON)
+                    return;
+
+                map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(locRad[0], locRad[1]), Distance.FromMeters(locRad[2])));
+            });
+
+            MessagingCenter.Unsubscribe<MatnaPageViewModel>(this, "ShowActIndicator");
+            MessagingCenter.Subscribe<MatnaPageViewModel>(this, "ShowActIndicator", (sender) =>
+            {
+                actIndicator.IsVisible = true;
+            });
+
+            MessagingCenter.Unsubscribe<MatnaPageViewModel>(this, "HideActIndicator");
+            MessagingCenter.Subscribe<MatnaPageViewModel>(this, "HideActIndicator", (sender) =>
+            {
+                actIndicator.IsVisible = false;
+            });
+
+            MessagingCenter.Unsubscribe<MatnaPageViewModel>(this, "CheckMapVisible");
+            MessagingCenter.Subscribe<MatnaPageViewModel>(this, "CheckMapVisible", (sender) =>
+            {
+                if (map.VisibleRegion == null)
+                    DisplayAlert(AppResources.Matna, AppResources.MoveMapPlease, AppResources.OK);
+                else if (PropertiesDictionary.Radius > 50000)
+                    DisplayAlert(AppResources.Matna, AppResources.MaxRadReached, AppResources.OK);
+            });
+
+            MessagingCenter.Unsubscribe<MatnaPageViewModel>(this, "ShowFilter");
+            MessagingCenter.Subscribe<MatnaPageViewModel>(this, "ShowFilter", async (sender) =>
+            {
+                if (Navigation.ModalStack.Count == 0)
+                {
+                    var page = new FilterPage();
+                    await Navigation.PushModalAsync(page);
+                }
+            });
+
+            MessagingCenter.Unsubscribe<MatnaPageViewModel>(this, "ShowList");
+            MessagingCenter.Subscribe<MatnaPageViewModel>(this, "ShowList", async (sender) =>
+            {
+                if (Navigation.ModalStack.Count == 0)
+                {
+                    actIndicatorList.IsVisible = true;
+                    listFAIcon.Text = Helpers.Controls.Icon.Search;
+                    var page = new ListPage(((MatnaPageViewModel)BindingContext).PlacesToShow);
+                    await Navigation.PushModalAsync(page);
+                    actIndicatorList.IsVisible = false;
+                    listFAIcon.Text = Helpers.Controls.Icon.AngleDoubleUp;
+                }
+            });
+
+            MessagingCenter.Unsubscribe<MatnaPageViewModel>(this, "ShowSearch");
+            MessagingCenter.Subscribe<MatnaPageViewModel>(this, "ShowSearch", async (sender) =>
+            {
+                if (Navigation.ModalStack.Count == 0)
+                {
+                    var page = new SearchPage();
+                    await Navigation.PushModalAsync(page);
+                }
+            });
+
+            MessagingCenter.Unsubscribe<MatnaPageViewModel, List<GooglePlaceNearbyItem>>(this, "DrawPins");
+            MessagingCenter.Subscribe<MatnaPageViewModel, List<GooglePlaceNearbyItem>>(this, "DrawPins", (sender, items) =>
+            {
+                DrawFromItems(items);
+            });
+
+            MessagingCenter.Unsubscribe<Restful>(this, "NetworkUnavailable");
+            MessagingCenter.Subscribe<Restful>(this, "NetworkUnavailable", (sender) =>
+            {
+                DisplayAlert(AppResources.Matna, AppResources.NetworkUnavailable, AppResources.OK);
+            });
+            #endregion Codes for MessageCenter
 
             #region Initial Camera Settings
             if (AppResources.Locale == "ko")
                 map.InitialCameraUpdate = CameraUpdateFactory.NewPositionZoom(new Position(37.532600, 127.024612), 10.0);   // Seoul
+
+            if (Application.Current.Properties.ContainsKey("Latitude") && Application.Current.Properties.ContainsKey("Longitude") && Application.Current.Properties.ContainsKey("Zoom"))
+            {
+                double? lat = Application.Current.Properties["Latitude"] as double?;
+                double? lon = Application.Current.Properties["Longitude"] as double?;
+                double? zoom = Application.Current.Properties["Zoom"] as double?;
+                if (lat == null) lat = 37.532600;
+                if (lon == null) lon = 127.024612;
+                if (zoom == null) zoom = 10.0;
+
+                map.InitialCameraUpdate = CameraUpdateFactory.NewPositionZoom(new Position((double)lat, (double)lon), (double)zoom);
+            }
+            map.MyLocationEnabled = true;
+            map.UiSettings.MyLocationButtonEnabled = true;
+            #endregion Initial Camera Settings
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+
+            MessagingCenter.Unsubscribe<MatnaPageViewModel, string>(this, "DisplayAlert");
+            MessagingCenter.Unsubscribe<MatnaPageViewModel, Uri>(this, "OpenUri");
+            MessagingCenter.Unsubscribe<MatnaPageViewModel, List<double>>(this, "MoveToLocation");
+            MessagingCenter.Unsubscribe<MatnaPageViewModel>(this, "ShowActIndicator");
+            MessagingCenter.Unsubscribe<MatnaPageViewModel>(this, "HideActIndicator");
+            MessagingCenter.Unsubscribe<MatnaPageViewModel>(this, "CheckMapVisible");
+            MessagingCenter.Unsubscribe<MatnaPageViewModel>(this, "ShowFilter");
+            MessagingCenter.Unsubscribe<MatnaPageViewModel>(this, "ShowList");
+            MessagingCenter.Unsubscribe<MatnaPageViewModel>(this, "ShowSearch");
+            MessagingCenter.Unsubscribe<MatnaPageViewModel, List<GooglePlaceNearbyItem>>(this, "DrawPins");
+            MessagingCenter.Unsubscribe<Restful>(this, "NetworkUnavailable");
+        }
+
+        public MatnaPage()
+        {
+            InitializeComponent();
+
+            map.CameraChanged += CameraChanged;
 
             map.PinClicked += (object sender, PinClickedEventArgs e) =>
             {
@@ -38,98 +168,6 @@ namespace Matna
                     }
                 }
             };
-
-            if (Application.Current.Properties.ContainsKey("Latitude") && Application.Current.Properties.ContainsKey("Longitude") && Application.Current.Properties.ContainsKey("Zoom"))
-            {
-                double? lat = Application.Current.Properties["Latitude"] as double?;
-                double? lon = Application.Current.Properties["Longitude"] as double?;
-                double? zoom = Application.Current.Properties["Zoom"] as double?;
-                if (lat == null) lat = 37.532600;
-                if (lon == null) lon = 127.024612;
-                if (zoom == null) zoom = 10.0;
-
-                map.InitialCameraUpdate = CameraUpdateFactory.NewPositionZoom(new Position((double)lat, (double)lon), (double)zoom);
-            }
-            map.CameraChanged += CameraChanged;
-            #endregion Initial Camera Settings
-
-            #region Codes for MessageCenter 
-            MessagingCenter.Subscribe<MatnaPageViewModel, string>(this, "DisplayAlert", (sender, str) =>
-            {
-                DisplayAlert(AppResources.Matna, str, AppResources.OK);
-            });
-
-            MessagingCenter.Subscribe<MatnaPageViewModel, Uri>(this, "OpenUri", (sender, uri) =>
-            {
-                Device.OpenUri(uri);
-            });
-
-            MessagingCenter.Subscribe<MatnaPageViewModel, List<double>>(this, "MoveToLocation", (sender, loc) =>
-            {
-                double EPSILON = 0.0001;
-                if (Math.Abs(loc[0]) < EPSILON && Math.Abs(loc[1]) < EPSILON)
-                    return;
-                
-                map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(loc[0], loc[1]), Distance.FromMeters(100)));
-            });
-
-            MessagingCenter.Subscribe<MatnaPageViewModel>(this, "ShowActIndicator", (sender) =>
-            {
-                actIndicator.IsVisible = true;
-            });
-
-            MessagingCenter.Subscribe<MatnaPageViewModel>(this, "HideActIndicator", (sender) =>
-            {
-                actIndicator.IsVisible = false;
-            });
-
-            MessagingCenter.Subscribe<MatnaPageViewModel>(this, "CheckMapVisible", (sender) =>
-            {
-                if (map.VisibleRegion == null)
-                    DisplayAlert(AppResources.Matna, AppResources.MoveMapPlease, AppResources.OK);
-                else if (PropertiesDictionary.Radius > 50000)
-                    DisplayAlert(AppResources.Matna, AppResources.MaxRadReached, AppResources.OK);
-            }); 
-
-            MessagingCenter.Subscribe<MatnaPageViewModel>(this, "ShowFilter", async (sender) =>
-            {
-                if (Navigation.ModalStack.Count == 0)
-                {
-                    var page = new FilterPage();
-                    await Navigation.PushModalAsync(page);
-                }
-            });
-
-            MessagingCenter.Subscribe<MatnaPageViewModel>(this, "ShowList", async (sender) =>
-            {
-                if (Navigation.ModalStack.Count == 0)
-                {
-                    actIndicatorList.IsVisible = true;
-                    var page = new ListPage(((MatnaPageViewModel)BindingContext).PlacesToShow);
-                    await Navigation.PushModalAsync(page);
-                    actIndicatorList.IsVisible = false;
-                }
-            });
-
-            MessagingCenter.Subscribe<MatnaPageViewModel>(this, "ShowSearch", async (sender) =>
-            {
-                if (Navigation.ModalStack.Count == 0)
-                {
-                    var page = new SearchPage();
-                    await Navigation.PushModalAsync(page);
-                }
-            });
-
-            MessagingCenter.Subscribe<MatnaPageViewModel, List<GooglePlaceNearbyItem>>(this, "DrawPins", (sender, items) =>
-            {
-                DrawFromItems(items);
-            });
-
-            MessagingCenter.Subscribe<Restful>(this, "NetworkUnavailable", (sender) =>
-            {
-                DisplayAlert(AppResources.Matna, AppResources.NetworkUnavailable, AppResources.OK);
-            });
-            #endregion Codes for MessageCenter
         }
 
         private void DrawFromItems(List<GooglePlaceNearbyItem> items)

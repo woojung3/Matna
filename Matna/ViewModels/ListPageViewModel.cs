@@ -12,10 +12,10 @@ using Xamarin.Forms;
 
 namespace Matna.ViewModels
 {
-    public class ListPageViewModel : BaseViewModel
+    public class ListPageViewModel : BaseViewModel, IDisposable
     {
-        List<GooglePlaceNearbyItem> placesToShow = new List<GooglePlaceNearbyItem>();
-        public List<GooglePlaceNearbyItem> PlacesToShow
+        ObservableCollection<GooglePlaceNearbyItem> placesToShow = new ObservableCollection<GooglePlaceNearbyItem>();
+        public ObservableCollection<GooglePlaceNearbyItem> PlacesToShow
         {
             get
             {
@@ -36,17 +36,17 @@ namespace Matna.ViewModels
             });
 
             OnRouteClicked = new Command((arg) => {
-                var item = placesToShow.Find(x => x.PlaceId == arg.ToString());
+                var item = placesToShow.ToList().Find(x => x.PlaceId == arg.ToString());
                 Uri uri = new Uri($"https://www.google.com/maps/dir/?api=1&destination={item.Name}&destination_place_id={item.PlaceId}&travelmode=transit");
                 MessagingCenter.Send(this, "OpenUri", uri);
             });
             OnDetailClicked = new Command((arg) => {
-                var item = placesToShow.Find(x => x.PlaceId == arg.ToString());
+                var item = placesToShow.ToList().Find(x => x.PlaceId == arg.ToString());
                 Uri uri = new Uri($"https://www.google.com/maps/search/?api=1&query={item.Lat},{item.Lon}&query_place_id={item.PlaceId}");
                 MessagingCenter.Send(this, "OpenUri", uri);
             });
             OnShareClicked = new Command((arg) => {
-                var item = placesToShow.Find(x => x.PlaceId == arg.ToString());
+                var item = placesToShow.ToList().Find(x => x.PlaceId == arg.ToString());
                 CrossShare.Current.Share(
                     new ShareMessage
                     {
@@ -61,17 +61,45 @@ namespace Matna.ViewModels
                     }
                 );
             });
+
+            bool isSaveRemoveGoingOn = false;
             OnSaveClicked = new Command(async (arg) => {
-                var item = placesToShow.Find(x => x.PlaceId == arg.ToString());
+                if (isSaveRemoveGoingOn)
+                    return;
+
+                isSaveRemoveGoingOn = true;
+
+                var item = placesToShow.ToList().FirstOrDefault(x => x.PlaceId == arg.ToString());
+
+                if (item == null)
+                    return;
+                
+                var idx = placesToShow.IndexOf(item);
                 item.IsSaved = true;
-                MessagingCenter.Send(this, "DisplayAlert", AppResources.Saved);
+                if (idx != -1)
+                    placesToShow[idx] = item;
+
                 await App.MyPlacesDatabase.SaveItemAsync(item);
+                isSaveRemoveGoingOn = false;
             });
             OnRemoveClicked = new Command(async (arg) => {
-                var item = placesToShow.Find(x => x.PlaceId == arg.ToString());
+                if (isSaveRemoveGoingOn)
+                    return;
+
+                isSaveRemoveGoingOn = true;
+
+                var item = placesToShow.ToList().FirstOrDefault(x => x.PlaceId == arg.ToString());
+
+                if (item == null)
+                    return;
+                
+                var idx = placesToShow.IndexOf(item);
                 item.IsSaved = false;
-                MessagingCenter.Send(this, "DisplayAlert", AppResources.Removed);
+                if (idx != -1)
+                    placesToShow[idx] = item;
+
                 await App.MyPlacesDatabase.DeleteItemAsync(item);
+                isSaveRemoveGoingOn = false;
             });
         }
 
@@ -82,5 +110,7 @@ namespace Matna.ViewModels
         public ICommand OnShareClicked { get; }
         public ICommand OnSaveClicked { get; }
         public ICommand OnRemoveClicked { get; }
+
+        public void Dispose() {}
     }
 }

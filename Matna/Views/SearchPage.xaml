@@ -16,6 +16,8 @@
     <Grid x:Name="mainGrid" Padding="0" RowSpacing="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="36" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         
@@ -55,10 +57,17 @@
                     </Label>
                 </StackLayout>
             </Grid>
-
         </StackLayout>
         
-        <ListView Grid.Row="1" ItemsSource="{Binding Predictions}" BackgroundColor="#DCDCDC" ItemSelected="ItemSelected">
+        <StackLayout Grid.Row="1" Style="{StaticResource PrimaryHCStack}" Padding="5" HorizontalOptions="CenterAndExpand">
+            <ctr:FontAwesomeIcon Style="{StaticResource PopupHolderFAIcon}" Text="{x:Static ctr:Icon.MapO}"/>
+            <Label Style="{StaticResource PopupHolderText}" Text="{local:Translate SearchRadiusExplanation}"/>
+        </StackLayout>
+        <StackLayout Grid.Row="2" Style="{StaticResource PrimaryHCStack}" Padding="5" HorizontalOptions="CenterAndExpand">
+            <Label Style="{StaticResource PopupHolderText}" Text="{local:Translate SearchRadiusAdjust}"/>
+        </StackLayout>
+        
+        <ListView Grid.Row="3" ItemsSource="{Binding Predictions}" BackgroundColor="#DCDCDC" ItemSelected="ItemSelected">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <TextCell Text="{Binding FormattedText}" />

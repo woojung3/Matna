@@ -11,12 +11,25 @@ namespace Matna.Views
         public FilterPage()
         {
             InitializeComponent();
+        }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            MessagingCenter.Unsubscribe<FilterPageViewModel>(this, "HideFilter");
             MessagingCenter.Subscribe<FilterPageViewModel>(this, "HideFilter", (sender) =>
             {
                 if (Navigation.ModalStack.Count == 1)
                     Navigation.PopModalAsync();
             });
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+
+            MessagingCenter.Unsubscribe<FilterPageViewModel>(this, "HideFilter");
         }
     }
 }

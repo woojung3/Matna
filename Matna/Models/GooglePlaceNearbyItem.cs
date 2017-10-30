@@ -44,6 +44,9 @@ namespace Matna.Models
             }
         }
 
+        [Ignore, JsonProperty("types")]
+        public List<string> Types { get; set; }
+
         [Ignore, JsonProperty("geometry")]
         public Geometry Geometry { get; set; }
 

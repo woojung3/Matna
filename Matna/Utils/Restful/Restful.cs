@@ -102,7 +102,7 @@ namespace Matna.Utils.Restful
         {
             public static string MainAddr = "https://maps.googleapis.com/maps/api/";
             public static string GoogleMapsPlaceNearbySearch = MainAddr + "place/nearbysearch/json?location={0},{1}&radius={2}&type={3}&keyword={4}&key=" + Keys.GooglePlacesApiKey;
-            public static string GoogleMapsPlaceAutocomplete = MainAddr + "place/autocomplete/json?input={0}&types=establishment&key=" + Keys.GooglePlacesApiKey;
+            public static string GoogleMapsPlaceAutocomplete = MainAddr + "place/autocomplete/json?input={0}&key=" + Keys.GooglePlacesApiKey;
             public static string GoogleMapsPlaceDetails = MainAddr + "place/details/json?placeid={0}&key=" + Keys.GooglePlacesApiKey;
         }
 

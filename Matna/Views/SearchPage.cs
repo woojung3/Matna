@@ -25,12 +25,6 @@ namespace Matna.Views
         public SearchPage()
         {
             InitializeComponent();
-
-            MessagingCenter.Subscribe<SearchPageViewModel>(this, "HideSearch", (sender) =>
-            {
-                if (Navigation.ModalStack.Count == 1)
-                    Navigation.PopModalAsync();
-            });
         }
 
         protected override void OnAppearing()
@@ -38,6 +32,20 @@ namespace Matna.Views
             base.OnAppearing();
 
             editor.Focus();
+
+            MessagingCenter.Unsubscribe<SearchPageViewModel>(this, "HideSearch");
+            MessagingCenter.Subscribe<SearchPageViewModel>(this, "HideSearch", (sender) =>
+            {
+                if (Navigation.ModalStack.Count == 1)
+                    Navigation.PopModalAsync();
+            });
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+
+            MessagingCenter.Unsubscribe<SearchPageViewModel>(this, "HideSearch");
         }
     }
 }

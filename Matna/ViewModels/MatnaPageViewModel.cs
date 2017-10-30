@@ -51,7 +51,7 @@ namespace Matna.ViewModels
             set
             {
                 selectedItem = value;
-                MessagingCenter.Send(this, "MoveToLocation", new List<double>() { selectedItem.Lat, selectedItem.Lon });
+                MessagingCenter.Send(this, "MoveToLocation", new List<double>() { selectedItem.Lat, selectedItem.Lon, 100 });
                 OnPropertyChanged();
                 OnPropertyChanged("IsSelectedItemExists");
             }
@@ -197,41 +197,65 @@ namespace Matna.ViewModels
             });
 
             // Initialize Data
+            MessagingCenter.Unsubscribe<MatnaPage>(this, "CameraChanged");
             MessagingCenter.Subscribe<MatnaPage>(this, "CameraChanged", (sender) =>
             {
                 // Currently does nothing.                
                 // Do not call Places API every time. Cost is way too high.
             });
 
+            MessagingCenter.Unsubscribe<MatnaPage, GooglePlaceNearbyItem>(this, "PinSelected");
             MessagingCenter.Subscribe<MatnaPage, GooglePlaceNearbyItem>(this, "PinSelected", (sender, item) =>
             {
                 SelectedItem = item;
             });
 
+            MessagingCenter.Unsubscribe<SearchPage, string>(this, "OnPredictionSelected");
             MessagingCenter.Subscribe<SearchPage, string>(this, "OnPredictionSelected", async (sender, str) =>
             {
+                // 1. Find item detail
                 GooglePlaceNearbyItem item = await Restful.Inst.GoogleMapsPlaceNameFromDetails(str);
-                PlacesToShow = new List<GooglePlaceNearbyItem>(){ item };
-                SelectedItem = item;
+
+                // 2. LoadPlaces with defined Radius
+                LoadPlaces(item.Lat, item.Lon, 1000, item);    // TODO 1000 to some user-definable value
+
+                // 3. If item type is restaurant, add it to PlacesToShow; else ignore
+                if (item.Types.Contains("restaurant"))
+                    SelectedItem = item;
+                else
+                    MessagingCenter.Send(this, "MoveToLocation", new List<double>() { item.Lat, item.Lon, 1000 });
             });
         }
 
-        private async void LoadPlaces()
+        private async void LoadPlaces(double? Lat = null, double? Lon = null, double? Rad = null, GooglePlaceNearbyItem append = null)
         {
+            if (Lat == null)
+                Lat = PropertiesDictionary.Latitude;
+            if (Lon == null)
+                Lon = PropertiesDictionary.Longitude;
+            if (Rad == null)
+                Rad = PropertiesDictionary.Radius;
+            
             MessagingCenter.Send(this, "ShowActIndicator");
             MessagingCenter.Send(this, "CheckMapVisible");
             List<string> types = new List<string>(){
                 "restaurant"
             };
             List<GooglePlaceNearbyItem> rtn = await Restful.Inst.GoogleMapsPlaceNearbySearch(
-                PropertiesDictionary.Latitude, 
-                PropertiesDictionary.Longitude, 
-                PropertiesDictionary.Radius, 
+                (double)Lat, 
+                (double)Lon, 
+                (double)Rad, 
                 types, 
                 new List<string>(){  }
             );
 
-            PlacesToShow = rtn;
+            if (append == null || !append.Types.Contains("restaurant"))
+                PlacesToShow = rtn;
+            else
+            {
+                rtn.Add(append);
+                PlacesToShow = rtn;
+            }
             MessagingCenter.Send(this, "HideActIndicator");
         }
 

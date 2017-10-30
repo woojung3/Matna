@@ -78,5 +78,11 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This app needs access location.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>This app needs access always to location.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>This app needs access location when open and in the background.</string>
 </dict>
 </plist>

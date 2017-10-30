@@ -110,7 +110,7 @@
 
             <maps:Map x:Name="map" Padding="0" Grid.Row="0" Grid.RowSpan="2" AutomationId="map" WidthRequest="200" HeightRequest="200" />
             
-            <ctr:RoundedBox x:Name="mapSearchBox" AutomationId="mapSearchBox" Style="{StaticResource PopupRoundedBox}" IsVisible="{Binding IsShowLoadPlacesFromMap}" Grid.Row="0" Margin="50, 0, 50, 0">
+            <ctr:RoundedBox x:Name="mapSearchBox" AutomationId="mapSearchBox" Style="{StaticResource PopupRoundedBox}" IsVisible="{Binding IsShowLoadPlacesFromMap}" Grid.Row="0" Margin="70, 0, 70, 0">
                 <ctr:RoundedBox.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding OnLoadPlacesFromMapClicked}" NumberOfTapsRequired="1" />
                 </ctr:RoundedBox.GestureRecognizers>
@@ -143,7 +143,7 @@
                     <StackLayout.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding OnListClicked}" NumberOfTapsRequired="1" />
                     </StackLayout.GestureRecognizers>
-                    <ctr:FontAwesomeIcon Style="{StaticResource PrimaryFAIcon}" Text="{x:Static ctr:Icon.AngleDoubleUp}">
+                    <ctr:FontAwesomeIcon x:Name="listFAIcon" Style="{StaticResource PrimaryFAIcon}" Text="{x:Static ctr:Icon.AngleDoubleUp}" WidthRequest="20">
                         <ctr:FontAwesomeIcon.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding OnListClicked}" NumberOfTapsRequired="1" />
                         </ctr:FontAwesomeIcon.GestureRecognizers>

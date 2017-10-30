@@ -43,6 +43,7 @@ namespace Matna.ViewModels
         
         public SearchPageViewModel()
         {
+            MessagingCenter.Unsubscribe<SearchPage>(this, "OnSearchClicked");
             MessagingCenter.Subscribe<SearchPage>(this, "OnSearchClicked", async (sender) =>
             {
                 Predictions = await Restful.Inst.GoogleMapsPlaceAutocomplete(SearchText);

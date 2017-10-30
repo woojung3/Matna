@@ -46,6 +46,9 @@
     <data name="NoName" xml:space="preserve">
         <value>Name Not Found</value>
     </data>
+    <data name="Loading" xml:space="preserve">
+        <value>Loading</value>
+    </data>
     <data name="NetworkUnavailable" xml:space="preserve">
         <value>Please check your network connectivity</value>
     </data>
@@ -84,5 +87,11 @@
     </data>
     <data name="ComingSoon" xml:space="preserve">
         <value>Coming soon (Probably next version!)</value>
+    </data>
+    <data name="SearchRadiusExplanation" xml:space="preserve">
+        <value>Search restaurant near 1 Kilometer from your input</value>
+    </data>
+    <data name="SearchRadiusAdjust" xml:space="preserve">
+        <value>You can modify range to your preference in later update</value>
     </data>
 </root>

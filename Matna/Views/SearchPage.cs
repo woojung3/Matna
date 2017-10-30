@@ -32,5 +32,12 @@ namespace Matna.Views
                     Navigation.PopModalAsync();
             });
         }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            editor.Focus();
+        }
     }
 }

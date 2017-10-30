@@ -45,7 +45,7 @@
                         <TapGestureRecognizer Command="{Binding OnSearchClicked}" NumberOfTapsRequired="1" />
                     </ctr:RoundedBox.GestureRecognizers>
                 </ctr:RoundedBox>
-                <Editor Grid.Column="1" Text="{Binding SearchText}" TextChanged="TextChanged" />
+                <Editor x:Name="editor" Grid.Column="1" Text="{Binding SearchText}" TextChanged="TextChanged" FontSize="12" />
 
                 <StackLayout Style="{StaticResource PrimaryHRStack}" Grid.Column="2" Padding="5">
                     <Label Style="{StaticResource PrimaryText}" Text="{local:Translate Cancel}">

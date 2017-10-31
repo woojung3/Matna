@@ -31,6 +31,7 @@ namespace Matna.Helpers.Controls
 
         public virtual void OnLoaded()
         {
+            MessagingCenter.Send(this, "ShowAd", true);
             Loaded?.Invoke(this, EventArgs.Empty);
         }
 
@@ -46,6 +47,7 @@ namespace Matna.Helpers.Controls
 
         public void OnError(int errorCode, string errorMessage)
         {
+            MessagingCenter.Send(this, "ShowAd", false);
             Error?.Invoke(this, new ErrorEventArgs(errorCode, errorMessage));
         }
 

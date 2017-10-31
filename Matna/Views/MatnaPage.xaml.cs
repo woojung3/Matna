@@ -147,6 +147,20 @@ namespace Matna
             MessagingCenter.Unsubscribe<Restful>(this, "NetworkUnavailable");
         }
 
+        private bool canClose = true;
+        protected override bool OnBackButtonPressed()
+        {
+            if (canClose)
+                ShowExitDialog();
+            return canClose;
+        }
+        private async void ShowExitDialog()
+        {
+            var answer = await DisplayAlert(AppResources.Matna, AppResources.ReallyQuit, AppResources.OK, AppResources.Cancel);
+            if (answer)
+                canClose = false;
+        }
+
         public MatnaPage()
         {
             InitializeComponent();

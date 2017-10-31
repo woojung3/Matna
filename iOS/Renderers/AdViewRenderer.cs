@@ -22,9 +22,7 @@ namespace Matna.iOS.Renderers
             if (e.OldElement != null || Element == null)
                 return;
 
-
-
-            AdSettings.AddTestDevice(AdSettings.TestDeviceHash);
+            AdSettings.ClearTestDevices();
 
             SetNativeControl();
         }

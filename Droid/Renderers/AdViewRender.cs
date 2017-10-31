@@ -17,6 +17,8 @@ namespace Matna.Droid.Renderers
             if (e.OldElement != null || Element == null)
                 return;
 
+            AdSettings.ClearTestDevices();
+
             SetNativeControl();
         }
 

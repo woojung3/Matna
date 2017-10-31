@@ -94,4 +94,7 @@
     <data name="SearchRadiusAdjust" xml:space="preserve">
         <value>범위 조절 기능은 필터 기능과 함께 곧 업데이트될 예정입니다</value>
     </data>
+    <data name="ReallyQuit" xml:space="preserve">
+        <value>종료합니까? 백 버튼을 한번 더 눌러 주세요</value>
+    </data>
 </root>

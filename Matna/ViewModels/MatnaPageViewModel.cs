@@ -10,6 +10,7 @@ using Matna.Resources.Localize;
 using Matna.Views;
 using Plugin.Share;
 using Plugin.Share.Abstractions;
+using Matna.Helpers.Controls;
 
 namespace Matna.ViewModels
 {
@@ -97,10 +98,8 @@ namespace Matna.ViewModels
         {
             get
             {
-                if (isShowSaved)
+                if (!PlacesToShow.Any())
                     return false;
-                else if (PlacesToShow.Any())
-                    return true;
                 
                 return isShowAd;
             }
@@ -202,6 +201,13 @@ namespace Matna.ViewModels
             {
                 // Currently does nothing.                
                 // Do not call Places API every time. Cost is way too high.
+            });
+
+            MessagingCenter.Unsubscribe<AdViewControl, bool>(this, "ShowAd");
+            MessagingCenter.Subscribe<AdViewControl, bool>(this, "ShowAd", (sender, b) =>
+            {
+                if (!IsShowAd)
+                    IsShowAd = b;
             });
 
             MessagingCenter.Unsubscribe<MatnaPage, GooglePlaceNearbyItem>(this, "PinSelected");

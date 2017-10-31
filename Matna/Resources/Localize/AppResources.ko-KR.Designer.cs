@@ -208,5 +208,11 @@ namespace Matna.Resources.Localize {
                 return ResourceManager.GetString("SearchRadiusAdjust", resourceCulture);
             }
         }
+        
+        public static string ReallyQuit {
+            get {
+                return ResourceManager.GetString("ReallyQuit", resourceCulture);
+            }
+        }
     }
 }

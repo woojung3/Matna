@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Matna.Helpers.Controls;
 using Matna.Models;
 using Matna.Resources.Localize;
 using Plugin.Share;
@@ -12,7 +13,7 @@ using Xamarin.Forms;
 
 namespace Matna.ViewModels
 {
-    public class ListPageViewModel : BaseViewModel, IDisposable
+    public class ListPageViewModel : BaseViewModel
     {
         ObservableCollection<GooglePlaceNearbyItem> placesToShow = new ObservableCollection<GooglePlaceNearbyItem>();
         public ObservableCollection<GooglePlaceNearbyItem> PlacesToShow
@@ -28,8 +29,33 @@ namespace Matna.ViewModels
             }
         }
 
+        bool isShowAd = false;
+        public bool IsShowAd
+        {
+            get
+            {
+                if (!PlacesToShow.Any())
+                    return false;
+
+                return isShowAd;
+            }
+            set
+            {
+                isShowAd = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ListPageViewModel()
         {
+
+            MessagingCenter.Unsubscribe<AdViewControl, bool>(this, "ShowAd");
+            MessagingCenter.Subscribe<AdViewControl, bool>(this, "ShowAd", (sender, b) =>
+            {
+                if (!IsShowAd)
+                    IsShowAd = b;
+            });
+
             // Properties (Commands) initilization
             OnListClicked = new Command(() => {
                 MessagingCenter.Send(this, "HideList");
@@ -110,7 +136,5 @@ namespace Matna.ViewModels
         public ICommand OnShareClicked { get; }
         public ICommand OnSaveClicked { get; }
         public ICommand OnRemoveClicked { get; }
-
-        public void Dispose() {}
     }
 }

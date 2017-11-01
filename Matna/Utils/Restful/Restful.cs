@@ -122,7 +122,6 @@ namespace Matna.Utils.Restful
                 // Using Default MaxResponseContentBuffer - 2 gigabytes
                 //MaxResponseContentBufferSize = 25600,     // Too small
             };
-            client.DefaultRequestHeaders.Add("Referer", "https://arrangy.com/");
             client.DefaultRequestHeaders.Add("Accept-Language", System.Globalization.CultureInfo.CurrentCulture.ToString());
 
             switch (Device.RuntimePlatform)

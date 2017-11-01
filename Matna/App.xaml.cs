@@ -1,5 +1,6 @@
 ﻿using Matna.Data;
 using Matna.Helpers.File;
+using Matna.Helpers.GooglePlacesApi;
 using Xamarin.Forms;
 
 namespace Matna
@@ -47,6 +48,7 @@ namespace Matna
         protected override void OnSleep()
         {
             // Handle when your app sleeps
+            GooglePlacesApi.Instance.DisconnectAndRelease();
         }
 
         protected override void OnResume()

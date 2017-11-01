@@ -12,6 +12,7 @@ using System.Diagnostics;
 using Matna.Helpers;
 using Matna.Models;
 using Plugin.Connectivity;
+using Matna.Helpers.GooglePlacesApi;
 
 namespace Matna.Utils.Restful
 {
@@ -34,21 +35,51 @@ namespace Matna.Utils.Restful
             return new List<GooglePlaceNearbyItem>();
         }
 
-        // TODO location autocomplete search - option
         public async Task<List<GoogleAutocompletePrediction>> GoogleMapsPlaceAutocomplete(string input)
         {
-            string urlBase = string.Format(Constants.GoogleMapsPlaceAutocomplete, input);
-            var uri = new Uri(urlBase);
-            var rtn = await GetAsyncWrapper<GoogleMapsPlaceAutocomplete>(uri);
-
-            if (rtn == null || rtn.Status == null)
-                return new List<GoogleAutocompletePrediction>();
-            if (rtn.Status.Equals("OK", StringComparison.CurrentCultureIgnoreCase))
+            if (Device.RuntimePlatform == Device.Android)
             {
-                if (rtn.Predictions.Any())
-                    return rtn.Predictions;
+                var rtn = await GooglePlacesApi.Instance.GetPredictions(input, null);
+                var lists = new List<GoogleAutocompletePrediction>();
+                try
+                {
+                    foreach (var i in rtn)
+                    {
+                        lists.Add(new GoogleAutocompletePrediction()
+                        {
+                            PlaceId = i.PlaceId,
+                            StructuredFormatting = new StructuredFormatting()
+                            {
+                                MainText = i.Description,
+                                SecondaryText = i.Subtitle
+                            }
+                        });
+                    }
+                    return lists;
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Matna>> Autocompletion Error");
+                    System.Diagnostics.Debug.WriteLine(ex);
+
+                    return new List<GoogleAutocompletePrediction>();
+                }
             }
-            return new List<GoogleAutocompletePrediction>();
+            else
+            {
+                string urlBase = string.Format(Constants.GoogleMapsPlaceAutocomplete, input);
+                var uri = new Uri(urlBase);
+                var rtn = await GetAsyncWrapper<GoogleMapsPlaceAutocomplete>(uri);
+
+                if (rtn == null || rtn.Status == null)
+                    return new List<GoogleAutocompletePrediction>();
+                if (rtn.Status.Equals("OK", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    if (rtn.Predictions.Any())
+                        return rtn.Predictions;
+                }
+                return new List<GoogleAutocompletePrediction>();
+            }
         }
 
         static GooglePlaceNearbyItem NoneItem = new GooglePlaceNearbyItem()
@@ -58,19 +89,49 @@ namespace Matna.Utils.Restful
         };
         public async Task<GooglePlaceNearbyItem> GoogleMapsPlaceNameFromDetails(string placeId)
         {
-            string urlBase = string.Format(Constants.GoogleMapsPlaceDetails, placeId, Keys.GooglePlacesApiKey);
-            var uri = new Uri(urlBase);
-            var rtn = await GetAsyncWrapper<GooglePlaceDetails>(uri);
+            // HACK Uncomment these when Google Places Web API call reaches its max
+            //if (Device.RuntimePlatform == Device.Android)
+            //{
+            //    try
+            //    {
+            //        var rtn = await GooglePlacesApi.Instance.GetDetails(placeId);
+            //        var item = new GooglePlaceNearbyItem()
+            //        {
+            //            PlaceId = rtn.PlaceId,
+            //            Types = rtn.Types,
+            //            Lat = rtn.Coordinate.Latitude,
+            //            Lon = rtn.Coordinate.Longitude,
+            //            Vicinity = rtn.FormattedAddress,
+            //            Name = rtn.Name,
+            //            Rating = rtn.Rating,
+            //        };
 
-            if (rtn == null || rtn.Status == null || rtn.Result == null)
+            //        return item;
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        System.Diagnostics.Debug.WriteLine("Matna>> Autocompletion Error");
+            //        System.Diagnostics.Debug.WriteLine(ex);
+
+            //        return NoneItem;
+            //    }
+            //}
+            //else 
             {
+                string urlBase = string.Format(Constants.GoogleMapsPlaceDetails, placeId, Keys.GooglePlacesApiKey);
+                var uri = new Uri(urlBase);
+                var rtn = await GetAsyncWrapper<GooglePlaceDetails>(uri);
+
+                if (rtn == null || rtn.Status == null || rtn.Result == null)
+                {
+                    return NoneItem;
+                }
+                if (rtn.Status.Equals("OK", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    return rtn.Result;
+                }
                 return NoneItem;
             }
-            if (rtn.Status.Equals("OK", StringComparison.CurrentCultureIgnoreCase))
-            {
-                return rtn.Result;
-            }
-            return NoneItem;
         }
         #endregion Google API
 

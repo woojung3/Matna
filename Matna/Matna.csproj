@@ -96,6 +96,12 @@
     <Compile Include="Resources\Localize\AppResources.ko-KR.Designer.cs">
       <DependentUpon>AppResources.ko-KR.resx</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\GooglePlacesApi\GooglePlacesApi.cs" />
+    <Compile Include="Helpers\GooglePlacesApi\IGooglePlacesApi.cs" />
+    <Compile Include="Helpers\GooglePlacesApi\IPlaceResult.cs" />
+    <Compile Include="Helpers\GooglePlacesApi\NativeAndroidPlaceResult.cs" />
+    <Compile Include="Helpers\GooglePlacesApi\NativeiOSPlaceResult.cs" />
+    <Compile Include="Helpers\GooglePlacesApi\PlaceDetails.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">
@@ -169,6 +175,7 @@
     <Folder Include="Helpers\Controls\" />
     <Folder Include="Helpers\File\" />
     <Folder Include="Data\" />
+    <Folder Include="Helpers\GooglePlacesApi\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.4.0.18342\build\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.4.0.18342\build\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.targets')" />

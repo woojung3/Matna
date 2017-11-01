@@ -66,7 +66,7 @@
     <DefineConstants>DEBUG;ENABLE_TEST_CLOUD;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodesignKey>iPhone Distribution: Jinwoo Lee (TBNML9H39F)</CodesignKey>
+    <CodesignKey>iPhone Developer: doaoahghgo@naver.com (5PGZ658HV3)</CodesignKey>
     <DeviceSpecificBuild>true</DeviceSpecificBuild>
     <MtouchDebug>true</MtouchDebug>
     <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
@@ -79,7 +79,7 @@
     <MtouchHttpClientHandler>HttpClientHandler</MtouchHttpClientHandler>
     <PlatformTarget>x86</PlatformTarget>
 <MtouchI18n>cjk</MtouchI18n>
-<CodesignProvision>Matna Distribution</CodesignProvision>
+<CodesignProvision>iOS Team Provisioning Profile: com.baegopa.Matna</CodesignProvision>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -187,6 +187,7 @@
   <ItemGroup>
     <Folder Include="Resources\" />
     <Folder Include="Renderers\" />
+    <Folder Include="DependencyServices\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -199,11 +200,12 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="Localize.cs" />
     <Compile Include="Renderers\AdViewRenderer.cs" />
     <Compile Include="Renderers\RoundedBoxRenderer.cs" />
-    <Compile Include="FileHelper.cs" />
     <Compile Include="Renderers\HScrollViewRenderer.cs" />
+    <Compile Include="DependencyServices\FileHelper.cs" />
+    <Compile Include="DependencyServices\GooglePlacesApi.cs" />
+    <Compile Include="DependencyServices\Localize.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\FontAwesome.ttf">

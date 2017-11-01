@@ -97,7 +97,7 @@ namespace Matna.Models
             {
                 if (Icon != null)
                     return Icon;
-                else return PropertiesDictionary.NotFoundImage;
+                else return PropertiesDictionary.IconDefaultImage;
             }
         }
 

@@ -38,6 +38,8 @@ namespace Matna.iOS
             // Code for GoogleMaps
             Xamarin.FormsGoogleMaps.Init(Keys.GoogleMapsApiKeyiOS);
 
+            NativePlacesApi.Init();
+
             #endregion CONFIG ENDS
 
             LoadApplication(new App());

@@ -15,6 +15,7 @@ namespace Matna.Helpers
         }
 
         public static string NotFoundImage = "http://blogfiles1.naver.net/20130625_58/bakain_1372134632375hu8gm_GIF/404-not-found.gif";
+        public static string IconDefaultImage = "https://maps.gstatic.com/mapfiles/place_api/icons/restaurant-71.png";
 
         private static double latitude = 37.543821d;
         public static double Latitude

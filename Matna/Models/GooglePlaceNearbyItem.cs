@@ -111,7 +111,14 @@ namespace Matna.Models
             get
             {
                 if (Rating != null)
-                    return (double)Rating;
+                {
+                    if (Rating > 5.0)
+                        return 5.0;
+                    else if (Rating < 0.0)
+                        return 0.0;
+                    else
+                        return (double)Rating;
+                }
                 else
                     return 0.0;
             }

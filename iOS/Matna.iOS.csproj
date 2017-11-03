@@ -36,14 +36,14 @@
     <OutputPath>bin\iPhone\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodesignKey>iPhone Distribution: Jinwoo Lee (TBNML9H39F)</CodesignKey>
+    <CodesignKey>iPhone Developer: doaoahghgo@naver.com (5PGZ658HV3)</CodesignKey>
     <MtouchFloat32>true</MtouchFloat32>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <MtouchLink>SdkOnly</MtouchLink>
     <MtouchArch>ARM64</MtouchArch>
     <MtouchHttpClientHandler>HttpClientHandler</MtouchHttpClientHandler>
     <PlatformTarget>x86</PlatformTarget>
-    <CodesignProvision>Matna Distribution</CodesignProvision>
+    <CodesignProvision>Matna Development</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>pdbonly</DebugType>
@@ -66,7 +66,7 @@
     <DefineConstants>DEBUG;ENABLE_TEST_CLOUD;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodesignKey>iPhone Developer: doaoahghgo@naver.com (5PGZ658HV3)</CodesignKey>
+    <CodesignKey>iPhone Distribution: Jinwoo Lee (TBNML9H39F)</CodesignKey>
     <DeviceSpecificBuild>true</DeviceSpecificBuild>
     <MtouchDebug>true</MtouchDebug>
     <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
@@ -79,7 +79,7 @@
     <MtouchHttpClientHandler>HttpClientHandler</MtouchHttpClientHandler>
     <PlatformTarget>x86</PlatformTarget>
 <MtouchI18n>cjk</MtouchI18n>
-<CodesignProvision>iOS Team Provisioning Profile: com.baegopa.Matna</CodesignProvision>
+<CodesignProvision>Matna Distribution</CodesignProvision>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -213,6 +213,49 @@
     </BundleResource>
     <BundleResource Include="Resources\icon.png" />
     <BundleResource Include="Resources\iconO.png" />
+    <BundleResource Include="Resources\00%403x.png" />
+    <BundleResource Include="Resources\01%403x.png" />
+    <BundleResource Include="Resources\10%403x.png" />
+    <BundleResource Include="Resources\11%403x.png" />
+    <BundleResource Include="Resources\12%403x.png" />
+    <BundleResource Include="Resources\13%403x.png" />
+    <BundleResource Include="Resources\14%403x.png" />
+    <BundleResource Include="Resources\15%403x.png" />
+    <BundleResource Include="Resources\16%403x.png" />
+    <BundleResource Include="Resources\17%403x.png" />
+    <BundleResource Include="Resources\18%403x.png" />
+    <BundleResource Include="Resources\19%403x.png" />
+    <BundleResource Include="Resources\20%403x.png" />
+    <BundleResource Include="Resources\21%403x.png" />
+    <BundleResource Include="Resources\22%403x.png" />
+    <BundleResource Include="Resources\23%403x.png" />
+    <BundleResource Include="Resources\24%403x.png" />
+    <BundleResource Include="Resources\25%403x.png" />
+    <BundleResource Include="Resources\26%403x.png" />
+    <BundleResource Include="Resources\27%403x.png" />
+    <BundleResource Include="Resources\28%403x.png" />
+    <BundleResource Include="Resources\29%403x.png" />
+    <BundleResource Include="Resources\30%403x.png" />
+    <BundleResource Include="Resources\31%403x.png" />
+    <BundleResource Include="Resources\32%403x.png" />
+    <BundleResource Include="Resources\33%403x.png" />
+    <BundleResource Include="Resources\34%403x.png" />
+    <BundleResource Include="Resources\35%403x.png" />
+    <BundleResource Include="Resources\36%403x.png" />
+    <BundleResource Include="Resources\37%403x.png" />
+    <BundleResource Include="Resources\38%403x.png" />
+    <BundleResource Include="Resources\39%403x.png" />
+    <BundleResource Include="Resources\40%403x.png" />
+    <BundleResource Include="Resources\41%403x.png" />
+    <BundleResource Include="Resources\42%403x.png" />
+    <BundleResource Include="Resources\43%403x.png" />
+    <BundleResource Include="Resources\44%403x.png" />
+    <BundleResource Include="Resources\45%403x.png" />
+    <BundleResource Include="Resources\46%403x.png" />
+    <BundleResource Include="Resources\47%403x.png" />
+    <BundleResource Include="Resources\48%403x.png" />
+    <BundleResource Include="Resources\49%403x.png" />
+    <BundleResource Include="Resources\50%403x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.4.0.18342\build\netstandard1.0\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.4.0.18342\build\netstandard1.0\Xamarin.Forms.targets')" />

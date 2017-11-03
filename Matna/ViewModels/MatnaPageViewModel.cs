@@ -11,12 +11,15 @@ using Matna.Views;
 using Plugin.Share;
 using Plugin.Share.Abstractions;
 using Matna.Helpers.Controls;
+using Matna.Data.external;
+using Matna.Utils;
 
 namespace Matna.ViewModels
 {
     public class MatnaPageViewModel : BaseViewModel
     {
         List<GooglePlaceNearbyItem> placesToShow = new List<GooglePlaceNearbyItem>();
+        //List<GooglePlaceNearbyItem> placesToShow = ko.SamdaeData; // TODO add external lists
         public List<GooglePlaceNearbyItem> PlacesToShow
         {
             get
@@ -26,7 +29,33 @@ namespace Matna.ViewModels
             }
             set
             {
-                placesToShow = value;
+                var list = value;
+                if (AppResources.Locale == "ko")
+                {
+                    List<List<GooglePlaceNearbyItem>> lists = new List<List<GooglePlaceNearbyItem>>();
+                    if (true)   // TODO change here to support data filter
+                    {
+                        lists.Add(ko.SamdaeData);
+                        lists.Add(ko.ChakhanData);
+                        lists.Add(ko.SuyoData);
+                    }
+
+                    foreach (var items in lists)
+                    {
+                        foreach (GooglePlaceNearbyItem item in items)
+                        {
+                            var sCoord = new Coordinates(item.Lat, item.Lon);
+                            var eCoord = new Coordinates(PropertiesDictionary.Latitude, PropertiesDictionary.Longitude);
+                            var dist = sCoord.DistanceFrom(eCoord);
+                            if (dist < PropertiesDictionary.Radius)
+                                list.Add(item);
+                        }
+                    }
+                }
+
+                var firstItemsInGroup = from item in list group item by item.PlaceId into g select g.First();
+
+                placesToShow = firstItemsInGroup.ToList();
                 MessagingCenter.Send(this, "DrawPins", placesToShow);
                 OnPropertyChanged("PlacesToShow");
                 OnPropertyChanged("IsShowAd");

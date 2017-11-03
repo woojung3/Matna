@@ -65,7 +65,7 @@
         <value>앱 시작 직후라면 화면을 조금 움직이셔야 좌표가 적용됩니다.</value>
     </data>
     <data name="MaxRadReached" xml:space="preserve">
-        <value>중심지로부터 최대 반경 50Km까지만 탐색됩니다</value>
+        <value>실시간 탐색은 중심지로부터 최대 반경 50Km까지만 적용됩니다 (50Km 를 넘으면 검색이 길어질 수 있습니다. 잠시만 기다려 주세요)</value>
     </data>
     <data name="Deselect" xml:space="preserve">
         <value>선택취소</value>

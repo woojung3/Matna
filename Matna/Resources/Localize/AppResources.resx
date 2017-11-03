@@ -65,7 +65,7 @@
         <value>Slightly move map right after app launch. This is to adjust coordinate</value>
     </data>
     <data name="MaxRadReached" xml:space="preserve">
-        <value>Maximum search radius is 50 Kilometer</value>
+        <value>Maximum realtime data search radius is 50 Kilometer (Search may take some time. Please wait)</value>
     </data>
     <data name="Deselect" xml:space="preserve">
         <value>Deselect</value>

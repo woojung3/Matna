@@ -272,9 +272,53 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\FontAwesome.ttf" />
+    <AndroidAsset Include="Assets\00.png" />
+    <AndroidAsset Include="Assets\01.png" />
+    <AndroidAsset Include="Assets\10.png" />
+    <AndroidAsset Include="Assets\11.png" />
+    <AndroidAsset Include="Assets\12.png" />
+    <AndroidAsset Include="Assets\13.png" />
+    <AndroidAsset Include="Assets\14.png" />
+    <AndroidAsset Include="Assets\15.png" />
+    <AndroidAsset Include="Assets\16.png" />
+    <AndroidAsset Include="Assets\17.png" />
+    <AndroidAsset Include="Assets\18.png" />
+    <AndroidAsset Include="Assets\19.png" />
+    <AndroidAsset Include="Assets\20.png" />
+    <AndroidAsset Include="Assets\21.png" />
+    <AndroidAsset Include="Assets\22.png" />
+    <AndroidAsset Include="Assets\23.png" />
+    <AndroidAsset Include="Assets\24.png" />
+    <AndroidAsset Include="Assets\25.png" />
+    <AndroidAsset Include="Assets\26.png" />
+    <AndroidAsset Include="Assets\27.png" />
+    <AndroidAsset Include="Assets\28.png" />
+    <AndroidAsset Include="Assets\29.png" />
+    <AndroidAsset Include="Assets\30.png" />
+    <AndroidAsset Include="Assets\31.png" />
+    <AndroidAsset Include="Assets\32.png" />
+    <AndroidAsset Include="Assets\33.png" />
+    <AndroidAsset Include="Assets\34.png" />
+    <AndroidAsset Include="Assets\35.png" />
+    <AndroidAsset Include="Assets\36.png" />
+    <AndroidAsset Include="Assets\37.png" />
+    <AndroidAsset Include="Assets\38.png" />
+    <AndroidAsset Include="Assets\39.png" />
+    <AndroidAsset Include="Assets\40.png" />
+    <AndroidAsset Include="Assets\41.png" />
+    <AndroidAsset Include="Assets\42.png" />
+    <AndroidAsset Include="Assets\43.png" />
+    <AndroidAsset Include="Assets\44.png" />
+    <AndroidAsset Include="Assets\45.png" />
+    <AndroidAsset Include="Assets\46.png" />
+    <AndroidAsset Include="Assets\47.png" />
+    <AndroidAsset Include="Assets\48.png" />
+    <AndroidAsset Include="Assets\49.png" />
+    <AndroidAsset Include="Assets\50.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Renderers\" />
+    <Folder Include="Resources\raw\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Android.Support.Annotations.26.0.2\build\MonoAndroid80\Xamarin.Android.Support.Annotations.targets" Condition="Exists('..\packages\Xamarin.Android.Support.Annotations.26.0.2\build\MonoAndroid80\Xamarin.Android.Support.Annotations.targets')" />

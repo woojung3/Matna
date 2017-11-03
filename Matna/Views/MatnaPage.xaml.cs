@@ -111,20 +111,6 @@ namespace Matna
             #endregion Codes for MessageCenter
 
             #region Initial Camera Settings
-            if (AppResources.Locale == "ko")
-                map.InitialCameraUpdate = CameraUpdateFactory.NewPositionZoom(new Position(37.532600, 127.024612), 10.0);   // Seoul
-
-            if (Application.Current.Properties.ContainsKey("Latitude") && Application.Current.Properties.ContainsKey("Longitude") && Application.Current.Properties.ContainsKey("Zoom"))
-            {
-                double? lat = Application.Current.Properties["Latitude"] as double?;
-                double? lon = Application.Current.Properties["Longitude"] as double?;
-                double? zoom = Application.Current.Properties["Zoom"] as double?;
-                if (lat == null) lat = 37.532600;
-                if (lon == null) lon = 127.024612;
-                if (zoom == null) zoom = 10.0;
-
-                map.InitialCameraUpdate = CameraUpdateFactory.NewPositionZoom(new Position((double)lat, (double)lon), (double)zoom);
-            }
             map.MyLocationEnabled = true;
             map.UiSettings.MyLocationButtonEnabled = true;
             #endregion Initial Camera Settings
@@ -164,6 +150,21 @@ namespace Matna
         public MatnaPage()
         {
             InitializeComponent();
+
+            if (AppResources.Locale == "ko")
+                map.InitialCameraUpdate = CameraUpdateFactory.NewPositionZoom(new Position(37.532600, 127.024612), 10.0);   // Seoul
+
+            if (Application.Current.Properties.ContainsKey("Latitude") && Application.Current.Properties.ContainsKey("Longitude") && Application.Current.Properties.ContainsKey("Zoom"))
+            {
+                double? lat = Application.Current.Properties["Latitude"] as double?;
+                double? lon = Application.Current.Properties["Longitude"] as double?;
+                double? zoom = Application.Current.Properties["Zoom"] as double?;
+                if (lat == null) lat = 37.532600;
+                if (lon == null) lon = 127.024612;
+                if (zoom == null) zoom = 10.0;
+
+                map.InitialCameraUpdate = CameraUpdateFactory.NewPositionZoom(new Position((double)lat, (double)lon), (double)zoom);
+            }
 
             map.CameraChanged += CameraChanged;
 
@@ -215,6 +216,7 @@ namespace Matna
             if (item.Name == null)
                 item.Name = AppResources.NoName;
 
+            string rating = $"{String.Format("{0:0.0}", item.RatingD).Replace(".", string.Empty)}.png";
             Device.BeginInvokeOnMainThread(() =>
             {
                 Pin pin = new Pin
@@ -222,6 +224,7 @@ namespace Matna
                     Type = PinType.Place,
                     Position = new Position(item.Lat, item.Lon),
                     Label = item.Name,
+                    Icon = BitmapDescriptorFactory.FromBundle(rating),
                     Tag = item
                 };
                 map.Pins.Add(pin);

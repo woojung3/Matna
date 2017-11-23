@@ -12,38 +12,82 @@
         <OnPlatform x:TypeArguments="Thickness"
                     iOS="0, 20, 0, 0" />
     </ContentPage.Padding>
-    
-    <Grid x:Name="mainGrid" Padding="0" RowSpacing="0">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="40" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
 
-        <!-- Header -->
-        <StackLayout Style="{StaticResource PrimaryHWStack}" Grid.Row="0" HeightRequest="40">
-            <Grid Padding="0" ColumnSpacing="10" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+    <ScrollView>
+        <Grid x:Name="mainGrid" Padding="0" RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-                <StackLayout Style="{StaticResource PrimaryHCStack}" Grid.Column="0" Grid.ColumnSpan="2" Padding="5">
-                    <ctr:FontAwesomeIcon Style="{StaticResource PrimaryFAIcon}" Text="{x:Static ctr:Icon.Sliders}" />
-                    <Label Style="{StaticResource PrimaryText}" Text="{local:Translate Filter}" />
+            <!-- Header -->
+            <ctr:HeaderStack Grid.Row="0"
+                CenterIcon="{x:Static ctr:Icon.Sliders}"
+                CenterText="{local:Translate Filter}"
+                LeftIcon="{x:Static ctr:Icon.AngleLeft}"
+                LeftText="{local:Translate Back}" 
+                LeftCommand="{Binding OnCloseClicked}"
+            />
+
+            <!-- Body -->
+            <StackLayout Grid.Row="1">
+                <ctr:HeaderStack 
+                    BackgroundColor="LightGray" TextColor="Gray"
+                    LeftText="{local:Translate Matna}" 
+                />
+                <StackLayout Orientation="Horizontal" Padding="5">
+                    <Label Text="{local:Translate MaxSearchRadius}" />
+                    <Label BindingContext="{x:Reference slider}" Text="{Binding Value, StringFormat=': {0:F0} '}" HorizontalOptions="End" />
+                    <Label Text="{local:Translate KM}" HorizontalOptions="End" />
                 </StackLayout>
-                <StackLayout Style="{StaticResource PrimaryHLStack}" Grid.Column="0" Padding="5">
-                    <ctr:FontAwesomeIcon Style="{StaticResource PrimaryFAIcon}" Text="{x:Static ctr:Icon.AngleLeft}">
-                        <ctr:FontAwesomeIcon.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding OnCloseClicked}" NumberOfTapsRequired="1" />
-                        </ctr:FontAwesomeIcon.GestureRecognizers>
-                    </ctr:FontAwesomeIcon>
-                    <Label Style="{StaticResource PrimaryText}" Text="{local:Translate Back}">
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding OnCloseClicked}" NumberOfTapsRequired="1" />
-                        </Label.GestureRecognizers>
-                    </Label>
+                <Slider x:Name="slider" HorizontalOptions="FillAndExpand" Maximum="20" Minimum="1" Value="{Binding MaxRadKM}" Margin="5" />
+            </StackLayout>
+            
+            <StackLayout x:Name="KRStack" AutomationId="KRStack" IsVisible="false" Grid.Row="2">
+                <ctr:HeaderStack 
+                    BackgroundColor="LightGray" TextColor="Gray"
+                    LeftText="{local:Translate KRQuickFilters}" 
+                />
+                <StackLayout Orientation="Horizontal" Padding="5">
+                    <Label Text="{local:Translate Samdae}" HorizontalOptions="StartAndExpand" />
+                    <Switch HorizontalOptions="End" IsToggled="{Binding ShowKRSamdae}" />
                 </StackLayout>
-            </Grid>
-        </StackLayout>
-    </Grid>
+                <StackLayout Orientation="Horizontal" Padding="5">
+                    <Label Text="{local:Translate Suyo}" HorizontalOptions="StartAndExpand" />
+                    <Switch HorizontalOptions="End" IsToggled="{Binding ShowKRSuyo}" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" Padding="5">
+                    <Label Text="{local:Translate Chakhan}" HorizontalOptions="StartAndExpand" />
+                    <Switch HorizontalOptions="End" IsToggled="{Binding ShowKRChakhan}" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" Padding="5">
+                    <Label Text="{local:Translate Google}" HorizontalOptions="StartAndExpand" />
+                    <Switch x:Name="googleSwitch" AutomationId="googleSwitch" HorizontalOptions="End" IsToggled="{Binding ShowGoogle}" />
+                </StackLayout>
+            </StackLayout>
+
+            <StackLayout Grid.Row="3" IsVisible="{Binding IsToggled, Source={x:Reference googleSwitch}}">
+                <ctr:HeaderStack 
+                    BackgroundColor="LightGray" TextColor="Gray"
+                    LeftText="{local:Translate GoogleApi}" 
+                />
+                <Label Text="{local:Translate SortBy}" Margin="5" />
+                <StackLayout Orientation="Horizontal" Margin="5">
+                    <Picker x:Name="picker" AutomationId="picker" SelectedIndexChanged="SelectedIndexChanged" Title="{local:Translate SelectSort}" HorizontalOptions="End">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                              <x:String>Rating</x:String>
+                              <x:String>Google Recommend</x:String>
+                            </x:Array>
+                          </Picker.ItemsSource>
+                    </Picker>
+                </StackLayout>
+                <Label Text="{local:Translate Keywords}" Margin="5" />
+                <Label Text="{local:Translate KeywordsDetail}" TextColor="Silver" Margin="5" />
+                <Editor FontSize="12" HeightRequest="100" BackgroundColor="LightSteelBlue" Margin="5" Text="{Binding Keyword}" />
+            </StackLayout>
+        </Grid>
+    </ScrollView>
 </ContentPage>

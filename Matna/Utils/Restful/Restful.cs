@@ -32,6 +32,8 @@ namespace Matna.Utils.Restful
                 if (rtn.Results.Any())
                     return rtn.Results;
             }
+            else
+                MessagingCenter.Send(this, "GoogleAPIError");
             return new List<GooglePlaceNearbyItem>();
         }
 

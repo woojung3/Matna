@@ -17,7 +17,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="36" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         
@@ -32,19 +31,19 @@
                 <StackLayout Style="{StaticResource PrimaryHLStack}" Grid.Column="0" Padding="5">
                     <ctr:FontAwesomeIcon Style="{StaticResource PrimaryFAIcon}" Text="{x:Static ctr:Icon.AngleLeft}">
                         <ctr:FontAwesomeIcon.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding OnBackClicked}" NumberOfTapsRequired="1" />
+                            <TapGestureRecognizer Command="{Binding OnBackClicked}" />
                         </ctr:FontAwesomeIcon.GestureRecognizers>
                     </ctr:FontAwesomeIcon>
                     <Label Style="{StaticResource PrimaryText}" Text="{local:Translate Back}">
                         <Label.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding OnBackClicked}" NumberOfTapsRequired="1" />
+                            <TapGestureRecognizer Command="{Binding OnBackClicked}" />
                         </Label.GestureRecognizers>
                     </Label>
                 </StackLayout>
 
                 <ctr:RoundedBox Style="{StaticResource PrimaryRoundedBox}" Grid.Column="1">
                     <ctr:RoundedBox.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding OnSearchClicked}" NumberOfTapsRequired="1" />
+                        <TapGestureRecognizer Command="{Binding OnSearchClicked}" />
                     </ctr:RoundedBox.GestureRecognizers>
                 </ctr:RoundedBox>
                 <Editor x:Name="editor" Grid.Column="1" Text="{Binding SearchText}" TextChanged="TextChanged" FontSize="12" />
@@ -52,7 +51,7 @@
                 <StackLayout Style="{StaticResource PrimaryHRStack}" Grid.Column="2" Padding="5">
                     <Label Style="{StaticResource PrimaryText}" Text="{local:Translate Cancel}">
                         <Label.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding OnCancelClicked}" NumberOfTapsRequired="1" />
+                            <TapGestureRecognizer Command="{Binding OnCancelClicked}" />
                         </Label.GestureRecognizers>
                     </Label>
                 </StackLayout>
@@ -63,11 +62,8 @@
             <ctr:FontAwesomeIcon Style="{StaticResource PopupHolderFAIcon}" Text="{x:Static ctr:Icon.MapO}"/>
             <Label Style="{StaticResource PopupHolderText}" Text="{local:Translate SearchRadiusExplanation}"/>
         </StackLayout>
-        <StackLayout Grid.Row="2" Style="{StaticResource PrimaryHCStack}" Padding="5" HorizontalOptions="CenterAndExpand">
-            <Label Style="{StaticResource PopupHolderText}" Text="{local:Translate SearchRadiusAdjust}"/>
-        </StackLayout>
         
-        <ListView Grid.Row="3" ItemsSource="{Binding Predictions}" BackgroundColor="#DCDCDC" ItemSelected="ItemSelected">
+        <ListView Grid.Row="2" ItemsSource="{Binding Predictions}" BackgroundColor="#DCDCDC" ItemSelected="ItemSelected">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <TextCell Text="{Binding FormattedText}" />

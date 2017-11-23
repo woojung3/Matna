@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StackLayout xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    xmlns:ctr="clr-namespace:Matna.Helpers.Controls"
+    xmlns:local="clr-namespace:Matna" 
+    x:Class="Matna.Helpers.Controls.HeaderStack" 
+    x:Name="this"
+    Style="{StaticResource PrimaryHWStack}" Grid.Row="0" HeightRequest="40">
+    <Grid Padding="0" ColumnSpacing="10" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <StackLayout Style="{StaticResource PrimaryHCStack}" Grid.Column="0" Grid.ColumnSpan="3" Padding="5" IsVisible="{Binding CenterVisible, Source={x:Reference this}}">
+            <StackLayout.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding CenterCommand, Source={x:Reference this}}" />
+            </StackLayout.GestureRecognizers>
+            <ctr:FontAwesomeIcon Style="{StaticResource PrimaryFAIcon}" Text="{Binding CenterIcon, Source={x:Reference this}}" TextColor="{Binding TextColor, Source={x:Reference this}}">
+                <ctr:FontAwesomeIcon.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding CenterCommand, Source={x:Reference this}}" />
+                </ctr:FontAwesomeIcon.GestureRecognizers>
+            </ctr:FontAwesomeIcon>
+            <Label Style="{StaticResource PrimaryText}" Text="{Binding CenterText, Source={x:Reference this}}" TextColor="{Binding TextColor, Source={x:Reference this}}">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding CenterCommand, Source={x:Reference this}}" />
+                </Label.GestureRecognizers>
+            </Label>
+        </StackLayout>
+        <StackLayout Style="{StaticResource PrimaryHLStack}" Grid.Column="0" Padding="5" IsVisible="{Binding LeftVisible, Source={x:Reference this}}">
+            <ctr:FontAwesomeIcon Style="{StaticResource PrimaryFAIcon}" Text="{Binding LeftIcon, Source={x:Reference this}}" TextColor="{Binding TextColor, Source={x:Reference this}}">
+                <ctr:FontAwesomeIcon.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding LeftCommand, Source={x:Reference this}}" />
+                </ctr:FontAwesomeIcon.GestureRecognizers>
+            </ctr:FontAwesomeIcon>
+            <Label Style="{StaticResource PrimaryText}" Text="{Binding LeftText, Source={x:Reference this}}" TextColor="{Binding TextColor, Source={x:Reference this}}">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding LeftCommand, Source={x:Reference this}}" />
+                </Label.GestureRecognizers>
+            </Label>
+        </StackLayout>
+        <StackLayout Style="{StaticResource PrimaryHRStack}" Grid.Column="2" Padding="5" IsVisible="{Binding RightVisible, Source={x:Reference this}}">
+            <ctr:FontAwesomeIcon Style="{StaticResource PrimaryFAIcon}" Text="{Binding RightIcon, Source={x:Reference this}}" TextColor="{Binding TextColor, Source={x:Reference this}}">
+                <ctr:FontAwesomeIcon.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding RightCommand, Source={x:Reference this}}" />
+                </ctr:FontAwesomeIcon.GestureRecognizers>
+            </ctr:FontAwesomeIcon>
+            <Label Style="{StaticResource PrimaryText}" Text="{Binding RightText, Source={x:Reference this}}" TextColor="{Binding TextColor, Source={x:Reference this}}">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding RightCommand, Source={x:Reference this}}" />
+                </Label.GestureRecognizers>
+            </Label>
+        </StackLayout>
+    </Grid>
+</StackLayout>

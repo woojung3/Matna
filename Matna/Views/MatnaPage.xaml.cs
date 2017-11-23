@@ -8,6 +8,7 @@ using Matna.Resources.Localize;
 using Matna.Utils.Restful;
 using Matna.ViewModels;
 using Matna.Views;
+using Newtonsoft.Json;
 using Xamarin.Forms;
 using Xamarin.Forms.GoogleMaps;
 
@@ -37,7 +38,10 @@ namespace Matna
             {
                 double EPSILON = 0.0001;
                 if (Math.Abs(locRad[0]) < EPSILON && Math.Abs(locRad[1]) < EPSILON)
+                {
+                    MessagingCenter.Send(this, "IsMapIdled");
                     return;
+                }
 
                 map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(locRad[0], locRad[1]), Distance.FromMeters(locRad[2])));
             });
@@ -57,10 +61,22 @@ namespace Matna
             MessagingCenter.Unsubscribe<MatnaPageViewModel>(this, "CheckMapVisible");
             MessagingCenter.Subscribe<MatnaPageViewModel>(this, "CheckMapVisible", (sender) =>
             {
+                map.Circles.Clear();
                 if (map.VisibleRegion == null)
                     DisplayAlert(AppResources.Matna, AppResources.MoveMapPlease, AppResources.OK);
-                else if (PropertiesDictionary.Radius > 50000)
-                    DisplayAlert(AppResources.Matna, AppResources.MaxRadReached, AppResources.OK);
+                else if (Math.Abs(PropertiesDictionary.Radius - PropertiesDictionary.MaxRadKM * 1000) < 1)
+                {
+                    DisplayAlert(AppResources.Matna, String.Format(AppResources.MaxRadReached, PropertiesDictionary.MaxRadKM), AppResources.OK);
+                    var circle = new Circle
+                    {
+                        Center = new Position(PropertiesDictionary.Latitude, PropertiesDictionary.Longitude),
+                        Radius = Distance.FromMeters(PropertiesDictionary.Radius),
+                        StrokeColor = Color.Magenta,
+                        StrokeWidth = 3f,
+                        FillColor = Color.Transparent,
+                    };
+                    map.Circles.Add(circle);
+                }
             });
 
             MessagingCenter.Unsubscribe<MatnaPageViewModel>(this, "ShowFilter");
@@ -78,12 +94,10 @@ namespace Matna
             {
                 if (Navigation.ModalStack.Count == 0)
                 {
-                    actIndicatorList.IsVisible = true;
-                    listFAIcon.Text = Helpers.Controls.Icon.Search;
+                    BPH.CenterIcon = Helpers.Controls.Icon.Search;
                     var page = new ListPage(((MatnaPageViewModel)BindingContext).PlacesToShow);
                     await Navigation.PushModalAsync(page);
-                    actIndicatorList.IsVisible = false;
-                    listFAIcon.Text = Helpers.Controls.Icon.AngleDoubleUp;
+                    BPH.CenterIcon = Helpers.Controls.Icon.AngleDoubleUp;
                 }
             });
 
@@ -108,6 +122,12 @@ namespace Matna
             {
                 DisplayAlert(AppResources.Matna, AppResources.NetworkUnavailable, AppResources.OK);
             });
+
+            MessagingCenter.Unsubscribe<Restful>(this, "GoogleAPIError");
+            MessagingCenter.Subscribe<Restful>(this, "GoogleAPIError", (sender) =>
+            {
+                DisplayAlert(AppResources.Matna, AppResources.GoogleAPIError, AppResources.OK);
+            });
             #endregion Codes for MessageCenter
 
             #region Initial Camera Settings
@@ -130,7 +150,8 @@ namespace Matna
             MessagingCenter.Unsubscribe<MatnaPageViewModel>(this, "ShowList");
             MessagingCenter.Unsubscribe<MatnaPageViewModel>(this, "ShowSearch");
             MessagingCenter.Unsubscribe<MatnaPageViewModel, List<GooglePlaceNearbyItem>>(this, "DrawPins");
-            MessagingCenter.Unsubscribe<Restful>(this, "NetworkUnavailable");
+            MessagingCenter.Unsubscribe<Restful>(this, "NetworkUnavailable"); 
+            MessagingCenter.Unsubscribe<Restful>(this, "GoogleAPIError");
         }
 
         private bool canClose = true;
@@ -154,6 +175,7 @@ namespace Matna
             if (AppResources.Locale == "ko")
                 map.InitialCameraUpdate = CameraUpdateFactory.NewPositionZoom(new Position(37.532600, 127.024612), 10.0);   // Seoul
 
+            // Load saved data to PropertiesDictionary
             if (Application.Current.Properties.ContainsKey("Latitude") && Application.Current.Properties.ContainsKey("Longitude") && Application.Current.Properties.ContainsKey("Zoom"))
             {
                 double? lat = Application.Current.Properties["Latitude"] as double?;
@@ -165,8 +187,24 @@ namespace Matna
 
                 map.InitialCameraUpdate = CameraUpdateFactory.NewPositionZoom(new Position((double)lat, (double)lon), (double)zoom);
             }
+            if (Application.Current.Properties.ContainsKey("MaxRadKM"))
+                PropertiesDictionary.MaxRadKM = (double)Application.Current.Properties["MaxRadKM"];
+            if (Application.Current.Properties.ContainsKey("SearchHist"))
+                PropertiesDictionary.SearchHist = JsonConvert.DeserializeObject<List<GoogleAutocompletePrediction>>((string)Application.Current.Properties["SearchHist"]);
+            if (Application.Current.Properties.ContainsKey("ShowGoogle"))
+                PropertiesDictionary.ShowGoogle = (bool)Application.Current.Properties["ShowGoogle"];
+            if (Application.Current.Properties.ContainsKey("ShowKRSamdae"))
+                PropertiesDictionary.ShowKRSamdae = (bool)Application.Current.Properties["ShowKRSamdae"];
+            if (Application.Current.Properties.ContainsKey("ShowKRChakhan"))
+                PropertiesDictionary.ShowKRChakhan = (bool)Application.Current.Properties["ShowKRChakhan"];
+            if (Application.Current.Properties.ContainsKey("ShowKRSuyo"))
+                PropertiesDictionary.ShowKRSuyo = (bool)Application.Current.Properties["ShowKRSuyo"];
+            if (Application.Current.Properties.ContainsKey("GoogleSort"))
+                PropertiesDictionary.GoogleSort = (int)Application.Current.Properties["GoogleSort"];
+            if (Application.Current.Properties.ContainsKey("Keyword"))
+                PropertiesDictionary.Keyword = (string)Application.Current.Properties["Keyword"];
 
-            map.CameraChanged += CameraChanged;
+            map.CameraIdled += CameraChanged;
 
             map.PinClicked += (object sender, PinClickedEventArgs e) =>
             {
@@ -232,7 +270,7 @@ namespace Matna
         }
 
         public volatile bool isCameraStable = true;
-        protected virtual async void CameraChanged(object sender, CameraChangedEventArgs e)
+        protected virtual async void CameraChanged(object sender, CameraIdledEventArgs e)
         {
             if (isCameraStable)
             {
@@ -252,6 +290,7 @@ namespace Matna
                 isCameraStable = false;
                 await Task.Delay(TimeSpan.FromSeconds(0.5));
                 isCameraStable = true;
+                MessagingCenter.Send(this, "IsMapIdled");
             }
         }
     }

@@ -13,31 +13,36 @@ using Plugin.Share.Abstractions;
 using Matna.Helpers.Controls;
 using Matna.Data.external;
 using Matna.Utils;
+using System.Threading.Tasks;
 
 namespace Matna.ViewModels
 {
     public class MatnaPageViewModel : BaseViewModel
     {
         List<GooglePlaceNearbyItem> placesToShow = new List<GooglePlaceNearbyItem>();
-        //List<GooglePlaceNearbyItem> placesToShow = ko.SamdaeData; // TODO add external lists
         public List<GooglePlaceNearbyItem> PlacesToShow
         {
             get
             {
-                placesToShow.Sort((a, b) => (int)(-1.0 * (a.RatingD.CompareTo(b.RatingD)))); // Desc order
+                if (PropertiesDictionary.GoogleSort == 0)
+                    placesToShow.Sort((a, b) => (int)(-1.0 * (a.RatingD.CompareTo(b.RatingD)))); // Desc order
                 return placesToShow;
             }
             set
             {
                 var list = value;
-                if (AppResources.Locale == "ko")
+                if (31.957064 < PropertiesDictionary.Latitude && PropertiesDictionary.Latitude < 38.801411 &&
+                    123.764172 < PropertiesDictionary.Longitude && PropertiesDictionary.Longitude < 132.179699)
                 {
                     List<List<GooglePlaceNearbyItem>> lists = new List<List<GooglePlaceNearbyItem>>();
-                    if (true)   // TODO change here to support data filter
+                    if (true)
                     {
-                        lists.Add(ko.SamdaeData);
-                        lists.Add(ko.ChakhanData);
-                        lists.Add(ko.SuyoData);
+                        if (PropertiesDictionary.ShowKRSamdae)
+                            lists.Add(ko.SamdaeData);
+                        if (PropertiesDictionary.ShowKRChakhan)
+                            lists.Add(ko.ChakhanData);
+                        if (PropertiesDictionary.ShowKRSuyo)
+                            lists.Add(ko.SuyoData);
                     }
 
                     foreach (var items in lists)
@@ -53,7 +58,7 @@ namespace Matna.ViewModels
                     }
                 }
 
-                var firstItemsInGroup = from item in list group item by item.PlaceId into g select g.First();
+                var firstItemsInGroup = from item in list group item by item.PlaceId into g select g.Last();
 
                 placesToShow = firstItemsInGroup.ToList();
                 MessagingCenter.Send(this, "DrawPins", placesToShow);
@@ -82,6 +87,7 @@ namespace Matna.ViewModels
             {
                 selectedItem = value;
                 MessagingCenter.Send(this, "MoveToLocation", new List<double>() { selectedItem.Lat, selectedItem.Lon, 100 });
+                isMapIdled = false;
                 OnPropertyChanged();
                 OnPropertyChanged("IsSelectedItemExists");
             }
@@ -157,8 +163,7 @@ namespace Matna.ViewModels
                 }
             });
             OnFilterClicked = new Command(() => {
-                MessagingCenter.Send(this, "DisplayAlert", AppResources.ComingSoon);
-                //MessagingCenter.Send(this, "ShowFilter");
+                MessagingCenter.Send(this, "ShowFilter");
             });
             OnListClicked = new Command(() => {
                 MessagingCenter.Send(this, "ShowList");
@@ -245,22 +250,33 @@ namespace Matna.ViewModels
                 SelectedItem = item;
             });
 
+            MessagingCenter.Unsubscribe<MatnaPage>(this, "IsMapIdled");
+            MessagingCenter.Subscribe<MatnaPage>(this, "IsMapIdled", (sender) =>
+            {
+                isMapIdled = true;
+            });
+
             MessagingCenter.Unsubscribe<SearchPage, string>(this, "OnPredictionSelected");
             MessagingCenter.Subscribe<SearchPage, string>(this, "OnPredictionSelected", async (sender, str) =>
             {
                 // 1. Find item detail
                 GooglePlaceNearbyItem item = await Restful.Inst.GoogleMapsPlaceNameFromDetails(str);
 
-                // 2. LoadPlaces with defined Radius
-                LoadPlaces(item.Lat, item.Lon, 1000, item);    // TODO 1000 to some user-definable value
+                // 2. Move to region
+                MessagingCenter.Send(this, "MoveToLocation", new List<double>() { item.Lat, item.Lon, 1000 });
+                isMapIdled = false;
+                while (!isMapIdled)
+                    await Task.Delay(100);
 
-                // 3. If item type is restaurant, add it to PlacesToShow; else ignore
+                // 3. LoadPlaces with defined Radius
+                LoadPlaces(item.Lat, item.Lon, 1000, item);
+
+                // 4. If item type is restaurant, add it to PlacesToShow; else ignore
                 if (item.Types.Contains("restaurant"))
                     SelectedItem = item;
-                else
-                    MessagingCenter.Send(this, "MoveToLocation", new List<double>() { item.Lat, item.Lon, 1000 });
             });
         }
+        private bool isMapIdled = true;
 
         private async void LoadPlaces(double? Lat = null, double? Lon = null, double? Rad = null, GooglePlaceNearbyItem append = null)
         {
@@ -276,13 +292,23 @@ namespace Matna.ViewModels
             List<string> types = new List<string>(){
                 "restaurant"
             };
-            List<GooglePlaceNearbyItem> rtn = await Restful.Inst.GoogleMapsPlaceNearbySearch(
-                (double)Lat, 
-                (double)Lon, 
-                (double)Rad, 
-                types, 
-                new List<string>(){  }
-            );
+            List<GooglePlaceNearbyItem> rtn = new List<GooglePlaceNearbyItem>();
+            if (PropertiesDictionary.ShowGoogle)
+            {
+                List<string> keywords = new List<string>() { };
+                if (PropertiesDictionary.Keyword != "")
+                {
+                    var splitted = PropertiesDictionary.Keyword.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+                    keywords = new List<string>(splitted);
+                }
+                rtn = await Restful.Inst.GoogleMapsPlaceNearbySearch(
+                    (double)Lat,
+                    (double)Lon,
+                    (double)Rad,
+                    types,
+                    keywords
+                );
+            }
 
             if (append == null || !append.Types.Contains("restaurant"))
                 PlacesToShow = rtn;

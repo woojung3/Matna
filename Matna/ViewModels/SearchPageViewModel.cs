@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Matna.Helpers;
 using Matna.Models;
 using Matna.Utils.Restful;
 using Matna.Views;
@@ -13,11 +14,13 @@ namespace Matna.ViewModels
 {
     public class SearchPageViewModel : BaseViewModel
     {
-        List<GoogleAutocompletePrediction> predictions = new List<GoogleAutocompletePrediction>();
-        public List<GoogleAutocompletePrediction> Predictions
+        ObservableCollection<GoogleAutocompletePrediction> predictions = new ObservableCollection<GoogleAutocompletePrediction>();
+        public ObservableCollection<GoogleAutocompletePrediction> Predictions
         {
             get
             {
+                if (SearchText == "")
+                    return new ObservableCollection<GoogleAutocompletePrediction>(PropertiesDictionary.SearchHist);
                 return predictions;
             }
             set
@@ -46,7 +49,8 @@ namespace Matna.ViewModels
             MessagingCenter.Unsubscribe<SearchPage>(this, "OnSearchClicked");
             MessagingCenter.Subscribe<SearchPage>(this, "OnSearchClicked", async (sender) =>
             {
-                Predictions = await Restful.Inst.GoogleMapsPlaceAutocomplete(SearchText);
+                var rtn = await Restful.Inst.GoogleMapsPlaceAutocomplete(SearchText);
+                Predictions = new ObservableCollection<GoogleAutocompletePrediction>(rtn);
             });
 
             // Properties (Commands) initilization
@@ -55,7 +59,8 @@ namespace Matna.ViewModels
             });
             OnSearchClicked = new Command(async () =>
             {
-                Predictions = await Restful.Inst.GoogleMapsPlaceAutocomplete(SearchText);
+                var rtn = await Restful.Inst.GoogleMapsPlaceAutocomplete(SearchText);
+                Predictions = new ObservableCollection<GoogleAutocompletePrediction>(rtn);
             });
             OnCancelClicked = new Command(() => {
                 SearchText = "";

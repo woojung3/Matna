@@ -214,5 +214,95 @@ namespace Matna.Resources.Localize {
                 return ResourceManager.GetString("ReallyQuit", resourceCulture);
             }
         }
+        
+        public static string KRQuickFilters {
+            get {
+                return ResourceManager.GetString("KRQuickFilters", resourceCulture);
+            }
+        }
+        
+        public static string KRQuickFiltersDetail {
+            get {
+                return ResourceManager.GetString("KRQuickFiltersDetail", resourceCulture);
+            }
+        }
+        
+        public static string Samdae {
+            get {
+                return ResourceManager.GetString("Samdae", resourceCulture);
+            }
+        }
+        
+        public static string Suyo {
+            get {
+                return ResourceManager.GetString("Suyo", resourceCulture);
+            }
+        }
+        
+        public static string Chakhan {
+            get {
+                return ResourceManager.GetString("Chakhan", resourceCulture);
+            }
+        }
+        
+        public static string Google {
+            get {
+                return ResourceManager.GetString("Google", resourceCulture);
+            }
+        }
+        
+        public static string GoogleApi {
+            get {
+                return ResourceManager.GetString("GoogleApi", resourceCulture);
+            }
+        }
+        
+        public static string SortBy {
+            get {
+                return ResourceManager.GetString("SortBy", resourceCulture);
+            }
+        }
+        
+        public static string MaxSearchRadius {
+            get {
+                return ResourceManager.GetString("MaxSearchRadius", resourceCulture);
+            }
+        }
+        
+        public static string KM {
+            get {
+                return ResourceManager.GetString("KM", resourceCulture);
+            }
+        }
+        
+        public static string Keywords {
+            get {
+                return ResourceManager.GetString("Keywords", resourceCulture);
+            }
+        }
+        
+        public static string KeywordsDetail {
+            get {
+                return ResourceManager.GetString("KeywordsDetail", resourceCulture);
+            }
+        }
+        
+        public static string Bookmarks {
+            get {
+                return ResourceManager.GetString("Bookmarks", resourceCulture);
+            }
+        }
+        
+        public static string GoogleAPIError {
+            get {
+                return ResourceManager.GetString("GoogleAPIError", resourceCulture);
+            }
+        }
+        
+        public static string SelectSort {
+            get {
+                return ResourceManager.GetString("SelectSort", resourceCulture);
+            }
+        }
     }
 }

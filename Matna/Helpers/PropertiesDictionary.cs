@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using Matna.Models;
 using Newtonsoft.Json;
 using Xamarin.Forms;
 
@@ -47,7 +49,7 @@ namespace Matna.Helpers
             }
         }
 
-        static double zoom = 10.0d;
+        private static double zoom = 10.0d;
         public static double Zoom
         {
             get
@@ -62,17 +64,139 @@ namespace Matna.Helpers
             }
         }
 
-        static double radius = 500.0;
+        private static double radius = 500.0;
         public static double Radius
         {
             get
             {
+                if (radius > maxRadKM * 1000)
+                    return maxRadKM * 1000;
                 return radius;
             }
             set
             {
                 Application.Current.Properties["Radius"] = value;
                 radius = value;
+                Save();
+            }
+        }
+
+        private static double maxRadKM = 20.0;
+        public static double MaxRadKM
+        {
+            get
+            {
+                return maxRadKM;
+            }
+            set
+            {
+                Application.Current.Properties["MaxRadKM"] = value;
+                maxRadKM = value;
+                Save();
+            }
+        }
+
+        private static List<GoogleAutocompletePrediction> searchHist = new List<GoogleAutocompletePrediction>();
+        public static List<GoogleAutocompletePrediction> SearchHist
+        {
+            get
+            {
+                return searchHist;
+            }
+            set
+            {
+                Application.Current.Properties["SearchHist"] = JsonConvert.SerializeObject(value);
+                searchHist = value;
+                Save();
+            }
+        }
+
+        private static bool showGoogle = true;
+        public static bool ShowGoogle
+        {
+            get
+            {
+                return showGoogle;
+            }
+            set
+            {
+                Application.Current.Properties["ShowGoogle"] = value;
+                showGoogle = value;
+                Save();
+            }
+        }
+
+        private static bool showKRSamdae = true;
+        public static bool ShowKRSamdae
+        {
+            get
+            {
+                return showKRSamdae;
+            }
+            set
+            {
+                Application.Current.Properties["ShowKRSamdae"] = value;
+                showKRSamdae = value;
+                Save();
+            }
+        }
+
+        private static bool showKRChakhan = true;
+        public static bool ShowKRChakhan
+        {
+            get
+            {
+                return showKRChakhan;
+            }
+            set
+            {
+                Application.Current.Properties["ShowKRChakhan"] = value;
+                showKRChakhan = value;
+                Save();
+            }
+        }
+
+        private static bool showKRSuyo = true;
+        public static bool ShowKRSuyo
+        {
+            get
+            {
+                return showKRSuyo;
+            }
+            set
+            {
+                Application.Current.Properties["ShowKRSuyo"] = value;
+                showKRSuyo = value;
+                Save();
+            }
+        }
+
+        private static int googleSort = 0;
+        public static int GoogleSort
+        {
+            get
+            {
+                return googleSort;
+            }
+            set
+            {
+                Application.Current.Properties["GoogleSort"] = value;
+                googleSort = value;
+                Save();
+            }
+        }
+
+        private static string keyword = "";
+        public static string Keyword
+        {
+            get
+            {
+                return keyword;
+            }
+            set
+            {
+                Application.Current.Properties["Keyword"] = value;
+                keyword = value;
                 Save();
             }
         }

@@ -31,29 +31,32 @@ namespace Matna.ViewModels
             set
             {
                 var list = value;
-                if (31.957064 < PropertiesDictionary.Latitude && PropertiesDictionary.Latitude < 38.801411 &&
-                    123.764172 < PropertiesDictionary.Longitude && PropertiesDictionary.Longitude < 132.179699)
+                if (!IsShowSaved)
                 {
-                    List<List<GooglePlaceNearbyItem>> lists = new List<List<GooglePlaceNearbyItem>>();
-                    if (true)
+                    if (31.957064 < PropertiesDictionary.Latitude && PropertiesDictionary.Latitude < 38.801411 &&
+                        123.764172 < PropertiesDictionary.Longitude && PropertiesDictionary.Longitude < 132.179699)
                     {
-                        if (PropertiesDictionary.ShowKRSamdae)
-                            lists.Add(ko.SamdaeData);
-                        if (PropertiesDictionary.ShowKRChakhan)
-                            lists.Add(ko.ChakhanData);
-                        if (PropertiesDictionary.ShowKRSuyo)
-                            lists.Add(ko.SuyoData);
-                    }
-
-                    foreach (var items in lists)
-                    {
-                        foreach (GooglePlaceNearbyItem item in items)
+                        List<List<GooglePlaceNearbyItem>> lists = new List<List<GooglePlaceNearbyItem>>();
+                        if (true)
                         {
-                            var sCoord = new Coordinates(item.Lat, item.Lon);
-                            var eCoord = new Coordinates(PropertiesDictionary.Latitude, PropertiesDictionary.Longitude);
-                            var dist = sCoord.DistanceFrom(eCoord);
-                            if (dist < PropertiesDictionary.Radius)
-                                list.Add(item);
+                            if (PropertiesDictionary.ShowKRSamdae)
+                                lists.Add(ko.SamdaeData);
+                            if (PropertiesDictionary.ShowKRChakhan)
+                                lists.Add(ko.ChakhanData);
+                            if (PropertiesDictionary.ShowKRSuyo)
+                                lists.Add(ko.SuyoData);
+                        }
+
+                        foreach (var items in lists)
+                        {
+                            foreach (GooglePlaceNearbyItem item in items)
+                            {
+                                var sCoord = new Coordinates(item.Lat, item.Lon);
+                                var eCoord = new Coordinates(PropertiesDictionary.Latitude, PropertiesDictionary.Longitude);
+                                var dist = sCoord.DistanceFrom(eCoord);
+                                if (dist < PropertiesDictionary.Radius)
+                                    list.Add(item);
+                            }
                         }
                     }
                 }
@@ -216,17 +219,17 @@ namespace Matna.ViewModels
             });
             OnSaveClicked = new Command(async () => {
                 var item = placesToShow.Find(x => x.PlaceId == SelectedItem.PlaceId);
+                SelectedItem = NoneItem;
                 item.IsSaved = true;
-                SelectedItem.IsSaved = true;
-                OnPropertyChanged("SelectedItem");
                 await App.MyPlacesDatabase.SaveItemAsync(item);
+                SelectedItem = item;
             });
             OnRemoveClicked = new Command(async () => {
                 var item = placesToShow.Find(x => x.PlaceId == SelectedItem.PlaceId);
+                SelectedItem = NoneItem;
                 item.IsSaved = false;
-                SelectedItem.IsSaved = false;
-                OnPropertyChanged("SelectedItem");
-                await App.MyPlacesDatabase.DeleteItemAsync(SelectedItem);
+                await App.MyPlacesDatabase.DeleteItemAsync(item);
+                SelectedItem = item;
             });
 
             // Initialize Data
@@ -265,6 +268,7 @@ namespace Matna.ViewModels
                 // 2. Move to region
                 MessagingCenter.Send(this, "MoveToLocation", new List<double>() { item.Lat, item.Lon, 1000 });
                 isMapIdled = false;
+
                 while (!isMapIdled)
                     await Task.Delay(100);
 

@@ -203,12 +203,6 @@ namespace Matna.Resources.Localize {
             }
         }
         
-        public static string SearchRadiusAdjust {
-            get {
-                return ResourceManager.GetString("SearchRadiusAdjust", resourceCulture);
-            }
-        }
-        
         public static string ReallyQuit {
             get {
                 return ResourceManager.GetString("ReallyQuit", resourceCulture);
@@ -302,6 +296,18 @@ namespace Matna.Resources.Localize {
         public static string SelectSort {
             get {
                 return ResourceManager.GetString("SelectSort", resourceCulture);
+            }
+        }
+        
+        public static string SearchResultPage {
+            get {
+                return ResourceManager.GetString("SearchResultPage", resourceCulture);
+            }
+        }
+        
+        public static string SearchResultPageDetail {
+            get {
+                return ResourceManager.GetString("SearchResultPageDetail", resourceCulture);
             }
         }
     }

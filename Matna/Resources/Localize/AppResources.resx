@@ -91,9 +91,6 @@
     <data name="SearchRadiusExplanation" xml:space="preserve">
         <value>Search restaurant near 1 Kilometer from your input</value>
     </data>
-    <data name="SearchRadiusAdjust" xml:space="preserve">
-        <value>You can modify range to your preference in later update</value>
-    </data>
     <data name="ReallyQuit" xml:space="preserve">
         <value>Do you want to exit? If so, please touch back button once more</value>
     </data>
@@ -141,5 +138,11 @@
     </data>
     <data name="SelectSort" xml:space="preserve">
         <value>Select Preferred Sort</value>
+    </data>
+    <data name="SearchResultPage" xml:space="preserve">
+        <value>Maximum number of output pages</value>
+    </data>
+    <data name="SearchResultPageDetail" xml:space="preserve">
+        <value>One output page contains maximum of 20 restaurants. However, increasing number of output page will add a delay of 2 seconds per page.</value>
     </data>
 </root>

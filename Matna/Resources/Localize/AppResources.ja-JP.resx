@@ -14,91 +14,91 @@
     </resheader>
 
     <data name="Matna" xml:space="preserve">
-        <value>맛나</value>
+        <value>マンナ</value>
     </data>
     <data name="Locale" xml:space="preserve">
-        <value>ko</value>
+        <value>ja</value>
     </data>
     <data name="OK" xml:space="preserve">
-        <value>확인</value>
+        <value>確認</value>
     </data>
     <data name="List" xml:space="preserve">
-        <value>목록</value>
+        <value>一覧</value>
     </data>
     <data name="Filter" xml:space="preserve">
-        <value>필터</value>
+        <value>フィルター</value>
     </data>
     <data name="Cancel" xml:space="preserve">
-        <value>취소</value>
+        <value>取り消し</value>
     </data>
     <data name="Share" xml:space="preserve">
-        <value>공유</value>
+        <value>シェア</value>
     </data>
     <data name="Saved" xml:space="preserve">
-        <value>저장됨</value>
+        <value>セーブ済み</value>
     </data>
     <data name="Removed" xml:space="preserve">
-        <value>삭제됨</value>
+        <value>削除済み</value>
     </data>
     <data name="SearchForPlaces" xml:space="preserve">
-        <value>어디서 식사를 할까요?</value>
+        <value>とこで食べますか？</value>
     </data>
     <data name="NoName" xml:space="preserve">
-        <value>이름없음</value>
+        <value>名無し</value>
     </data>
     <data name="Loading" xml:space="preserve">
-        <value>로딩중</value>
+        <value>ローディング中</value>
     </data>
     <data name="NetworkUnavailable" xml:space="preserve">
-        <value>인터넷 연결 상태를 확인해주세요</value>
+        <value>ネットにアクセス出来ません。確認してください</value>
     </data>
     <data name="LoadPlacesFromMap" xml:space="preserve">
-        <value>지금 지도에서 맛집 검색</value>
+        <value>今の地図で食堂を検索</value>
     </data>
     <data name="Back" xml:space="preserve">
-        <value>뒤로</value>
+        <value>バック</value>
     </data>
     <data name="SavedPlaces" xml:space="preserve">
-        <value>저장된 장소</value>
+        <value>MY食堂</value>
     </data>
     <data name="MoveMapPlease" xml:space="preserve">
-        <value>앱 시작 직후라면 화면을 조금 움직이셔야 좌표가 적용됩니다.</value>
+        <value>アプリの起動後なら画面を少し動かしてください。</value>
     </data>
     <data name="MaxRadReached" xml:space="preserve">
-        <value>실시간 탐색 최대 반경이 {0}Km까지로 설정되어 있습니다 (반경이 크면 검색이 길어질 수 있습니다)</value>
+        <value>最大検索半径{0}Kmに設定中。（半径が大きいと検索が思い場合があります）</value>
     </data>
     <data name="Deselect" xml:space="preserve">
-        <value>선택취소</value>
+        <value>選択取り消し</value>
     </data>
     <data name="Open" xml:space="preserve">
-        <value>영업중</value>
+        <value>営業中</value>
     </data>
     <data name="Closed" xml:space="preserve">
-        <value>영업종료</value>
+        <value>終了</value>
     </data>
     <data name="NoInfo" xml:space="preserve">
-        <value>정보없음</value>
+        <value>情報なし</value>
     </data>
     <data name="FindRoute" xml:space="preserve">
-        <value>경로</value>
+        <value>ルート</value>
     </data>
     <data name="FindDetail" xml:space="preserve">
-        <value>더 보기</value>
+        <value>詳しく</value>
     </data>
     <data name="ComingSoon" xml:space="preserve">
-        <value>곧 적용될 예정입니다 (다음 버전!)</value>
+        <value>すぐアップデートする予定です</value>
     </data>
     <data name="SearchRadiusExplanation" xml:space="preserve">
-        <value>검색어로부터 1Km 이내의 맛집이 검색됩니다</value>
+        <value>検索語から1Km以内の店を探します</value>
     </data>
     <data name="ReallyQuit" xml:space="preserve">
-        <value>종료합니까? 백 버튼을 한번 더 눌러 주세요</value>
+        <value>終了しますか？バックボタンをもう一度押してください</value>
     </data>
     <data name="KRQuickFilters" xml:space="preserve">
-        <value>한국 전용 필터</value>
+        <value>韓国専用</value>
     </data>
     <data name="KRQuickFiltersDetail" xml:space="preserve">
-        <value>선택한 아이템만이 앱에 표시됩니다</value>
+        <value>選択したアイテムだけをアプリで見ます</value>
     </data>
     <data name="Samdae" xml:space="preserve">
         <value>삼대천왕</value>
@@ -110,39 +110,39 @@
         <value>착한식당</value>
     </data>
     <data name="Google" xml:space="preserve">
-        <value>구글</value>
+        <value>グーグル</value>
     </data>
     <data name="GoogleApi" xml:space="preserve">
-        <value>구글 전용 필터</value>
+        <value>グーグル専用</value>
     </data>
     <data name="SortBy" xml:space="preserve">
-        <value>정렬 방식</value>
+        <value>ソーティング方式</value>
     </data>
     <data name="MaxSearchRadius" xml:space="preserve">
-        <value>최대 검색 반경</value>
+        <value>最大検索半径</value>
     </data>
     <data name="KM" xml:space="preserve">
         <value>KM</value>
     </data>
     <data name="Keywords" xml:space="preserve">
-        <value>키워드</value>
+        <value>キーワード</value>
     </data>
     <data name="KeywordsDetail" xml:space="preserve">
-        <value>하단에 키워드를 입력하면 구글이 키워드와 일치하는 맛집만을 제공합니다. 키워드는 스페이스로 구분하세요 (ex: 피자 햄버거)</value>
+        <value>下にキーワードを入れるとグーグルがキーワードに合う店だけを表示します。キーワードはスペースで分割します（ex: 寿司　中華）</value>
     </data>
     <data name="Bookmarks" xml:space="preserve">
-        <value>북마크</value>
+        <value>ブックマーク</value>
     </data>
     <data name="GoogleAPIError" xml:space="preserve">
-        <value>구글 검색 결과가 없습니다. 필터를 조정해 보세요. (구글의 일일 검색 한도에 도달하였을 가능성도 있습니다)</value>
+        <value>グーグル検索結果がありません。フィルターを調整してみてください（グーグルの1日検索上限に達してる可能性もあります）</value>
     </data>
     <data name="SelectSort" xml:space="preserve">
-        <value>선호하는 정렬 방식 선택</value>
+        <value>好むソーティング方式選択</value>
     </data>
     <data name="SearchResultPage" xml:space="preserve">
-        <value>검색 결과 페이지 최대값</value>
+        <value>検索結果ページの最大値</value>
     </data>
     <data name="SearchResultPageDetail" xml:space="preserve">
-        <value>한 페이지당 최대 20개의 식당이 반환됩니다. 단, 페이지를 늘릴 경우 페이지 당 2초의 시간 지연이 발생합니다.</value>
+        <value>１ページに付き最大20個の食堂をもらえます。ただし、ページを増やすと1ページに２秒遅くなります。</value>
     </data>
 </root>

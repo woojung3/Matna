@@ -20,7 +20,7 @@
     <Grid Padding="0" RowSpacing="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="40" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="32" />
             <RowDefinition Height="100" />
@@ -56,7 +56,7 @@
         </StackLayout>
 
         <!-- For normal -->
-        <StackLayout Style="{StaticResource PrimaryHWStack}" Grid.Row="1">
+        <StackLayout Style="{StaticResource PrimaryHWStack}" Grid.Row="1" HeightRequest="40" IsVisible="{Binding IsVisible, Source={x:Reference mapSearchBox}}">
             <Grid Padding="0" ColumnSpacing="10" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />

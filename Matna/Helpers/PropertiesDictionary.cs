@@ -16,7 +16,8 @@ namespace Matna.Helpers
             Application.Current.SavePropertiesAsync();  // To be safe from a crash or being killed by the OS.
         }
 
-        public static string NotFoundImage = "http://blogfiles1.naver.net/20130625_58/bakain_1372134632375hu8gm_GIF/404-not-found.gif";
+        //public static string NotFoundImage = "http://blogfiles1.naver.net/20130625_58/bakain_1372134632375hu8gm_GIF/404-not-found.gif";
+        public static string NotFoundImage = "http://icons.iconarchive.com/icons/graphicloads/colorful-long-shadow/256/Restaurant-icon.png";
         public static string IconDefaultImage = "https://maps.gstatic.com/mapfiles/place_api/icons/restaurant-71.png";
 
         private static double latitude = 37.543821d;
@@ -92,6 +93,21 @@ namespace Matna.Helpers
             {
                 Application.Current.Properties["MaxRadKM"] = value;
                 maxRadKM = value;
+                Save();
+            }
+        }
+
+        private static int googleRecIdx = 1;
+        public static int GoogleRecIdx
+        {
+            get
+            {
+                return googleRecIdx;
+            }
+            set
+            {
+                Application.Current.Properties["GoogleRecIdx"] = value;
+                googleRecIdx = value;
                 Save();
             }
         }

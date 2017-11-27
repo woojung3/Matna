@@ -30,7 +30,24 @@ namespace Matna.Utils.Restful
             if (rtn.Status.Equals("OK", StringComparison.CurrentCultureIgnoreCase))
             {
                 if (rtn.Results.Any())
-                    return rtn.Results;
+                {
+                    var res = rtn.Results;
+
+                    var nextPageToken = rtn.NextPageToken;
+                    int i = 1;
+                    while (nextPageToken != "" && i < PropertiesDictionary.GoogleRecIdx)
+                    {
+                        var nextUri = new Uri(urlBase + "&pagetoken=" + nextPageToken);
+                        await Task.Delay(2000);
+                        var rtnNext = await GetAsyncWrapper<GooglePlaceNearbys>(nextUri);
+                        nextPageToken = rtnNext.NextPageToken;
+
+                        if (rtnNext != null && rtnNext.Status != null && rtnNext.Status.Equals("OK", StringComparison.CurrentCultureIgnoreCase) && rtnNext.Results.Any())
+                            res = res.Concat(rtnNext.Results).ToList();
+                        i++;
+                    }
+                    return res;
+                }
             }
             else
                 MessagingCenter.Send(this, "GoogleAPIError");

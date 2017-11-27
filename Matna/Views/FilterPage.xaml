@@ -50,6 +50,7 @@
                     BackgroundColor="LightGray" TextColor="Gray"
                     LeftText="{local:Translate KRQuickFilters}" 
                 />
+                <Label Text="{local:Translate KRQuickFiltersDetail}" Margin="5" />
                 <StackLayout Orientation="Horizontal" Padding="5">
                     <Label Text="{local:Translate Samdae}" HorizontalOptions="StartAndExpand" />
                     <Switch HorizontalOptions="End" IsToggled="{Binding ShowKRSamdae}" />
@@ -73,6 +74,13 @@
                     BackgroundColor="LightGray" TextColor="Gray"
                     LeftText="{local:Translate GoogleApi}" 
                 />
+                <StackLayout Orientation="Horizontal" Padding="5">
+                    <Label Text="{local:Translate SearchResultPage}" />
+                    <Label BindingContext="{x:Reference pageSlider}" Text="{Binding Value, StringFormat=': {0:F0} '}" HorizontalOptions="End" />
+                </StackLayout>
+                <Label Text="{local:Translate SearchResultPageDetail}" TextColor="Silver" Margin="5" />
+                <Slider x:Name="pageSlider" HorizontalOptions="FillAndExpand" Maximum="3" Minimum="1" Value="{Binding GoogleRecIdx}" Margin="5" />
+                
                 <Label Text="{local:Translate SortBy}" Margin="5" />
                 <StackLayout Orientation="Horizontal" Margin="5">
                     <Picker x:Name="picker" AutomationId="picker" SelectedIndexChanged="SelectedIndexChanged" Title="{local:Translate SelectSort}" HorizontalOptions="End">
@@ -84,6 +92,7 @@
                           </Picker.ItemsSource>
                     </Picker>
                 </StackLayout>
+                
                 <Label Text="{local:Translate Keywords}" Margin="5" />
                 <Label Text="{local:Translate KeywordsDetail}" TextColor="Silver" Margin="5" />
                 <Editor FontSize="12" HeightRequest="100" BackgroundColor="LightSteelBlue" Margin="5" Text="{Binding Keyword}" />

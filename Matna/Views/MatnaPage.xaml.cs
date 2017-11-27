@@ -34,7 +34,7 @@ namespace Matna
             });
 
             MessagingCenter.Unsubscribe<MatnaPageViewModel, List<double>>(this, "MoveToLocation");
-            MessagingCenter.Subscribe<MatnaPageViewModel, List<double>>(this, "MoveToLocation", (sender, locRad) =>
+            MessagingCenter.Subscribe<MatnaPageViewModel, List<double>>(this, "MoveToLocation", async (sender, locRad) =>
             {
                 double EPSILON = 0.0001;
                 if (Math.Abs(locRad[0]) < EPSILON && Math.Abs(locRad[1]) < EPSILON)
@@ -44,6 +44,8 @@ namespace Matna
                 }
 
                 map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(locRad[0], locRad[1]), Distance.FromMeters(locRad[2])));
+                await Task.Delay(1000);
+                MessagingCenter.Send(this, "IsMapIdled");
             });
 
             MessagingCenter.Unsubscribe<MatnaPageViewModel>(this, "ShowActIndicator");
@@ -142,7 +144,7 @@ namespace Matna
 
             MessagingCenter.Unsubscribe<MatnaPageViewModel, string>(this, "DisplayAlert");
             MessagingCenter.Unsubscribe<MatnaPageViewModel, Uri>(this, "OpenUri");
-            MessagingCenter.Unsubscribe<MatnaPageViewModel, List<double>>(this, "MoveToLocation");
+            //MessagingCenter.Unsubscribe<MatnaPageViewModel, List<double>>(this, "MoveToLocation");
             MessagingCenter.Unsubscribe<MatnaPageViewModel>(this, "ShowActIndicator");
             MessagingCenter.Unsubscribe<MatnaPageViewModel>(this, "HideActIndicator");
             MessagingCenter.Unsubscribe<MatnaPageViewModel>(this, "CheckMapVisible");
@@ -152,20 +154,6 @@ namespace Matna
             MessagingCenter.Unsubscribe<MatnaPageViewModel, List<GooglePlaceNearbyItem>>(this, "DrawPins");
             MessagingCenter.Unsubscribe<Restful>(this, "NetworkUnavailable"); 
             MessagingCenter.Unsubscribe<Restful>(this, "GoogleAPIError");
-        }
-
-        private bool canClose = true;
-        protected override bool OnBackButtonPressed()
-        {
-            if (canClose)
-                ShowExitDialog();
-            return canClose;
-        }
-        private async void ShowExitDialog()
-        {
-            var answer = await DisplayAlert(AppResources.Matna, AppResources.ReallyQuit, AppResources.OK, AppResources.Cancel);
-            if (answer)
-                canClose = false;
         }
 
         public MatnaPage()
@@ -203,6 +191,8 @@ namespace Matna
                 PropertiesDictionary.GoogleSort = (int)Application.Current.Properties["GoogleSort"];
             if (Application.Current.Properties.ContainsKey("Keyword"))
                 PropertiesDictionary.Keyword = (string)Application.Current.Properties["Keyword"];
+            if (Application.Current.Properties.ContainsKey("GoogleRecIdx"))
+                PropertiesDictionary.GoogleRecIdx = (int)Application.Current.Properties["GoogleRecIdx"];
 
             map.CameraIdled += CameraChanged;
 
@@ -283,7 +273,8 @@ namespace Matna
                 PropertiesDictionary.Latitude = lat;
                 PropertiesDictionary.Longitude = lon;
                 PropertiesDictionary.Zoom = zoom;
-                PropertiesDictionary.Radius = map.VisibleRegion.Radius.Meters;
+                if (map.VisibleRegion != null)
+                    PropertiesDictionary.Radius = map.VisibleRegion.Radius.Meters;
 
                 MessagingCenter.Send(this, "CameraChanged");
 

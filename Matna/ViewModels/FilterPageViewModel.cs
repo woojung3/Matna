@@ -24,6 +24,19 @@ namespace Matna.ViewModels
             }
         }
 
+        public int GoogleRecIdx
+        {
+            get
+            {
+                return (int)PropertiesDictionary.GoogleRecIdx;
+            }
+            set
+            {
+                PropertiesDictionary.GoogleRecIdx = value;
+                OnPropertyChanged();
+            }
+        }
+
         public bool ShowKRSamdae
         {
             get

@@ -310,5 +310,11 @@ namespace Matna.Resources.Localize {
                 return ResourceManager.GetString("SearchResultPageDetail", resourceCulture);
             }
         }
+        
+        public static string UsedKeywords {
+            get {
+                return ResourceManager.GetString("UsedKeywords", resourceCulture);
+            }
+        }
     }
 }

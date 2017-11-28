@@ -145,4 +145,7 @@
     <data name="SearchResultPageDetail" xml:space="preserve">
         <value>한 페이지당 최대 20개의 식당이 반환됩니다. 단, 페이지를 늘릴 경우 페이지 당 2초의 시간 지연이 발생합니다.</value>
     </data>
+    <data name="UsedKeywords" xml:space="preserve">
+        <value>키워드 설정됨: {0}</value>
+    </data>
 </root>

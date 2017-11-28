@@ -51,6 +51,15 @@ namespace Matna
                 map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(locRad[0], locRad[1]), Distance.FromMeters(rad)));
                 await Task.Delay(1000);
                 MessagingCenter.Send(this, "IsMapIdled");
+
+                foreach (var i in map.Pins)
+                {
+                    if (Math.Abs(((GooglePlaceNearbyItem)i.Tag).Lat - locRad[0]) < EPSILON && Math.Abs(((GooglePlaceNearbyItem)i.Tag).Lon - locRad[1]) < EPSILON)
+                    {
+                        map.SelectedPin = i;
+                        break;
+                    }
+                }
             });
 
             MessagingCenter.Unsubscribe<MatnaPageViewModel>(this, "ShowActIndicator");
@@ -130,10 +139,10 @@ namespace Matna
                 DisplayAlert(AppResources.Matna, AppResources.NetworkUnavailable, AppResources.OK);
             });
 
-            MessagingCenter.Unsubscribe<Restful>(this, "GoogleAPIError");
-            MessagingCenter.Subscribe<Restful>(this, "GoogleAPIError", (sender) =>
+            MessagingCenter.Unsubscribe<Restful,string>(this, "DisplayAlert");
+            MessagingCenter.Subscribe<Restful, string>(this, "DisplayAlert", (sender, str) =>
             {
-                DisplayAlert(AppResources.Matna, AppResources.GoogleAPIError, AppResources.OK);
+                DisplayAlert(AppResources.Matna, str, AppResources.OK);
             });
             #endregion Codes for MessageCenter
 
@@ -158,7 +167,7 @@ namespace Matna
             MessagingCenter.Unsubscribe<MatnaPageViewModel>(this, "ShowSearch");
             MessagingCenter.Unsubscribe<MatnaPageViewModel, List<GooglePlaceNearbyItem>>(this, "DrawPins");
             MessagingCenter.Unsubscribe<Restful>(this, "NetworkUnavailable"); 
-            MessagingCenter.Unsubscribe<Restful>(this, "GoogleAPIError");
+            MessagingCenter.Unsubscribe<Restful, string>(this, "DisplayAlert");
         }
 
         public MatnaPage()

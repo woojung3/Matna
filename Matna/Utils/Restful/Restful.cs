@@ -13,6 +13,7 @@ using Matna.Helpers;
 using Matna.Models;
 using Plugin.Connectivity;
 using Matna.Helpers.GooglePlacesApi;
+using Matna.Resources.Localize;
 
 namespace Matna.Utils.Restful
 {
@@ -21,6 +22,8 @@ namespace Matna.Utils.Restful
         #region Google API
         public async Task<List<GooglePlaceNearbyItem>> GoogleMapsPlaceNearbySearch(double lat, double lon, double radius, List<string> types, List<string> keywords)
         {
+            if (keywords.Any())
+                MessagingCenter.Send(this, "DisplayAlert", String.Format(AppResources.UsedKeywords, string.Join(",", keywords)));
             string urlBase = string.Format(Constants.GoogleMapsPlaceNearbySearch, lat, lon, radius, String.Join(",", types), String.Join(",", keywords));
             var uri = new Uri(urlBase);
             var rtn = await GetAsyncWrapper<GooglePlaceNearbys>(uri);
@@ -50,7 +53,7 @@ namespace Matna.Utils.Restful
                 }
             }
             else
-                MessagingCenter.Send(this, "GoogleAPIError");
+                MessagingCenter.Send(this, "DisplayAlert", AppResources.GoogleAPIError);
             return new List<GooglePlaceNearbyItem>();
         }
 

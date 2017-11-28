@@ -145,4 +145,7 @@
     <data name="SearchResultPageDetail" xml:space="preserve">
         <value>１ページに付き最大20個の食堂をもらえます。ただし、ページを増やすと1ページに２秒遅くなります。</value>
     </data>
+    <data name="UsedKeywords" xml:space="preserve">
+        <value>キーワード設定中: {0}</value>
+    </data>
 </root>

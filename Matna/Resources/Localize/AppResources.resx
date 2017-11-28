@@ -145,4 +145,7 @@
     <data name="SearchResultPageDetail" xml:space="preserve">
         <value>One output page contains maximum of 20 restaurants. However, increasing number of output page will add a delay of 2 seconds per page.</value>
     </data>
+    <data name="UsedKeywords" xml:space="preserve">
+        <value>Used Keywords: {0}</value>
+    </data>
 </root>

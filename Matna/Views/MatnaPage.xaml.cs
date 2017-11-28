@@ -43,7 +43,12 @@ namespace Matna
                     return;
                 }
 
-                map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(locRad[0], locRad[1]), Distance.FromMeters(locRad[2])));
+                double rad = 0.0;
+                if (Math.Abs(locRad[2]) < EPSILON)
+                    rad = PropertiesDictionary.Radius;
+                else
+                    rad = locRad[2];
+                map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(locRad[0], locRad[1]), Distance.FromMeters(rad)));
                 await Task.Delay(1000);
                 MessagingCenter.Send(this, "IsMapIdled");
             });
@@ -162,6 +167,10 @@ namespace Matna
 
             if (AppResources.Locale == "ko")
                 map.InitialCameraUpdate = CameraUpdateFactory.NewPositionZoom(new Position(37.532600, 127.024612), 10.0);   // Seoul
+            if (AppResources.Locale == "ja")
+                map.InitialCameraUpdate = CameraUpdateFactory.NewPositionZoom(new Position(35.652832, 139.839478), 10.0);   // Tokyo
+            if (AppResources.Locale == "en")
+                map.InitialCameraUpdate = CameraUpdateFactory.NewPositionZoom(new Position(40.730610, -73.935242), 10.0);   // Ney York
 
             // Load saved data to PropertiesDictionary
             if (Application.Current.Properties.ContainsKey("Latitude") && Application.Current.Properties.ContainsKey("Longitude") && Application.Current.Properties.ContainsKey("Zoom"))

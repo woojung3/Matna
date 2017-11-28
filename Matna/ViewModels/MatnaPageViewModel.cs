@@ -89,7 +89,7 @@ namespace Matna.ViewModels
             set
             {
                 selectedItem = value;
-                MessagingCenter.Send(this, "MoveToLocation", new List<double>() { selectedItem.Lat, selectedItem.Lon, 100 });
+                MessagingCenter.Send(this, "MoveToLocation", new List<double>() { selectedItem.Lat, selectedItem.Lon, 0 });
                 isMapIdled = false;
                 OnPropertyChanged();
                 OnPropertyChanged("IsSelectedItemExists");

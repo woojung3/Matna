@@ -8,7 +8,7 @@
     <RootNamespace>Matna.UITests</RootNamespace>
     <AssemblyName>Matna.UITests</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <ReleaseVersion>1.0.9</ReleaseVersion>
+    <ReleaseVersion>1.0.10</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

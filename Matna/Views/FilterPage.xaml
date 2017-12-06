@@ -12,7 +12,7 @@
         <OnPlatform x:TypeArguments="Thickness"
                     iOS="0, 20, 0, 0" />
     </ContentPage.Padding>
-
+    
     <ScrollView>
         <Grid x:Name="mainGrid" Padding="0" RowSpacing="0">
             <Grid.RowDefinitions>
@@ -45,28 +45,19 @@
                 <Slider x:Name="slider" HorizontalOptions="FillAndExpand" Maximum="20" Minimum="1" Value="{Binding MaxRadKM}" Margin="5" />
             </StackLayout>
             
-            <StackLayout x:Name="KRStack" AutomationId="KRStack" IsVisible="false" Grid.Row="2">
+            <StackLayout Grid.Row="2">
                 <ctr:HeaderStack 
                     BackgroundColor="LightGray" TextColor="Gray"
-                    LeftText="{local:Translate KRQuickFilters}" 
+                    LeftText="{local:Translate ListQuickFilters}" 
                 />
-                <Label Text="{local:Translate KRQuickFiltersDetail}" Margin="5" />
-                <StackLayout Orientation="Horizontal" Padding="5">
-                    <Label Text="{local:Translate Samdae}" HorizontalOptions="StartAndExpand" />
-                    <Switch HorizontalOptions="End" IsToggled="{Binding ShowKRSamdae}" />
-                </StackLayout>
-                <StackLayout Orientation="Horizontal" Padding="5">
-                    <Label Text="{local:Translate Suyo}" HorizontalOptions="StartAndExpand" />
-                    <Switch HorizontalOptions="End" IsToggled="{Binding ShowKRSuyo}" />
-                </StackLayout>
-                <StackLayout Orientation="Horizontal" Padding="5">
-                    <Label Text="{local:Translate Chakhan}" HorizontalOptions="StartAndExpand" />
-                    <Switch HorizontalOptions="End" IsToggled="{Binding ShowKRChakhan}" />
-                </StackLayout>
+                <Label Text="{local:Translate ListQuickFiltersDetail}" Margin="5" />
                 <StackLayout Orientation="Horizontal" Padding="5">
                     <Label Text="{local:Translate Google}" HorizontalOptions="StartAndExpand" />
                     <Switch x:Name="googleSwitch" AutomationId="googleSwitch" HorizontalOptions="End" IsToggled="{Binding ShowGoogle}" />
                 </StackLayout>
+
+                <Button Text="{local:Translate ManageMyList}" BackgroundColor="{StaticResource Primary}" TextColor="{StaticResource PrimaryInv}" HorizontalOptions="FillAndExpand" Margin="10" Clicked="OnManageMyListClicked" />
+
             </StackLayout>
 
             <StackLayout Grid.Row="3" IsVisible="{Binding IsToggled, Source={x:Reference googleSwitch}}">
@@ -83,7 +74,7 @@
                 
                 <Label Text="{local:Translate SortBy}" Margin="5" />
                 <StackLayout Orientation="Horizontal" Margin="5">
-                    <Picker x:Name="picker" AutomationId="picker" SelectedIndexChanged="SelectedIndexChanged" Title="{local:Translate SelectSort}" HorizontalOptions="End">
+                    <Picker SelectedIndexChanged="SelectedIndexChanged" Title="{local:Translate SelectSort}" HorizontalOptions="End">
                         <Picker.ItemsSource>
                             <x:Array Type="{x:Type x:String}">
                               <x:String>Rating</x:String>

@@ -55,6 +55,9 @@
     <data name="LoadPlacesFromMap" xml:space="preserve">
         <value>今の地図で食堂を検索</value>
     </data>
+    <data name="LoadPlacesFromMapShort" xml:space="preserve">
+        <value>地図で検索</value>
+    </data>
     <data name="Back" xml:space="preserve">
         <value>バック</value>
     </data>
@@ -94,20 +97,20 @@
     <data name="ReallyQuit" xml:space="preserve">
         <value>終了しますか？バックボタンをもう一度押してください</value>
     </data>
-    <data name="KRQuickFilters" xml:space="preserve">
-        <value>韓国専用</value>
+    <data name="ListQuickFilters" xml:space="preserve">
+        <value>リストフィルター</value>
     </data>
-    <data name="KRQuickFiltersDetail" xml:space="preserve">
-        <value>選択したアイテムだけをアプリで見ます</value>
+    <data name="ListQuickFiltersDetail" xml:space="preserve">
+        <value>選択したリストだけをアプリで見ます</value>
     </data>
     <data name="Samdae" xml:space="preserve">
-        <value>삼대천왕</value>
+        <value>삼대천왕（韓国）</value>
     </data>
     <data name="Suyo" xml:space="preserve">
-        <value>수요미식회</value>
+        <value>수요미식회（韓国）</value>
     </data>
     <data name="Chakhan" xml:space="preserve">
-        <value>착한식당</value>
+        <value>착한식당（韓国）</value>
     </data>
     <data name="Google" xml:space="preserve">
         <value>グーグル</value>
@@ -147,5 +150,8 @@
     </data>
     <data name="UsedKeywords" xml:space="preserve">
         <value>キーワード設定中: {0}</value>
+    </data>
+    <data name="ManageMyList" xml:space="preserve">
+        <value>個人リスト設定</value>
     </data>
 </root>

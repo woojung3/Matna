@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    xmlns:vms="clr-namespace:Matna.ViewModels"
+    xmlns:ctr="clr-namespace:Matna.Helpers.Controls"
+    xmlns:local="clr-namespace:Matna" 
+    x:Class="Matna.Views.MyListsPage">
+    <ContentPage.BindingContext>
+        <vms:MyListsPageViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness"
+                    iOS="0, 20, 0, 0" />
+    </ContentPage.Padding>
+
+    <Grid x:Name="mainGrid" Padding="0" RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        
+        <ctr:HeaderStack Grid.Row="0" HeightRequest="40"
+            CenterIcon="{x:Static ctr:Icon.ListUl}"
+            CenterText="{local:Translate List}"
+            LeftIcon="{x:Static ctr:Icon.AngleLeft}"
+            LeftText="{local:Translate Back}" 
+            LeftCommand="{Binding OnCloseClicked}"
+        />
+        <ListView Grid.Row="1" ItemsSource="{Binding SavedLists}" Margin="10">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" TextColor="Black" Text="{Binding Name}"/>
+                            <Switch Grid.Column="1" HorizontalOptions="End" IsToggled="{Binding IsEnabled}" />
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</ContentPage>

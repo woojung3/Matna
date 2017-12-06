@@ -9,6 +9,15 @@ namespace Matna.Views
 {
     public partial class FilterPage : ContentPage
     {
+        async void OnManageMyListClicked(object sender, System.EventArgs e)
+        {
+            if (Navigation.ModalStack.Count == 1)
+            {
+                var page = new MyListsPage();
+                await Navigation.PushModalAsync(page);
+            }
+        }
+
         void SelectedIndexChanged(object sender, System.EventArgs e)
         {
             var picker = (Picker)sender;
@@ -23,8 +32,6 @@ namespace Matna.Views
         public FilterPage()
         {
             InitializeComponent();
-
-            KRStack.IsVisible |= AppResources.Locale == "ko";
         }
 
         protected override void OnAppearing()

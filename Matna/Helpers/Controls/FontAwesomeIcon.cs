@@ -52,5 +52,7 @@ namespace Matna.Helpers.Controls
         public static readonly string WindowCloseO = "\uf2d4";
         public static readonly string Cutlery = "\uf0f5";
         public static readonly string QuestionCircleO = "\uf29c";
+        public static readonly string Tags = "\uf02c";
+        public static readonly string ListUl = "\uf0ca";
     }
 }

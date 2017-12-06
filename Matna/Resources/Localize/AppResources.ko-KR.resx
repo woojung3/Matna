@@ -55,6 +55,9 @@
     <data name="LoadPlacesFromMap" xml:space="preserve">
         <value>지금 지도에서 맛집 검색</value>
     </data>
+    <data name="LoadPlacesFromMapShort" xml:space="preserve">
+        <value>지도 검색</value>
+    </data>
     <data name="Back" xml:space="preserve">
         <value>뒤로</value>
     </data>
@@ -94,11 +97,11 @@
     <data name="ReallyQuit" xml:space="preserve">
         <value>종료합니까? 백 버튼을 한번 더 눌러 주세요</value>
     </data>
-    <data name="KRQuickFilters" xml:space="preserve">
-        <value>한국 전용 필터</value>
+    <data name="ListQuickFilters" xml:space="preserve">
+        <value>목록 필터</value>
     </data>
-    <data name="KRQuickFiltersDetail" xml:space="preserve">
-        <value>선택한 아이템만이 앱에 표시됩니다</value>
+    <data name="ListQuickFiltersDetail" xml:space="preserve">
+        <value>선택한 리스트만이 앱에 표시됩니다</value>
     </data>
     <data name="Samdae" xml:space="preserve">
         <value>삼대천왕</value>
@@ -147,5 +150,8 @@
     </data>
     <data name="UsedKeywords" xml:space="preserve">
         <value>키워드 설정됨: {0}</value>
+    </data>
+    <data name="ManageMyList" xml:space="preserve">
+        <value>나의 목록 관리</value>
     </data>
 </root>

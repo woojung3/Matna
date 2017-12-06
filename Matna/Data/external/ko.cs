@@ -9,7 +9,6 @@ namespace Matna.Data.external
         #region samdae
         static List<GooglePlaceNearbyItem> samdaeData = new List<GooglePlaceNearbyItem>()
         {
-            
             new GooglePlaceNearbyItem()
             {
                 PlaceId = "ChIJhct-zGaMcTURDEpT2m9ZI3U",

@@ -199,12 +199,6 @@ namespace Matna
                 PropertiesDictionary.SearchHist = JsonConvert.DeserializeObject<List<GoogleAutocompletePrediction>>((string)Application.Current.Properties["SearchHist"]);
             if (Application.Current.Properties.ContainsKey("ShowGoogle"))
                 PropertiesDictionary.ShowGoogle = (bool)Application.Current.Properties["ShowGoogle"];
-            if (Application.Current.Properties.ContainsKey("ShowKRSamdae"))
-                PropertiesDictionary.ShowKRSamdae = (bool)Application.Current.Properties["ShowKRSamdae"];
-            if (Application.Current.Properties.ContainsKey("ShowKRChakhan"))
-                PropertiesDictionary.ShowKRChakhan = (bool)Application.Current.Properties["ShowKRChakhan"];
-            if (Application.Current.Properties.ContainsKey("ShowKRSuyo"))
-                PropertiesDictionary.ShowKRSuyo = (bool)Application.Current.Properties["ShowKRSuyo"];
             if (Application.Current.Properties.ContainsKey("GoogleSort"))
                 PropertiesDictionary.GoogleSort = (int)Application.Current.Properties["GoogleSort"];
             if (Application.Current.Properties.ContainsKey("Keyword"))
@@ -229,6 +223,11 @@ namespace Matna
                     }
                 }
             };
+
+            if (Device.Idiom != TargetIdiom.Phone && Device.RuntimePlatform == Device.iOS)
+            {
+                mapSearchBoxLabel.Text = AppResources.LoadPlacesFromMapShort;
+            }
         }
 
         private void DrawFromItems(List<GooglePlaceNearbyItem> items)

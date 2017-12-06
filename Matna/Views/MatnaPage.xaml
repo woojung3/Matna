@@ -29,7 +29,7 @@
 
         <!-- Navigation Bar -->
         <!-- For save -->
-        <StackLayout Style="{StaticResource PrimaryHWStack}" Grid.Row="0" IsVisible="{Binding IsShowSaved}" HeightRequest="40">
+        <StackLayout Style="{StaticResource PrimaryHWStack}" Grid.Row="0" IsVisible="{Binding IsShowBookmark}" HeightRequest="40">
             <Grid Padding="0" ColumnSpacing="10" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -121,7 +121,7 @@
                         <TapGestureRecognizer Command="{Binding OnLoadPlacesFromMapClicked}" />
                     </ctr:FontAwesomeIcon.GestureRecognizers>
                 </ctr:FontAwesomeIcon>
-                <Label Style="{StaticResource PopupHolderText}" Text="{local:Translate LoadPlacesFromMap}">
+                <Label x:Name="mapSearchBoxLabel" AutomationId="mapSearchBoxLabel" Style="{StaticResource PopupHolderText}" Text="{local:Translate LoadPlacesFromMap}">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding OnLoadPlacesFromMapClicked}" />
                     </Label.GestureRecognizers>
@@ -196,9 +196,12 @@
                                             ErrorPlaceholder="{local:ImageResource Matna.Resources.Images.ErrorPlaceholder.png}"
                                             Source="{Binding IconUrl}" />
                                     </ContentView>
-                                    <Label Grid.Row="1" Style="{StaticResource PrimaryText}"
-                                           Text="{Binding Name}" 
-                                           LineBreakMode="TailTruncation" />
+                                    <StackLayout Grid.Row="1" Orientation="Horizontal">
+                                        <ctr:FontAwesomeIcon IsVisible="{Binding IsInManyLists}" Style="{StaticResource PrimaryText}" TextColor="Yellow" Text="{x:Static ctr:Icon.Tags}" />
+                                        <Label Style="{StaticResource PrimaryText}"
+                                               Text="{Binding Name}" 
+                                               LineBreakMode="TailTruncation" />
+                                    </StackLayout>
                                 </Grid>
                             </ViewCell.View>
                         </ViewCell>

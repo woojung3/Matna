@@ -55,6 +55,9 @@
     <data name="LoadPlacesFromMap" xml:space="preserve">
         <value>Search places from current map</value>
     </data>
+    <data name="LoadPlacesFromMapShort" xml:space="preserve">
+        <value>Search Map</value>
+    </data>
     <data name="Back" xml:space="preserve">
         <value>Back</value>
     </data>
@@ -94,26 +97,26 @@
     <data name="ReallyQuit" xml:space="preserve">
         <value>Do you want to exit? If so, please touch back button once more</value>
     </data>
-    <data name="KRQuickFilters" xml:space="preserve">
-        <value>Quick Filters for Korean</value>
+    <data name="ListQuickFilters" xml:space="preserve">
+        <value>List Filter</value>
     </data>
-    <data name="KRQuickFiltersDetail" xml:space="preserve">
-        <value>Only shows selected items on app</value>
+    <data name="ListQuickFiltersDetail" xml:space="preserve">
+        <value>Only shows selected lists on app</value>
     </data>
     <data name="Samdae" xml:space="preserve">
-        <value>Sam Dae Cheon Wang</value>
+        <value>삼대천왕 (Korea)</value>
     </data>
     <data name="Suyo" xml:space="preserve">
-        <value>Suyo Misik Huoe</value>
+        <value>수요미식회 (Korea)</value>
     </data>
     <data name="Chakhan" xml:space="preserve">
-        <value>Chak Han Sik Dang</value>
+        <value>착한식당 (Korea)</value>
     </data>
     <data name="Google" xml:space="preserve">
         <value>Google</value>
     </data>
     <data name="GoogleApi" xml:space="preserve">
-        <value>Google API</value>
+        <value>Google API Filter</value>
     </data>
     <data name="SortBy" xml:space="preserve">
         <value>Sort By</value>
@@ -147,5 +150,8 @@
     </data>
     <data name="UsedKeywords" xml:space="preserve">
         <value>Used Keywords: {0}</value>
+    </data>
+    <data name="ManageMyList" xml:space="preserve">
+        <value>Manage My Lists</value>
     </data>
 </root>

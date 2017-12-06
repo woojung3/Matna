@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using SQLite;
 using Matna.Helpers;
+using PCLStorage;
+using System.Threading.Tasks;
+using Matna.Resources.Localize;
+using Matna.Utils;
 
 namespace Matna.Models
 {
@@ -19,10 +23,142 @@ namespace Matna.Models
         public string NextPageToken { get; set; }
     }
 
+    public class GooglePlaceNearbyList
+    {
+        public List<GooglePlaceNearbyItem> List { get; set; }
+        public string Name { get; set; }
+        bool isEnabled = false;
+        public bool IsEnabled 
+        { 
+            get
+            {
+                return isEnabled;
+            }
+            set
+            {
+                if (isEnabled != value)
+                    Save2File();
+                isEnabled = value;
+            }
+        }
+        public bool IsDisabled
+        {
+            get
+            {
+                return !IsEnabled;
+            }
+        }
+
+        public async void Save2File()
+        {
+            var rtn = await Save2FileAsync();
+        }
+
+        public async Task<bool> Save2FileAsync()
+        {
+            try
+            {
+                IFolder rootFolder = FileSystem.Current.LocalStorage;
+                IFolder folder = await rootFolder.CreateFolderAsync("Lists", CreationCollisionOption.OpenIfExists);
+
+                string validName = Name;
+                foreach (char c in System.IO.Path.GetInvalidFileNameChars())
+                    validName = validName.Replace(c, '_');
+
+                IFile file = await folder.CreateFileAsync(validName, CreationCollisionOption.ReplaceExisting);
+                await file.WriteAllTextAsync(JsonConvert.SerializeObject(this));
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e);
+                // TODO notify to MatnaPage (DisplayAlert?)
+                return false;
+            }
+            return true;
+        }
+
+        List<double> centralGeoCoordinateWithRad = null;
+        public List<double> CentralGeoCoordinateWithRad
+        {
+            get
+            {
+                return centralGeoCoordinateWithRad;
+            }
+            set
+            {
+                centralGeoCoordinateWithRad = value;
+                //Save2File();
+            }
+        }
+        public List<double> GetCentralGeoCoordinateWithRad()
+        {
+            if (CentralGeoCoordinateWithRad == null)
+            {
+                var geoCoordinates = this.List.Select(e => new Coordinates(e.Lat, e.Lon)).ToList();
+                if (geoCoordinates.Count == 1)
+                {
+                    return new List<double>() { geoCoordinates.Single().Latitude, geoCoordinates.Single().Longitude };
+                }
+
+                double x = 0;
+                double y = 0;
+                double z = 0;
+
+                foreach (var geoCoordinate in geoCoordinates)
+                {
+                    var latitude = geoCoordinate.Latitude * Math.PI / 180;
+                    var longitude = geoCoordinate.Longitude * Math.PI / 180;
+
+                    x += Math.Cos(latitude) * Math.Cos(longitude);
+                    y += Math.Cos(latitude) * Math.Sin(longitude);
+                    z += Math.Sin(latitude);
+                }
+
+                var total = geoCoordinates.Count;
+
+                x = x / total;
+                y = y / total;
+                z = z / total;
+
+                var centralLongitude = Math.Atan2(y, x);
+                var centralSquareRoot = Math.Sqrt(x * x + y * y);
+                var centralLatitude = Math.Atan2(z, centralSquareRoot);
+
+                centralLatitude = centralLatitude * 180 / Math.PI;
+                centralLongitude = centralLongitude * 180 / Math.PI;
+
+                double maxRad = 100;
+                foreach (var geoCoordinate in geoCoordinates)
+                {
+                    var sCoord = new Coordinates(geoCoordinate.Latitude, geoCoordinate.Longitude);
+                    var eCoord = new Coordinates(centralLatitude, centralLongitude);
+                    var dist = sCoord.DistanceFrom(eCoord);
+                    if (dist > maxRad)
+                        maxRad = dist;
+                }
+
+                var rtn = new List<double>() { centralLatitude , centralLongitude , maxRad };
+                CentralGeoCoordinateWithRad = rtn;
+                return rtn;
+            }
+            return centralGeoCoordinateWithRad;
+        }
+    }
+
     public class GooglePlaceNearbyItem
     {
         [PrimaryKey, JsonProperty("place_id")]
         public string PlaceId { get; set; }
+
+        [Ignore]
+        public int DupCnt { get; set; }
+
+        public GooglePlaceNearbyItem Copy(int dupCount)
+        {
+            var copy = (GooglePlaceNearbyItem)this.MemberwiseClone();
+            copy.DupCnt = dupCount;
+            return copy;
+        }
 
         bool isSaved = false;
         public bool IsSaved
@@ -103,6 +239,16 @@ namespace Matna.Models
 
         [JsonProperty("name")]
         public string Name { get; set; }
+
+        public bool IsInManyLists
+        {
+            get
+            {
+                if (DupCnt > 1)
+                    return true;
+                return false;
+            }
+        }
 
         [JsonProperty("rating")]
         public double? Rating { get; set; }

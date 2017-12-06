@@ -131,6 +131,12 @@ namespace Matna.Resources.Localize {
             }
         }
         
+        public static string LoadPlacesFromMapShort {
+            get {
+                return ResourceManager.GetString("LoadPlacesFromMapShort", resourceCulture);
+            }
+        }
+        
         public static string Back {
             get {
                 return ResourceManager.GetString("Back", resourceCulture);
@@ -209,15 +215,15 @@ namespace Matna.Resources.Localize {
             }
         }
         
-        public static string KRQuickFilters {
+        public static string ListQuickFilters {
             get {
-                return ResourceManager.GetString("KRQuickFilters", resourceCulture);
+                return ResourceManager.GetString("ListQuickFilters", resourceCulture);
             }
         }
         
-        public static string KRQuickFiltersDetail {
+        public static string ListQuickFiltersDetail {
             get {
-                return ResourceManager.GetString("KRQuickFiltersDetail", resourceCulture);
+                return ResourceManager.GetString("ListQuickFiltersDetail", resourceCulture);
             }
         }
         
@@ -314,6 +320,12 @@ namespace Matna.Resources.Localize {
         public static string UsedKeywords {
             get {
                 return ResourceManager.GetString("UsedKeywords", resourceCulture);
+            }
+        }
+        
+        public static string ManageMyList {
+            get {
+                return ResourceManager.GetString("ManageMyList", resourceCulture);
             }
         }
     }

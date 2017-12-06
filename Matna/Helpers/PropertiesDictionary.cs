@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using Matna.Models;
 using Newtonsoft.Json;
+using PCLStorage;
 using Xamarin.Forms;
 
 namespace Matna.Helpers
@@ -142,51 +143,6 @@ namespace Matna.Helpers
             }
         }
 
-        private static bool showKRSamdae = true;
-        public static bool ShowKRSamdae
-        {
-            get
-            {
-                return showKRSamdae;
-            }
-            set
-            {
-                Application.Current.Properties["ShowKRSamdae"] = value;
-                showKRSamdae = value;
-                Save();
-            }
-        }
-
-        private static bool showKRChakhan = true;
-        public static bool ShowKRChakhan
-        {
-            get
-            {
-                return showKRChakhan;
-            }
-            set
-            {
-                Application.Current.Properties["ShowKRChakhan"] = value;
-                showKRChakhan = value;
-                Save();
-            }
-        }
-
-        private static bool showKRSuyo = true;
-        public static bool ShowKRSuyo
-        {
-            get
-            {
-                return showKRSuyo;
-            }
-            set
-            {
-                Application.Current.Properties["ShowKRSuyo"] = value;
-                showKRSuyo = value;
-                Save();
-            }
-        }
-
         private static int googleSort = 0;
         public static int GoogleSort
         {
@@ -216,5 +172,7 @@ namespace Matna.Helpers
                 Save();
             }
         }
+
+        public static List<GooglePlaceNearbyList> SavedLists = new List<GooglePlaceNearbyList>();
     }
 }

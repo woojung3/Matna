@@ -31,37 +31,37 @@ namespace Matna.ViewModels
             set
             {
                 var list = value;
-                if (!IsShowSaved)
+                if (!IsShowBookmark)
                 {
-                    if (31.957064 < PropertiesDictionary.Latitude && PropertiesDictionary.Latitude < 38.801411 &&
-                        123.764172 < PropertiesDictionary.Longitude && PropertiesDictionary.Longitude < 132.179699)
+                    List<List<GooglePlaceNearbyItem>> lists = new List<List<GooglePlaceNearbyItem>>();
+                    foreach (var l in PropertiesDictionary.SavedLists)
                     {
-                        List<List<GooglePlaceNearbyItem>> lists = new List<List<GooglePlaceNearbyItem>>();
-                        if (true)
+                        if (l.IsEnabled)
                         {
-                            if (PropertiesDictionary.ShowKRSamdae)
-                                lists.Add(ko.SamdaeData);
-                            if (PropertiesDictionary.ShowKRChakhan)
-                                lists.Add(ko.ChakhanData);
-                            if (PropertiesDictionary.ShowKRSuyo)
-                                lists.Add(ko.SuyoData);
-                        }
+                            var centralGeoCoordinateWithRad = l.GetCentralGeoCoordinateWithRad();
+                            var sCoord = new Coordinates(PropertiesDictionary.Latitude, PropertiesDictionary.Longitude);
+                            var eCoord = new Coordinates(centralGeoCoordinateWithRad[0], centralGeoCoordinateWithRad[1]);
+                            var dist = sCoord.DistanceFrom(eCoord);
 
-                        foreach (var items in lists)
+                            if (dist < PropertiesDictionary.Radius + centralGeoCoordinateWithRad[2])
+                                lists.Add(l.List);
+                        }
+                    }
+
+                    foreach (var l in lists)
+                    {
+                        foreach (GooglePlaceNearbyItem item in l)
                         {
-                            foreach (GooglePlaceNearbyItem item in items)
-                            {
-                                var sCoord = new Coordinates(item.Lat, item.Lon);
-                                var eCoord = new Coordinates(PropertiesDictionary.Latitude, PropertiesDictionary.Longitude);
-                                var dist = sCoord.DistanceFrom(eCoord);
-                                if (dist < PropertiesDictionary.Radius)
-                                    list.Add(item);
-                            }
+                            var sCoord = new Coordinates(item.Lat, item.Lon);
+                            var eCoord = new Coordinates(PropertiesDictionary.Latitude, PropertiesDictionary.Longitude);
+                            var dist = sCoord.DistanceFrom(eCoord);
+                            if (dist < PropertiesDictionary.Radius)
+                                list.Add(item);
                         }
                     }
                 }
 
-                var firstItemsInGroup = from item in list group item by item.PlaceId into g select g.Last();
+                var firstItemsInGroup = from item in list group item by item.PlaceId into g select g.Last().Copy(g.Count());
 
                 placesToShow = firstItemsInGroup.ToList();
                 MessagingCenter.Send(this, "DrawPins", placesToShow);
@@ -105,16 +105,16 @@ namespace Matna.ViewModels
             }
         }
 
-        bool isShowSaved = false;
-        public bool IsShowSaved
+        bool isShowBookmark = false;
+        public bool IsShowBookmark
         {
             get
             {
-                return isShowSaved;
+                return isShowBookmark;
             }
             set
             {
-                isShowSaved = value;
+                isShowBookmark = value;
                 OnPropertyChanged();
                 OnPropertyChanged("IsShowLoadPlacesFromMap");
                 OnPropertyChanged("IsShowAd");
@@ -125,7 +125,7 @@ namespace Matna.ViewModels
         {
             get
             {
-                if (isShowSaved)
+                if (isShowBookmark)
                     return false;
                 return true;
             }
@@ -177,14 +177,14 @@ namespace Matna.ViewModels
                 Device.BeginInvokeOnMainThread(() => 
                 { 
                     PlacesToShow = items;
-                    IsShowSaved = true; 
+                    IsShowBookmark = true; 
                     SelectedItem = NoneItem;
                 });
             });
             OnBackSavedClicked = new Command(() => {
                 SelectedItem = NoneItem;
                 PlacesToShow = new List<GooglePlaceNearbyItem>();
-                IsShowSaved = false;
+                IsShowBookmark = false;
             });
             OnLoadPlacesFromMapClicked = new Command(() => {
                 SelectedItem = NoneItem;

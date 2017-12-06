@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Matna.Helpers;
+using Matna.Models;
 using Xamarin.Forms;
 
 namespace Matna.ViewModels
@@ -33,45 +34,6 @@ namespace Matna.ViewModels
             set
             {
                 PropertiesDictionary.GoogleRecIdx = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public bool ShowKRSamdae
-        {
-            get
-            {
-                return PropertiesDictionary.ShowKRSamdae;
-            }
-            set
-            {
-                PropertiesDictionary.ShowKRSamdae = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public bool ShowKRSuyo
-        {
-            get
-            {
-                return PropertiesDictionary.ShowKRSuyo;
-            }
-            set
-            {
-                PropertiesDictionary.ShowKRSuyo = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public bool ShowKRChakhan
-        {
-            get
-            {
-                return PropertiesDictionary.ShowKRChakhan;
-            }
-            set
-            {
-                PropertiesDictionary.ShowKRChakhan = value;
                 OnPropertyChanged();
             }
         }

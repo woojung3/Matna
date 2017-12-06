@@ -11,7 +11,7 @@
     <AssemblyName>Matna</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile111</TargetFrameworkProfile>
-    <ReleaseVersion>1.0.13</ReleaseVersion>
+    <ReleaseVersion>1.0.14</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -64,6 +64,9 @@
       <LogicalName>Matna.AppResources.ja-JP.resources</LogicalName>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AppResources.ja-JP.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\MyListsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -127,6 +130,10 @@
     <Compile Include="Resources\Localize\AppResources.ko-KR.Designer.cs">
       <DependentUpon>AppResources.ko-KR.resx</DependentUpon>
     </Compile>
+    <Compile Include="Views\MyListsPage.cs">
+      <DependentUpon>MyListsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\MyListsPageViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
@@ -179,6 +186,12 @@
     </Reference>
     <Reference Include="Xamarin.Forms.GoogleMaps">
       <HintPath>..\packages\Xamarin.Forms.GoogleMaps.2.2.1\lib\portable-net45+wp8+wpa81+win8+MonoAndroid70+MonoTouch10+Xamarin.iOS10+UAP10\Xamarin.Forms.GoogleMaps.dll</HintPath>
+    </Reference>
+    <Reference Include="PCLStorage.Abstractions">
+      <HintPath>..\packages\PCLStorage.1.0.2\lib\portable-net45+wp8+wpa81+win8+monoandroid+monotouch+Xamarin.iOS+Xamarin.Mac\PCLStorage.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="PCLStorage">
+      <HintPath>..\packages\PCLStorage.1.0.2\lib\portable-net45+wp8+wpa81+win8+monoandroid+monotouch+Xamarin.iOS+Xamarin.Mac\PCLStorage.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

@@ -5,6 +5,7 @@
     xmlns:ctr="clr-namespace:Matna.Helpers.Controls"
     xmlns:maps="clr-namespace:Xamarin.Forms.GoogleMaps;assembly=Xamarin.Forms.GoogleMaps"
     xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:flv="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
     xmlns:local="clr-namespace:Matna" 
     x:Name="MatnaPage" 
     x:Class="Matna.MatnaPage">
@@ -151,7 +152,59 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <ctr:HScrollView x:Name="scrollView" AutomationId="scrollView"
+            <flv:FlowListView x:Name="scrollView" AutomationId="scrollView"
+                      Grid.Row="0"
+                      FlowItemsSource="{Binding PlacesToShow}"
+                      FlowColumnMinWidth="70" RowHeight="90"
+                      HorizontalOptions="FillAndExpand"
+                      VerticalOptions="FillAndExpand"
+                      BackgroundColor="{StaticResource PrimaryDark}" >
+                <flv:FlowListView.FlowColumnTemplate>
+                    <DataTemplate>
+                        <Grid AutomationId="scrollViewItem" Padding="5">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding BindingContext.OnItemClicked, Source={x:Reference MatnaPage}}" CommandParameter="{Binding PlaceId}" />
+                            </Grid.GestureRecognizers>
+                            
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <ffimageloading:CachedImage 
+                                Grid.Row="0" 
+                                Aspect="Fill" 
+                                DownsampleToViewSize="True"
+                                DownsampleHeight="80"
+                                RetryCount="0" 
+                                ErrorPlaceholder="{local:ImageResource Matna.Resources.Images.ErrorPlaceholder.png}"
+                                BackgroundColor="Teal"
+                                Source="{Binding ImageUrl}">
+                            </ffimageloading:CachedImage>
+                            <ContentView Grid.Row="0" Padding="5">
+                                <ffimageloading:CachedImage 
+                                    HorizontalOptions="Start"
+                                    VerticalOptions="Start"
+                                    Aspect="AspectFit" 
+                                    DownsampleToViewSize="True"
+                                    DownsampleHeight="15"
+                                    WidthRequest="15"
+                                    HeightRequest="15"
+                                    BackgroundColor="Transparent"
+                                    RetryCount="0" 
+                                    ErrorPlaceholder="{local:ImageResource Matna.Resources.Images.ErrorPlaceholder.png}"
+                                    Source="{Binding IconUrl}" />
+                            </ContentView>
+                            <StackLayout Grid.Row="1" Orientation="Horizontal">
+                                <ctr:FontAwesomeIcon IsVisible="{Binding IsInManyLists}" Style="{StaticResource PrimaryText}" TextColor="Yellow" Text="{x:Static ctr:Icon.Tags}" />
+                                <Label Style="{StaticResource PrimaryText}"
+                                       Text="{Binding Name}" 
+                                       LineBreakMode="TailTruncation" />
+                            </StackLayout>
+                        </Grid>
+                    </DataTemplate>
+                </flv:FlowListView.FlowColumnTemplate>
+            </flv:FlowListView>
+            <!--<ctr:HScrollView x:Name="scrollView" AutomationId="scrollView"
                       Grid.Row="0"
                       Padding="5" 
                       ItemsSource="{Binding PlacesToShow}"
@@ -207,7 +260,7 @@
                         </ViewCell>
                     </DataTemplate>
                 </ctr:HScrollView.ItemTemplate>
-            </ctr:HScrollView>
+            </ctr:HScrollView>-->
 
             <!-- Selected Item Card View -->
             <ctr:CardView Grid.Row="0" BindingContext="{Binding SelectedItem}" IsVisible="{Binding BindingContext.IsSelectedItemExists, Source={x:Reference MatnaPage}}" 

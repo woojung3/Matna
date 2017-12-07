@@ -328,5 +328,59 @@ namespace Matna.Resources.Localize {
                 return ResourceManager.GetString("ManageMyList", resourceCulture);
             }
         }
+        
+        public static string PushListToEdit {
+            get {
+                return ResourceManager.GetString("PushListToEdit", resourceCulture);
+            }
+        }
+        
+        public static string AddMyList {
+            get {
+                return ResourceManager.GetString("AddMyList", resourceCulture);
+            }
+        }
+        
+        public static string GetBundleLists {
+            get {
+                return ResourceManager.GetString("GetBundleLists", resourceCulture);
+            }
+        }
+        
+        public static string Warning {
+            get {
+                return ResourceManager.GetString("Warning", resourceCulture);
+            }
+        }
+        
+        public static string BundleOverwriteWarning {
+            get {
+                return ResourceManager.GetString("BundleOverwriteWarning", resourceCulture);
+            }
+        }
+        
+        public static string ListOverwriteWarning {
+            get {
+                return ResourceManager.GetString("ListOverwriteWarning", resourceCulture);
+            }
+        }
+        
+        public static string ListCopied {
+            get {
+                return ResourceManager.GetString("ListCopied", resourceCulture);
+            }
+        }
+        
+        public static string AddListError {
+            get {
+                return ResourceManager.GetString("AddListError", resourceCulture);
+            }
+        }
+        
+        public static string Success {
+            get {
+                return ResourceManager.GetString("Success", resourceCulture);
+            }
+        }
     }
 }

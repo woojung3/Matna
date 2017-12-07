@@ -9,6 +9,7 @@ using System.Collections;
 using System.Windows.Input;
 using System.Reflection;
 using System.Collections.Specialized;
+using System.Diagnostics;
 
 namespace Matna.Helpers.Controls
 {
@@ -28,7 +29,7 @@ namespace Matna.Helpers.Controls
         public IEnumerable ItemsSource
         {
             get { return (IEnumerable)GetValue(ItemsSourceProperty); }
-            set { SetValue(ItemsSourceProperty, value); Device.BeginInvokeOnMainThread(Render); }
+            set { SetValue(ItemsSourceProperty, value); Render(); }
         }
 
         public static readonly BindableProperty ItemTemplateProperty =
@@ -88,7 +89,7 @@ namespace Matna.Helpers.Controls
             set { SetValue(SelectedCommandParameterProperty, value); }
         }
 
-        public void Render()
+        public void Render()    // Be careful this control is quite slow
         {
             if (ItemTemplate == null || ItemsSource == null)
                 return;
@@ -108,12 +109,12 @@ namespace Matna.Helpers.Controls
 
                 var viewCell = ItemTemplate.CreateContent() as ViewCell;
                 viewCell.View.BindingContext = item;
-                viewCell.View.GestureRecognizers.Add(new TapGestureRecognizer
-                {
-                    Command = command,
-                    CommandParameter = commandParameter,
-                    NumberOfTapsRequired = 1
-                });
+                //viewCell.View.GestureRecognizers.Add(new TapGestureRecognizer
+                //{
+                //    Command = command,
+                //    CommandParameter = commandParameter,
+                //    NumberOfTapsRequired = 1
+                //});
 
                 layout.Children.Add(viewCell.View);
             }

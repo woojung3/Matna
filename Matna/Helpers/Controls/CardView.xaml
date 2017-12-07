@@ -20,12 +20,9 @@
         </Grid.RowDefinitions>
     
         <StackLayout Grid.Row="0" Style="{StaticResource PrimaryHLStack}" Padding="5">
-            <StackLayout Orientation="Horizontal">
-                <ctr:FontAwesomeIcon FontSize="20" FontAttributes="Bold" TextColor="{StaticResource Primary}" IsVisible="{Binding IsInManyLists}" Text="{x:Static ctr:Icon.Tags}" />
-                <Label FontSize="20" FontAttributes="Bold" TextColor="Black"
-                       Text="{Binding Name}" 
-                       LineBreakMode="TailTruncation" />
-            </StackLayout>
+            <Label FontSize="20" FontAttributes="Bold" TextColor="Black"
+                   Text="{Binding Name}" 
+                   LineBreakMode="TailTruncation" />
             <ctr:FontAwesomeIcon HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand" FontSize="12" TextColor="{StaticResource Primary}" Text="{x:Static ctr:Icon.Star}" IsVisible="{Binding IsStar1Visible}" />
             <ctr:FontAwesomeIcon HorizontalOptions="End" VerticalOptions="FillAndExpand" FontSize="12" TextColor="{StaticResource Primary}" Text="{x:Static ctr:Icon.Star}" IsVisible="{Binding IsStar2Visible}" />
             <ctr:FontAwesomeIcon HorizontalOptions="End" VerticalOptions="FillAndExpand" FontSize="12" TextColor="{StaticResource Primary}" Text="{x:Static ctr:Icon.Star}" IsVisible="{Binding IsStar3Visible}" />

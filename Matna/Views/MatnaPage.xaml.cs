@@ -80,13 +80,13 @@ namespace Matna
                 map.Circles.Clear();
                 if (map.VisibleRegion == null)
                     DisplayAlert(AppResources.Matna, AppResources.MoveMapPlease, AppResources.OK);
-                else if (Math.Abs(PropertiesDictionary.Radius - PropertiesDictionary.MaxRadKM * 1000) < 1)
+                else if (PropertiesDictionary.Radius > PropertiesDictionary.MaxRadKM*1000 && PropertiesDictionary.ShowGoogle)
                 {
                     DisplayAlert(AppResources.Matna, String.Format(AppResources.MaxRadReached, PropertiesDictionary.MaxRadKM), AppResources.OK);
                     var circle = new Circle
                     {
                         Center = new Position(PropertiesDictionary.Latitude, PropertiesDictionary.Longitude),
-                        Radius = Distance.FromMeters(PropertiesDictionary.Radius),
+                        Radius = Distance.FromMeters(PropertiesDictionary.MaxRadKM*1000),
                         StrokeColor = Color.Magenta,
                         StrokeWidth = 3f,
                         FillColor = Color.Transparent,

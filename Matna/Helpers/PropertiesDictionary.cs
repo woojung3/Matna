@@ -71,8 +71,6 @@ namespace Matna.Helpers
         {
             get
             {
-                if (radius > maxRadKM * 1000)
-                    return maxRadKM * 1000;
                 return radius;
             }
             set
@@ -83,7 +81,7 @@ namespace Matna.Helpers
             }
         }
 
-        private static double maxRadKM = 20.0;
+        private static double maxRadKM = 50.0;
         public static double MaxRadKM
         {
             get

@@ -19,7 +19,6 @@
                 <RowDefinition Height="40" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <!-- Header -->
@@ -35,19 +34,6 @@
             <StackLayout Grid.Row="1">
                 <ctr:HeaderStack 
                     BackgroundColor="LightGray" TextColor="Gray"
-                    LeftText="{local:Translate Matna}" 
-                />
-                <StackLayout Orientation="Horizontal" Padding="5">
-                    <Label Text="{local:Translate MaxSearchRadius}" />
-                    <Label BindingContext="{x:Reference slider}" Text="{Binding Value, StringFormat=': {0:F0} '}" HorizontalOptions="End" />
-                    <Label Text="{local:Translate KM}" HorizontalOptions="End" />
-                </StackLayout>
-                <Slider x:Name="slider" HorizontalOptions="FillAndExpand" Maximum="20" Minimum="1" Value="{Binding MaxRadKM}" Margin="5" />
-            </StackLayout>
-            
-            <StackLayout Grid.Row="2">
-                <ctr:HeaderStack 
-                    BackgroundColor="LightGray" TextColor="Gray"
                     LeftText="{local:Translate ListQuickFilters}" 
                 />
                 <Label Text="{local:Translate ListQuickFiltersDetail}" Margin="5" />
@@ -60,11 +46,19 @@
 
             </StackLayout>
 
-            <StackLayout Grid.Row="3" IsVisible="{Binding IsToggled, Source={x:Reference googleSwitch}}">
+            <StackLayout Grid.Row="2" IsVisible="{Binding IsToggled, Source={x:Reference googleSwitch}}">
                 <ctr:HeaderStack 
                     BackgroundColor="LightGray" TextColor="Gray"
                     LeftText="{local:Translate GoogleApi}" 
                 />
+                
+                <StackLayout Orientation="Horizontal" Padding="5">
+                    <Label Text="{local:Translate MaxSearchRadius}" />
+                    <Label BindingContext="{x:Reference slider}" Text="{Binding Value, StringFormat=': {0:F0} '}" HorizontalOptions="End" />
+                    <Label Text="{local:Translate KM}" HorizontalOptions="End" />
+                </StackLayout>
+                <Slider x:Name="slider" HorizontalOptions="FillAndExpand" Maximum="50" Minimum="1" Value="{Binding MaxRadKM}" Margin="5" />
+
                 <StackLayout Orientation="Horizontal" Padding="5">
                     <Label Text="{local:Translate SearchResultPage}" />
                     <Label BindingContext="{x:Reference pageSlider}" Text="{Binding Value, StringFormat=': {0:F0} '}" HorizontalOptions="End" />

@@ -4,6 +4,7 @@
     xmlns:vms="clr-namespace:Matna.ViewModels"
     xmlns:ctr="clr-namespace:Matna.Helpers.Controls"
     xmlns:local="clr-namespace:Matna" 
+    x:Name="MyListsPage" 
     x:Class="Matna.Views.MyListsPage">
     <ContentPage.BindingContext>
         <vms:MyListsPageViewModel />
@@ -17,8 +18,11 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        
+
         <ctr:HeaderStack Grid.Row="0" HeightRequest="40"
             CenterIcon="{x:Static ctr:Icon.ListUl}"
             CenterText="{local:Translate List}"
@@ -26,21 +30,45 @@
             LeftText="{local:Translate Back}" 
             LeftCommand="{Binding OnCloseClicked}"
         />
-        <ListView Grid.Row="1" ItemsSource="{Binding SavedLists}" Margin="10">
+
+        <Label Grid.Row="1" Text="{local:Translate PushListToEdit}" Margin="5" />
+        
+        <ListView Grid.Row="2" ItemsSource="{Binding SavedLists}" Margin="10" ItemTapped="OnItemTapped">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                         <Grid>
                             <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="30" />
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Column="0" TextColor="Black" Text="{Binding Name}"/>
-                            <Switch Grid.Column="1" HorizontalOptions="End" IsToggled="{Binding IsEnabled}" />
+                            
+                            <ctr:RoundedBox Grid.Column="0" Style="{StaticResource PrimaryRoundedBox}" BackgroundColor="#4CAF50">
+                                <ctr:RoundedBox.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding BindingContext.OnRemoveClicked, Source={x:Reference MyListsPage}}" CommandParameter="{Binding Name}" />
+                                </ctr:RoundedBox.GestureRecognizers>
+                            </ctr:RoundedBox>
+                            <StackLayout Grid.Column="0" Style="{StaticResource PrimaryHCStack}" Padding="5">
+                                <ctr:FontAwesomeIcon Style="{StaticResource PrimaryFAIcon}" Text="{x:Static ctr:Icon.Trash}">
+                                    <ctr:FontAwesomeIcon.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding BindingContext.OnRemoveClicked, Source={x:Reference MyListsPage}}" CommandParameter="{Binding Name}" />
+                                    </ctr:FontAwesomeIcon.GestureRecognizers>
+                                </ctr:FontAwesomeIcon>
+                            </StackLayout>
+
+                            <Label Grid.Column="1" VerticalOptions="CenterAndExpand" TextColor="Black" Text="{Binding Name}"/>
+                            <Switch Grid.Column="2" HorizontalOptions="End" IsToggled="{Binding IsEnabled}" />
                         </Grid>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+
+        <StackLayout Grid.Row="3" Orientation="Horizontal" >
+            <Label Text="{local:Translate GetBundleLists}" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" Margin="5" />
+            <Button Text="{local:Translate AddMyList}" HorizontalOptions="End" Margin="10" Clicked="GetBundleClickedAsync" />
+        </StackLayout>
+        <Button Grid.Row="4" Text="{local:Translate AddMyList}" BackgroundColor="{StaticResource Primary}" TextColor="{StaticResource PrimaryInv}" HorizontalOptions="FillAndExpand" Margin="10" Clicked="OnAddMyListClickedAsync" />
     </Grid>
 </ContentPage>

@@ -68,7 +68,7 @@
         <value>アプリの起動後なら画面を少し動かしてください。</value>
     </data>
     <data name="MaxRadReached" xml:space="preserve">
-        <value>最大検索半径{0}Kmに設定中。（半径が大きいと検索が思い場合があります）</value>
+        <value>グーグル最大検索半径{0}Kmに設定中。</value>
     </data>
     <data name="Deselect" xml:space="preserve">
         <value>選択取り消し</value>
@@ -153,5 +153,32 @@
     </data>
     <data name="ManageMyList" xml:space="preserve">
         <value>個人リスト設定</value>
+    </data>
+    <data name="PushListToEdit" xml:space="preserve">
+        <value>目録のアイテムをタップしてコピー出来ます</value>
+    </data>
+    <data name="AddMyList" xml:space="preserve">
+        <value>リストを追加</value>
+    </data>
+    <data name="GetBundleLists" xml:space="preserve">
+        <value>バンドルリストを読みます</value>
+    </data>
+    <data name="Warning" xml:space="preserve">
+        <value>警告</value>
+    </data>
+    <data name="BundleOverwriteWarning" xml:space="preserve">
+        <value>バンドルリストを既に編集していると、この行動は編集を全て消して最初の状態に戻します。進みますか？</value>
+    </data>
+    <data name="ListOverwriteWarning" xml:space="preserve">
+        <value>同じ名前のリストがあります。上書きしますか？</value>
+    </data>
+    <data name="ListCopied" xml:space="preserve">
+        <value>リストがクリップボードにコピーされました。シェアする事が出来ます（文字列をコピーした後'リストを追加'ボタンを押して下さい）</value>
+    </data>
+    <data name="AddListError" xml:space="preserve">
+        <value>リスト追加に失敗しました。原因はデータが正しくないかクリップボードにデータがないかだと思います</value>
+    </data>
+    <data name="Success" xml:space="preserve">
+        <value>成功</value>
     </data>
 </root>

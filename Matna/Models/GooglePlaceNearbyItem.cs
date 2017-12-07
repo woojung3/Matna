@@ -25,6 +25,11 @@ namespace Matna.Models
 
     public class GooglePlaceNearbyList
     {
+        public override string ToString()
+        {
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
+        }
+
         public List<GooglePlaceNearbyItem> List { get; set; }
         public string Name { get; set; }
         bool isEnabled = false;
@@ -41,6 +46,8 @@ namespace Matna.Models
                 isEnabled = value;
             }
         }
+
+        [Ignore, JsonIgnore]
         public bool IsDisabled
         {
             get
@@ -67,6 +74,29 @@ namespace Matna.Models
 
                 IFile file = await folder.CreateFileAsync(validName, CreationCollisionOption.ReplaceExisting);
                 await file.WriteAllTextAsync(JsonConvert.SerializeObject(this));
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e);
+                // TODO notify to MatnaPage (DisplayAlert?)
+                return false;
+            }
+            return true;
+        }
+
+        public async Task<bool> RemoveFromFileAsync()
+        {
+            try
+            {
+                IFolder rootFolder = FileSystem.Current.LocalStorage;
+                IFolder folder = await rootFolder.CreateFolderAsync("Lists", CreationCollisionOption.OpenIfExists);
+
+                string validName = Name;
+                foreach (char c in System.IO.Path.GetInvalidFileNameChars())
+                    validName = validName.Replace(c, '_');
+
+                IFile file = await folder.CreateFileAsync(validName, CreationCollisionOption.OpenIfExists);
+                await file.DeleteAsync();
             }
             catch (Exception e)
             {
@@ -150,7 +180,7 @@ namespace Matna.Models
         [PrimaryKey, JsonProperty("place_id")]
         public string PlaceId { get; set; }
 
-        [Ignore]
+        [Ignore, JsonIgnore]
         public int DupCnt { get; set; }
 
         public GooglePlaceNearbyItem Copy(int dupCount)
@@ -161,6 +191,7 @@ namespace Matna.Models
         }
 
         bool isSaved = false;
+        [Ignore, JsonIgnore]
         public bool IsSaved
         {
             get
@@ -172,6 +203,7 @@ namespace Matna.Models
                 isSaved = value;
             }
         }
+        [Ignore, JsonIgnore]
         public bool IsNotSaved
         {
             get
@@ -180,10 +212,10 @@ namespace Matna.Models
             }
         }
 
-        [Ignore, JsonProperty("types")]
+        [Ignore, JsonIgnore, JsonProperty("types")]
         public List<string> Types { get; set; }
 
-        [Ignore, JsonProperty("geometry")]
+        [Ignore, JsonIgnore, JsonProperty("geometry")]
         public Geometry Geometry { get; set; }
 
         double lat = 0;
@@ -222,7 +254,7 @@ namespace Matna.Models
         [JsonProperty("vicinity")]
         public string Vicinity { get; set; }
 
-        [Ignore, JsonProperty("address_components")]
+        [Ignore, JsonIgnore, JsonProperty("address_components")]
         public List<AddressComponent> AddressComponents { get; set; }
 
         [JsonProperty("icon")]
@@ -240,6 +272,7 @@ namespace Matna.Models
         [JsonProperty("name")]
         public string Name { get; set; }
 
+        [Ignore, JsonIgnore]
         public bool IsInManyLists
         {
             get
@@ -252,6 +285,8 @@ namespace Matna.Models
 
         [JsonProperty("rating")]
         public double? Rating { get; set; }
+
+        [Ignore, JsonIgnore]
         public double RatingD
         {
             get
@@ -269,6 +304,7 @@ namespace Matna.Models
                     return 0.0;
             }
         }
+        [Ignore, JsonIgnore]
         public bool IsStar1Visible
         {
             get
@@ -278,6 +314,7 @@ namespace Matna.Models
                 else return false;
             }
         }
+        [Ignore, JsonIgnore]
         public bool IsStar2Visible
         {
             get
@@ -287,6 +324,7 @@ namespace Matna.Models
                 else return false;
             }
         }
+        [Ignore, JsonIgnore]
         public bool IsStar3Visible
         {
             get
@@ -296,6 +334,7 @@ namespace Matna.Models
                 else return false;
             }
         }
+        [Ignore, JsonIgnore]
         public bool IsStar4Visible
         {
             get
@@ -305,6 +344,7 @@ namespace Matna.Models
                 else return false;
             }
         }
+        [Ignore, JsonIgnore]
         public bool IsStar5Visible
         {
             get
@@ -314,6 +354,7 @@ namespace Matna.Models
                 else return false;
             }
         }
+        [Ignore, JsonIgnore]
         public bool IsHalfStarVisible
         {
             get
@@ -326,8 +367,10 @@ namespace Matna.Models
             }
         }
 
-        [Ignore, JsonProperty("opening_hours")]
+        [Ignore, JsonIgnore, JsonProperty("opening_hours")]
         public OpeningHours OpeningHours { get; set; }
+
+        [Ignore, JsonIgnore]
         public bool IsOpen
         {
             get
@@ -339,6 +382,7 @@ namespace Matna.Models
                 return false;
             }
         }
+        [Ignore, JsonIgnore]
         public bool IsClosed
         {
             get
@@ -351,7 +395,7 @@ namespace Matna.Models
             }
         }
 
-        [Ignore, JsonProperty("photos")]
+        [Ignore, JsonIgnore, JsonProperty("photos")]
         public List<Photo> Photos { get; set; }
 
         string imageUrl = "";

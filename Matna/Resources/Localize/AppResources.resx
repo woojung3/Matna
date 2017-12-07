@@ -68,7 +68,7 @@
         <value>Slightly move map right after app launch. This is to adjust coordinate</value>
     </data>
     <data name="MaxRadReached" xml:space="preserve">
-        <value>Maximum realtime data search radius set to {0} Kilometer (Search may take some time if radius is too large)</value>
+        <value>Google Maximum realtime data search radius set to {0} Kilometer</value>
     </data>
     <data name="Deselect" xml:space="preserve">
         <value>Deselect</value>
@@ -153,5 +153,32 @@
     </data>
     <data name="ManageMyList" xml:space="preserve">
         <value>Manage My Lists</value>
+    </data>
+    <data name="PushListToEdit" xml:space="preserve">
+        <value>Push item in list to copy</value>
+    </data>
+    <data name="AddMyList" xml:space="preserve">
+        <value>Add List</value>
+    </data>
+    <data name="GetBundleLists" xml:space="preserve">
+        <value>Add Bundle Lists included in Matna</value>
+    </data>
+    <data name="Warning" xml:space="preserve">
+        <value>Warning</value>
+    </data>
+    <data name="BundleOverwriteWarning" xml:space="preserve">
+        <value>If you already made changes to bundle list, this action will overwrite all of them and restore lists to their first state. Proceed?</value>
+    </data>
+    <data name="ListOverwriteWarning" xml:space="preserve">
+        <value>List with same name exists. Overwrite?</value>
+    </data>
+    <data name="ListCopied" xml:space="preserve">
+        <value>List is copied to clipboard. You can share list by pasting (shared list could be used by copying and press 'Add List' button)</value>
+    </data>
+    <data name="AddListError" xml:space="preserve">
+        <value>Add list failed. Probable cause: data not copied to clipboard or wrong data</value>
+    </data>
+    <data name="Success" xml:space="preserve">
+        <value>Success</value>
     </data>
 </root>

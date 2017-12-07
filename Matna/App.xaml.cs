@@ -49,8 +49,7 @@ namespace Matna
             {
                 IFolder rootFolder = FileSystem.Current.LocalStorage;
                 IFolder folder = await rootFolder.CreateFolderAsync("Check", CreationCollisionOption.OpenIfExists);
-                IFile file = await folder.CreateFileAsync("1.0.14", CreationCollisionOption.FailIfExists);  // Don't change filename unless new check is needed
-                await file.WriteAllTextAsync(JsonConvert.SerializeObject(this));
+                IFile file = await folder.CreateFileAsync("1.0.18", CreationCollisionOption.FailIfExists);  // Don't change filename unless new check is needed
 
                 // This try-catch is to check whether this is initial launch or not.
                 // Body

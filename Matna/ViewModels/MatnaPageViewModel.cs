@@ -14,6 +14,7 @@ using Matna.Helpers.Controls;
 using Matna.Data.external;
 using Matna.Utils;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace Matna.ViewModels
 {
@@ -30,6 +31,7 @@ namespace Matna.ViewModels
             }
             set
             {
+
                 var list = value;
                 if (!IsShowBookmark)
                 {

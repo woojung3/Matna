@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\Xamarin.Forms.2.5.0.91635\build\netstandard1.0\Xamarin.Forms.props" Condition="Exists('..\packages\Xamarin.Forms.2.5.0.91635\build\netstandard1.0\Xamarin.Forms.props')" />
+  <Import Project="..\packages\Xamarin.Forms.2.5.0.121934\build\netstandard1.0\Xamarin.Forms.props" Condition="Exists('..\packages\Xamarin.Forms.2.5.0.121934\build\netstandard1.0\Xamarin.Forms.props')" />
   <Import Project="..\packages\Xamarin.Build.Download.0.4.7\build\Xamarin.Build.Download.props" Condition="Exists('..\packages\Xamarin.Build.Download.0.4.7\build\Xamarin.Build.Download.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -19,7 +19,7 @@
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
     <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
     <AndroidEnableMultiDex>true</AndroidEnableMultiDex>
-    <ReleaseVersion>1.0.14</ReleaseVersion>
+    <ReleaseVersion>1.1.0</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -60,24 +60,6 @@
     </Reference>
     <Reference Include="Xamarin.Facebook.AudienceNetwork">
       <HintPath>..\packages\Xamarin.Facebook.AudienceNetwork.Android.4.26.0\lib\MonoAndroid70\Xamarin.Facebook.AudienceNetwork.dll</HintPath>
-    </Reference>
-    <Reference Include="ExoPlayer.Core">
-      <HintPath>..\packages\Xam.Plugins.Android.ExoPlayer.Core.2.5.3\lib\MonoAndroid\ExoPlayer.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="ExoPlayer.Hls">
-      <HintPath>..\packages\Xam.Plugins.Android.ExoPlayer.Hls.2.5.3\lib\MonoAndroid\ExoPlayer.Hls.dll</HintPath>
-    </Reference>
-    <Reference Include="ExoPlayer.SmoothStreaming">
-      <HintPath>..\packages\Xam.Plugins.Android.ExoPlayer.SmoothStreaming.2.5.3\lib\MonoAndroid\ExoPlayer.SmoothStreaming.dll</HintPath>
-    </Reference>
-    <Reference Include="ExoPlayer.UI">
-      <HintPath>..\packages\Xam.Plugins.Android.ExoPlayer.UI.2.5.3\lib\MonoAndroid\ExoPlayer.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="ExoPlayer.Dash">
-      <HintPath>..\packages\Xam.Plugins.Android.ExoPlayer.Dash.2.5.3\lib\MonoAndroid\ExoPlayer.Dash.dll</HintPath>
-    </Reference>
-    <Reference Include="ExoPlayer">
-      <HintPath>..\packages\Xam.Plugins.Android.ExoPlayer.2.5.3\lib\MonoAndroid\ExoPlayer.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.GooglePlayServices.Basement">
       <HintPath>..\packages\Xamarin.GooglePlayServices.Basement.42.1021.1\lib\MonoAndroid70\Xamarin.GooglePlayServices.Basement.dll</HintPath>
@@ -214,21 +196,6 @@
     <Reference Include="FFImageLoading.Platform">
       <HintPath>..\packages\Xamarin.FFImageLoading.2.2.25\lib\MonoAndroid10\FFImageLoading.Platform.dll</HintPath>
     </Reference>
-    <Reference Include="FormsViewGroup">
-      <HintPath>..\packages\Xamarin.Forms.2.5.0.91635\lib\MonoAndroid10\FormsViewGroup.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Forms.Core">
-      <HintPath>..\packages\Xamarin.Forms.2.5.0.91635\lib\MonoAndroid10\Xamarin.Forms.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Forms.Platform.Android">
-      <HintPath>..\packages\Xamarin.Forms.2.5.0.91635\lib\MonoAndroid10\Xamarin.Forms.Platform.Android.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Forms.Platform">
-      <HintPath>..\packages\Xamarin.Forms.2.5.0.91635\lib\MonoAndroid10\Xamarin.Forms.Platform.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Forms.Xaml">
-      <HintPath>..\packages\Xamarin.Forms.2.5.0.91635\lib\MonoAndroid10\Xamarin.Forms.Xaml.dll</HintPath>
-    </Reference>
     <Reference Include="FFImageLoading.Forms">
       <HintPath>..\packages\Xamarin.FFImageLoading.Forms.2.2.25\lib\MonoAndroid10\FFImageLoading.Forms.dll</HintPath>
     </Reference>
@@ -246,6 +213,45 @@
     </Reference>
     <Reference Include="PCLStorage">
       <HintPath>..\packages\PCLStorage.1.0.2\lib\monoandroid\PCLStorage.dll</HintPath>
+    </Reference>
+    <Reference Include="ExoPlayer.Core">
+      <HintPath>..\packages\Xam.Plugins.Android.ExoPlayer.Core.2.6.0\lib\MonoAndroid\ExoPlayer.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="ExoPlayer.Hls">
+      <HintPath>..\packages\Xam.Plugins.Android.ExoPlayer.Hls.2.6.0\lib\MonoAndroid\ExoPlayer.Hls.dll</HintPath>
+    </Reference>
+    <Reference Include="ExoPlayer.SmoothStreaming">
+      <HintPath>..\packages\Xam.Plugins.Android.ExoPlayer.SmoothStreaming.2.6.0\lib\MonoAndroid\ExoPlayer.SmoothStreaming.dll</HintPath>
+    </Reference>
+    <Reference Include="ExoPlayer.UI">
+      <HintPath>..\packages\Xam.Plugins.Android.ExoPlayer.UI.2.6.0\lib\MonoAndroid\ExoPlayer.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="ExoPlayer.Dash">
+      <HintPath>..\packages\Xam.Plugins.Android.ExoPlayer.Dash.2.6.0\lib\MonoAndroid\ExoPlayer.Dash.dll</HintPath>
+    </Reference>
+    <Reference Include="ExoPlayer">
+      <HintPath>..\packages\Xam.Plugins.Android.ExoPlayer.2.6.0\lib\MonoAndroid\ExoPlayer.dll</HintPath>
+    </Reference>
+    <Reference Include="FormsViewGroup">
+      <HintPath>..\packages\Xamarin.Forms.2.5.0.121934\lib\MonoAndroid10\FormsViewGroup.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Forms.Core">
+      <HintPath>..\packages\Xamarin.Forms.2.5.0.121934\lib\MonoAndroid10\Xamarin.Forms.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Forms.Platform.Android">
+      <HintPath>..\packages\Xamarin.Forms.2.5.0.121934\lib\MonoAndroid10\Xamarin.Forms.Platform.Android.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Forms.Platform">
+      <HintPath>..\packages\Xamarin.Forms.2.5.0.121934\lib\MonoAndroid10\Xamarin.Forms.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Forms.Xaml">
+      <HintPath>..\packages\Xamarin.Forms.2.5.0.121934\lib\MonoAndroid10\Xamarin.Forms.Xaml.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.Clipboard.Abstractions">
+      <HintPath>..\packages\Xamarin.Plugins.Clipboard.2.0.0\lib\MonoAndroid10\Plugin.Clipboard.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.Clipboard">
+      <HintPath>..\packages\Xamarin.Plugins.Clipboard.2.0.0\lib\MonoAndroid10\Plugin.Clipboard.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -367,5 +373,5 @@
   <Import Project="..\packages\Xamarin.Android.Support.v7.AppCompat.26.1.0.1\build\MonoAndroid80\Xamarin.Android.Support.v7.AppCompat.targets" Condition="Exists('..\packages\Xamarin.Android.Support.v7.AppCompat.26.1.0.1\build\MonoAndroid80\Xamarin.Android.Support.v7.AppCompat.targets')" />
   <Import Project="..\packages\Xamarin.Android.Support.Design.26.1.0.1\build\MonoAndroid80\Xamarin.Android.Support.Design.targets" Condition="Exists('..\packages\Xamarin.Android.Support.Design.26.1.0.1\build\MonoAndroid80\Xamarin.Android.Support.Design.targets')" />
   <Import Project="..\packages\Xamarin.Android.Support.v7.MediaRouter.26.1.0.1\build\MonoAndroid80\Xamarin.Android.Support.v7.MediaRouter.targets" Condition="Exists('..\packages\Xamarin.Android.Support.v7.MediaRouter.26.1.0.1\build\MonoAndroid80\Xamarin.Android.Support.v7.MediaRouter.targets')" />
-  <Import Project="..\packages\Xamarin.Forms.2.5.0.91635\build\netstandard1.0\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.5.0.91635\build\netstandard1.0\Xamarin.Forms.targets')" />
+  <Import Project="..\packages\Xamarin.Forms.2.5.0.121934\build\netstandard1.0\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.5.0.121934\build\netstandard1.0\Xamarin.Forms.targets')" />
 </Project>
